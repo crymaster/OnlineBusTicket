@@ -18,8 +18,9 @@
         <table style="width:100%;">
             <tr>
                 <td>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="SearchTour.aspx">Search for Tour</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="SearchTour.aspx">Bus Routes</asp:HyperLink>
                 &nbsp;&nbsp;
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="SearchTicket.aspx">Booked Ticket</asp:HyperLink>
                 </td>
                 <td>
                     &nbsp;</td>

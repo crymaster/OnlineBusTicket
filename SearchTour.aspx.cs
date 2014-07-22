@@ -44,9 +44,8 @@ public partial class SearchTour : System.Web.UI.Page
             else
             {
                 txtError.Text = "";
-                DateTime tomorrow = DateTime.Today.AddDays(1);
                 DateTime dateFrom = DateTime.Today;
-                DateTime dateTo = tomorrow;
+                DateTime dateTo = DateTime.Today.AddDays(1);
                 try
                 {
                     dateFrom = DateTime.Parse(txtDateFrom.Text.ToString());
@@ -64,25 +63,25 @@ public partial class SearchTour : System.Web.UI.Page
                 {
                     if (txtDateTo.Text == "")
                     {
-                        dateTo = tomorrow;
+                        dateTo = dateFrom.AddDays(1);
                     }
-                    dateTo = DateTime.Parse(txtDateTo.Text.ToString());
+                    dateTo = DateTime.Parse(txtDateTo.Text.ToString()).AddDays(1);
                     if (dateTo <= dateFrom)
                     {
-                        dateTo = tomorrow;
+                        dateTo = dateFrom.AddDays(1);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    dateTo = tomorrow;
+                    dateTo = dateFrom.AddDays(1);
                 }
                 DataSet1TableAdapters.TourTableAdapter adapt3 = new DataSet1TableAdapters.TourTableAdapter();
-                DataTable dt1 = adapt3.GetTourInfo(int.Parse(ddStart.SelectedValue.ToString()),int.Parse(ddDest.SelectedValue.ToString()),dateFrom,dateTo);
+                DataTable dt1 = adapt3.GetTourInfo(int.Parse(ddStart.SelectedValue.ToString()), int.Parse(ddDest.SelectedValue.ToString()), dateFrom, dateTo);
 
                 dt1.Columns.Add(new DataColumn("KidPrice"));
-                
-                for (int i = 0 ; i<dt1.Rows.Count; i++)
+
+                for (int i = 0; i < dt1.Rows.Count; i++)
                 {
                     DataRow row = dt1.Rows[i];
                     if (ddBus.SelectedValue.ToString() != "0" && !row["Cat_ID"].ToString().Equals(ddBus.SelectedValue.ToString()))
@@ -94,63 +93,63 @@ public partial class SearchTour : System.Web.UI.Page
                     {
                         row["KidPrice"] = float.Parse(row["Price"].ToString()) * 0.75;
                     }
-                }   
+                }
 
                 if (GridView1.Columns.Count == 0)
                 {
-                        BoundField bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["BusID"].ColumnName;
-                        bfield.HeaderText = "BusNo";
-                        GridView1.Columns.Add(bfield);
+                    BoundField bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["BusID"].ColumnName;
+                    bfield.HeaderText = "BusNo";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["Name"].ColumnName;
-                        bfield.HeaderText = "Start";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["Name"].ColumnName;
+                    bfield.HeaderText = "Start";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["Name1"].ColumnName;
-                        bfield.HeaderText = "Destination";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["Name1"].ColumnName;
+                    bfield.HeaderText = "Destination";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["DateStart"].ColumnName;
-                        bfield.HeaderText = "Date-Time";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["DateStart"].ColumnName;
+                    bfield.HeaderText = "Date-Time";
+                    bfield.DataFormatString = "{0:dd/MM/yyyy hh:mm:ss tt}";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["Type"].ColumnName;
-                        bfield.HeaderText = "Bus Type";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["Type"].ColumnName;
+                    bfield.HeaderText = "Bus Type";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["AvailableSeat"].ColumnName;
-                        bfield.HeaderText = "Avai.Seat";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["AvailableSeat"].ColumnName;
+                    bfield.HeaderText = "Avai.Seat";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["Price"].ColumnName;
-                        bfield.HeaderText = "Adult Price";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["Price"].ColumnName;
+                    bfield.HeaderText = "Adult Price";
+                    GridView1.Columns.Add(bfield);
 
-                        bfield = new BoundField();
-                        bfield.DataField = dt1.Columns["KidPrice"].ColumnName;
-                        bfield.HeaderText = "Kid Price";
-                        GridView1.Columns.Add(bfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["KidPrice"].ColumnName;
+                    bfield.HeaderText = "Kid Price";
+                    GridView1.Columns.Add(bfield);
 
-                        HyperLinkField hlfield = new HyperLinkField();
-                        hlfield.Text = "Book";
-                        hlfield.DataNavigateUrlFormatString = "Book.aspx?rbid={0}";
-                        hlfield.DataNavigateUrlFields = new string[]{"RBID"};
-                        GridView1.Columns.Add(hlfield);
-                        
+                    HyperLinkField hlfield = new HyperLinkField();
+                    hlfield.Text = "Book";
+                    hlfield.DataNavigateUrlFormatString = "Book.aspx?rbid={0}";
+                    hlfield.DataNavigateUrlFields = new string[] { "RBID" };
+                    GridView1.Columns.Add(hlfield);
+
                 }
-                
+
                 GridView1.DataSource = dt1;
                 GridView1.DataBind();
             }
         }
     }
 
- }
-    
+}
