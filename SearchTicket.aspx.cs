@@ -206,6 +206,7 @@ public partial class SearchTicket : System.Web.UI.Page
 
                     bfield = new BoundField();
                     bfield.DataField = dt1.Columns["Price"].ColumnName;
+                    bfield.DataFormatString = "{0}$";
                     bfield.HeaderText = "Price";
                     GridView1.Columns.Add(bfield);
 
@@ -326,6 +327,7 @@ public partial class SearchTicket : System.Web.UI.Page
 
                 bfield = new BoundField();
                 bfield.DataField = dt1.Columns["Price"].ColumnName;
+                bfield.DataFormatString = "{0}$";
                 bfield.HeaderText = "Price";
                 GridView1.Columns.Add(bfield);
 

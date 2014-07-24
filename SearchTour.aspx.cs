@@ -48,10 +48,10 @@ public partial class SearchTour : System.Web.UI.Page
                 DateTime dateTo = DateTime.Today.AddDays(1);
                 try
                 {
-                    dateFrom = DateTime.Parse(txtDateFrom.Text.ToString());
+                    dateFrom = DateTime.ParseExact(txtDateFrom.Text,"dd/MM/yyyy",null);
                     if (DateTime.Now > dateFrom)
                     {
-                        //dateFrom = DateTime.Today;
+                        dateFrom = DateTime.Today;
                     }
                 }
                 catch (Exception ex)
@@ -65,7 +65,7 @@ public partial class SearchTour : System.Web.UI.Page
                     {
                         dateTo = dateFrom.AddDays(1);
                     }
-                    dateTo = DateTime.Parse(txtDateTo.Text.ToString()).AddDays(1);
+                    dateTo = DateTime.ParseExact(txtDateTo.Text,"dd/MM/yyyy",null).AddDays(1);
                     if (dateTo <= dateFrom)
                     {
                         dateTo = dateFrom.AddDays(1);
@@ -80,6 +80,7 @@ public partial class SearchTour : System.Web.UI.Page
                 DataTable dt1 = adapt3.GetTourInfo(int.Parse(ddStart.SelectedValue.ToString()), int.Parse(ddDest.SelectedValue.ToString()), dateFrom, dateTo);
 
                 dt1.Columns.Add(new DataColumn("KidPrice"));
+                dt1.Columns.Add(new DataColumn("ElderPrice"));
 
                 for (int i = 0; i < dt1.Rows.Count; i++)
                 {
@@ -91,7 +92,8 @@ public partial class SearchTour : System.Web.UI.Page
                     }
                     else
                     {
-                        row["KidPrice"] = float.Parse(row["Price"].ToString()) * 0.75;
+                        row["KidPrice"] = float.Parse(row["Price"].ToString()) * 0.5;
+                        row["ElderPrice"] = float.Parse(row["Price"].ToString()) * 0.7;
                     }
                 }
 
@@ -130,11 +132,19 @@ public partial class SearchTour : System.Web.UI.Page
 
                     bfield = new BoundField();
                     bfield.DataField = dt1.Columns["Price"].ColumnName;
+                    bfield.DataFormatString = "{0}$";
                     bfield.HeaderText = "Adult Price";
                     GridView1.Columns.Add(bfield);
 
                     bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["ElderPrice"].ColumnName;
+                    bfield.DataFormatString = "{0}$";
+                    bfield.HeaderText = "Elder Price";
+                    GridView1.Columns.Add(bfield);
+
+                    bfield = new BoundField();
                     bfield.DataField = dt1.Columns["KidPrice"].ColumnName;
+                    bfield.DataFormatString = "{0}$";
                     bfield.HeaderText = "Kid Price";
                     GridView1.Columns.Add(bfield);
 

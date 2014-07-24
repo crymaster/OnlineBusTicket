@@ -18,10 +18,10 @@
     <p>
         Date From
         <asp:TextBox runat="server" ID="txtDateFrom" autocomplete="off" />
-        <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server"  TargetControlID="txtDateFrom" />
+        <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" TargetControlID="txtDateFrom" />
         &nbsp;To 
         <asp:TextBox runat="server" ID="txtDateTo" autocomplete="off" />
-        <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server"  TargetControlID="txtDateTo" />
+        <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd/MM/yyyy"  TargetControlID="txtDateTo" />
     </p>
 <p>
         Bus Type&nbsp;
