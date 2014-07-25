@@ -7,10 +7,24 @@
     <title>Untitled Page</title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style media="all" type="text/css">
+@import "css/all.css";
+</style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
+    <div id="menu-left">
+    <ul class="nav">
+      <li><a href="categorymanager.aspx">Category</a></li>
+        <li><a href="busmanager.aspx">Bus</a></li>
+        <li><a href="centralmanager.aspx">Centrals</a></li>
+        <li><a href="employeemanager.aspx">Employee</a></li>
+        <li><a href="routemanager.aspx">Route</a></li>
+        <li><a href="routebusmanager.aspx">Route Bus</a></li>
+         <li><a href="locationmanager.aspx">Location</a></li>
+      </ul>
+    </div>
         <asp:Label ID="txtWelcome" runat="server"></asp:Label>
         <br />
         <asp:HyperLink ID="linkLogOut" runat="server" NavigateUrl="Logout.aspx">Logout</asp:HyperLink>

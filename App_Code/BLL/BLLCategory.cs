@@ -38,6 +38,18 @@ public class BLLCategory:ConnectionString
 	}
     public int Add()
     {
-        return  dalCat.Add(this);
+        return dalCat.Add(this);
+    }
+    public int Update()
+    {
+        return dalCat.Update(this);
+    }
+    public int Delete()
+    {
+        return dalCat.Delete(this);
+    }
+    public DataSet Get()
+    {
+        return dalCat.Get(this);
     }
 }
