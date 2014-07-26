@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/manager/MasterPage.master" AutoEventWireup="true" CodeFile="routebusmanager.aspx.cs" Inherits="manager_routebusmanager" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="routebusmanager.aspx.cs" Inherits="manager_routebusmanager" Title="Untitled Page" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">

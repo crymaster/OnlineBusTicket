@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/manager/MasterPage.master" AutoEventWireup="true" CodeFile="busmanager.aspx.cs" Inherits="manager_busmanager" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="busmanager.aspx.cs" Inherits="manager_busmanager" Title="Untitled Page" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
