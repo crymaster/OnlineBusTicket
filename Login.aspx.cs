@@ -10,6 +10,10 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["userId"] == "")
+        {
+            Response.Redirect("index.aspx");
+        }
         if (Request.Cookies["userEmail"] != null && Request.Cookies["userPassword"] != null)
         {
             txtEmail.Text = Request.Cookies["userEmail"].ToString();

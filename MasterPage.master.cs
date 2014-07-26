@@ -23,6 +23,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             txtWelcome.Text = "Welcome, " + Session["userName"];
         }
-
+        if (Session["BookID"] == null)
+        {
+            hlStart.Visible = true;
+            hlCurrent.Visible = false;
+        }
+        else
+        {
+            hlStart.Visible = false;
+            hlCurrent.Visible = true;
+        }
     }
 }

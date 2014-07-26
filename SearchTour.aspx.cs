@@ -116,7 +116,7 @@ public partial class SearchTour : System.Web.UI.Page
 
                     bfield = new BoundField();
                     bfield.DataField = dt1.Columns["DateStart"].ColumnName;
-                    bfield.HeaderText = "Date-Time";
+                    bfield.HeaderText = "Running Date/Time";
                     bfield.DataFormatString = "{0:dd/MM/yyyy hh:mm:ss tt}";
                     GridView1.Columns.Add(bfield);
 
