@@ -36,6 +36,12 @@ public partial class SearchTicket : System.Web.UI.Page
             ddDest.DataBind();
         }
 
+        if (Session["Cancel"] != null)
+        {
+            System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert('Ticket Number " + Session["Cancel"] + " has been canceled')</SCRIPT>");
+            Session["Cancel"] = null;
+        }
+
     }
     protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
     {
@@ -89,7 +95,7 @@ public partial class SearchTicket : System.Web.UI.Page
                 DateTime dateTo = DateTime.Today.AddDays(1);
                 try
                 {
-                    dateFrom = DateTime.Parse(txtFrom.Text.ToString());
+                    dateFrom = DateTime.ParseExact(txtFrom.Text.ToString(),"dd/MM/yyyy",null);
                 }
                 catch (Exception ex)
                 {
@@ -100,18 +106,18 @@ public partial class SearchTicket : System.Web.UI.Page
                 {
                     if (txtTo.Text == "")
                     {
-                        dateTo = dateFrom.AddDays(1);
+                        dateTo = dateFrom.AddDays(5);
                     }
-                    dateTo = DateTime.Parse(txtTo.Text.ToString()).AddDays(1);
+                    dateTo = DateTime.ParseExact(txtTo.Text.ToString(), "dd/MM/yyyy", null).AddDays(1);
                     if (dateTo <= dateFrom)
                     {
-                        dateTo = dateFrom.AddDays(1);
+                        dateTo = dateFrom.AddDays(5);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    dateTo = dateFrom.AddDays(1);
+                    dateTo = dateFrom.AddDays(5);
                 }
 
                 int start = int.Parse(ddStart.SelectedValue.ToString());
@@ -141,29 +147,36 @@ public partial class SearchTicket : System.Web.UI.Page
 
                         if (dayDiff >= 2)
                         {
-                            row["Refund"] = "100%";
+                            row["Refund"] = row["Price"];
                         }
                         else if (dayDiff == 1)
                         {
-                            row["Refund"] = "85%";
+                            row["Refund"] = double.Parse(row["Price"].ToString()) * 0.85;
                         }
                         else if (dayDiff == 0)
                         {
-                            row["Refund"] = "70%";
+                            row["Refund"] = double.Parse(row["Price"].ToString()) * 0.7;
                         }
                     }
                     else
                     {
-                        row["Refund"] = "0%";
+                        row["Refund"] = "0";
                     }
                 }
 
 
                 if (GridView1.Columns.Count == 0)
                 {
+                    GridView1.DataKeyNames = new string[]{"TicketID"};
+
                     BoundField bfield = new BoundField();
                     bfield.DataField = dt1.Columns["TicketID"].ColumnName;
                     bfield.HeaderText = "TicketNo";
+                    GridView1.Columns.Add(bfield);
+
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["CustomerID"].ColumnName;
+                    bfield.HeaderText = "UID";
                     GridView1.Columns.Add(bfield);
 
                     bfield = new BoundField();
@@ -212,32 +225,46 @@ public partial class SearchTicket : System.Web.UI.Page
 
                     bfield = new BoundField();
                     bfield.DataField = dt1.Columns["Refund"].ColumnName;
+                    bfield.DataFormatString = "{0}$";
                     bfield.HeaderText = "Pos.Refund";
                     GridView1.Columns.Add(bfield);
 
-                    HyperLinkField hlfield = new HyperLinkField();
-                    hlfield.Text = "Cancel";
-                    hlfield.DataNavigateUrlFormatString = "Cancel.aspx?ticketid={0}";
-                    hlfield.DataNavigateUrlFields = new string[] { "TicketID" };
-                    GridView1.Columns.Add(hlfield);
+                    ButtonField btfield = new ButtonField();
+                    btfield.Text = "Cancel";
+                    btfield.CommandName = "CancelTicket";
+                    GridView1.Columns.Add(btfield);
 
-                    hlfield = new HyperLinkField();
-                    hlfield.Text = "View";
-                    hlfield.DataNavigateUrlFormatString = "ViewTicket.aspx?ticketid={0}";
-                    hlfield.DataNavigateUrlFields = new string[] { "TicketID" };
-                    GridView1.Columns.Add(hlfield);
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["BookID"].ColumnName;
+                    bfield.ItemStyle.CssClass = "hidden";
+                    bfield.HeaderStyle.CssClass = "hidden";
+                    GridView1.Columns.Add(bfield);
 
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["BDID"].ColumnName;
+                    bfield.ItemStyle.CssClass = "hidden";
+                    bfield.HeaderStyle.CssClass = "hidden";
+                    GridView1.Columns.Add(bfield);
+
+                    bfield = new BoundField();
+                    bfield.DataField = dt1.Columns["RBID"].ColumnName;
+                    bfield.ItemStyle.CssClass = "hidden";
+                    bfield.HeaderStyle.CssClass = "hidden";
+                    GridView1.Columns.Add(bfield);
                 }
 
                 GridView1.DataSource = dt1;
                 GridView1.DataBind();
-
-
             }
         }
         else
         {
             DataSet1TableAdapters.CustomerTicketTableAdapter adapt = new DataSet1TableAdapters.CustomerTicketTableAdapter();
+            if (txtTicket.Text == "")
+            {
+                txtError.Text="Ticket No must not be empty";
+                return;
+            }
             int ticketNo = int.Parse(txtTicket.Text);
             DataTable dt1 = adapt.GetTicketInfo(ticketNo);
 
@@ -262,29 +289,36 @@ public partial class SearchTicket : System.Web.UI.Page
 
                     if (dayDiff >= 2)
                     {
-                        row["Refund"] = "100%";
+                        row["Refund"] = row["Price"];
                     }
                     else if (dayDiff == 1)
                     {
-                        row["Refund"] = "85%";
+                        row["Refund"] = double.Parse(row["Price"].ToString()) * 0.85;
                     }
                     else if (dayDiff == 0)
                     {
-                        row["Refund"] = "70%";
+                        row["Refund"] = double.Parse(row["Price"].ToString()) * 0.7;
                     }
                 }
                 else
                 {
-                    row["Refund"] = "0%";
+                    row["Refund"] = "0";
                 }
             }
 
 
             if (GridView1.Columns.Count == 0)
             {
+                GridView1.DataKeyNames = new string[] { "TicketID" };
+
                 BoundField bfield = new BoundField();
                 bfield.DataField = dt1.Columns["TicketID"].ColumnName;
                 bfield.HeaderText = "TicketNo";
+                GridView1.Columns.Add(bfield);
+
+                bfield = new BoundField();
+                bfield.DataField = dt1.Columns["CustomerID"].ColumnName;
+                bfield.HeaderText = "UID";
                 GridView1.Columns.Add(bfield);
 
                 bfield = new BoundField();
@@ -333,26 +367,78 @@ public partial class SearchTicket : System.Web.UI.Page
 
                 bfield = new BoundField();
                 bfield.DataField = dt1.Columns["Refund"].ColumnName;
+                bfield.DataFormatString = "{0}$";
                 bfield.HeaderText = "Pos.Refund";
                 GridView1.Columns.Add(bfield);
 
-                HyperLinkField hlfield = new HyperLinkField();
-                hlfield.Text = "Cancel";
-                hlfield.DataNavigateUrlFormatString = "Cancel.aspx?ticketid={0}";
-                hlfield.DataNavigateUrlFields = new string[] { "TicketID" };
-                GridView1.Columns.Add(hlfield);
+                ButtonField btfield = new ButtonField();
+                btfield.Text = "Cancel";
+                btfield.CommandName = "CancelTicket";
+                GridView1.Columns.Add(btfield);
 
-                hlfield = new HyperLinkField();
-                hlfield.Text = "View";
-                hlfield.DataNavigateUrlFormatString = "ViewTicket.aspx?ticketid={0}";
-                hlfield.DataNavigateUrlFields = new string[] { "TicketID" };
-                GridView1.Columns.Add(hlfield);
+                bfield = new BoundField();
+                bfield.DataField = dt1.Columns["BookID"].ColumnName;
+                bfield.ItemStyle.CssClass = "hidden";
+                bfield.HeaderStyle.CssClass = "hidden";
+                GridView1.Columns.Add(bfield);
 
+                bfield = new BoundField();
+                bfield.DataField = dt1.Columns["BDID"].ColumnName;
+                bfield.ItemStyle.CssClass = "hidden";
+                bfield.HeaderStyle.CssClass = "hidden";
+                GridView1.Columns.Add(bfield);
+
+                bfield = new BoundField();
+                bfield.DataField = dt1.Columns["RBID"].ColumnName;
+                bfield.ItemStyle.CssClass = "hidden";
+                bfield.HeaderStyle.CssClass = "hidden";
+                GridView1.Columns.Add(bfield);
             }
 
             GridView1.DataSource = dt1;
             GridView1.DataBind();
+        }
+    }
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int currentRow = int.Parse(e.CommandArgument.ToString());
+        int ticketID = int.Parse(GridView1.DataKeys[currentRow].Values[0].ToString());
+        string customerID = GridView1.Rows[currentRow].Cells[1].Text;
+        int bookid = int.Parse(GridView1.Rows[currentRow].Cells[12].Text);
+        int bdid = int.Parse(GridView1.Rows[currentRow].Cells[13].Text);
+        string refundText = GridView1.Rows[currentRow].Cells[10].Text;
+        float refund = float.Parse(refundText.Substring(0,refundText.IndexOf("$")));
+        int rbid = int.Parse(GridView1.Rows[currentRow].Cells[14].Text);
+        DateTime runningDate = DateTime.ParseExact(GridView1.Rows[currentRow].Cells[8].Text,"dd/MM/yyyy hh:mm:ss tt",null);
+        if (runningDate<DateTime.Now)
+        {
+            System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert('Cannot cancel Ticket Number " + ticketID + "')</SCRIPT>");
+        }
+        else
+        {
+            DataSet1TableAdapters.BookingDetailsTableAdapter adapt = new DataSet1TableAdapters.BookingDetailsTableAdapter();
+            adapt.UpdateQuery(true, bookid, ticketID, customerID);
+            DataSet1TableAdapters.CanceledTicketsTableAdapter adapt1 = new DataSet1TableAdapters.CanceledTicketsTableAdapter();
+            adapt1.InsertQuery(bdid, refund, DateTime.Now, "No reason");
+            DataSet1TableAdapters.RouteBusTableAdapter adapt2 = new DataSet1TableAdapters.RouteBusTableAdapter();
+            adapt2.UpdateQuery(-1,rbid);
+            DataSet1TableAdapters.TicketsTableAdapter adapt3 = new DataSet1TableAdapters.TicketsTableAdapter();
+            adapt3.UpdateQuery(false, ticketID);
+            Session["Cancel"] = ticketID;
+            Response.Redirect(Request.RawUrl);
+        }
+    }
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            //Presume that the buttonField is at 1st cell
+            LinkButton link = e.Row.Cells[11].Controls[0] as LinkButton;
 
+            if (link != null)
+            {
+                link.Attributes.Add("onclick", "return ConfirmOnCancel();");
+            }
         }
     }
 }

@@ -17,6 +17,14 @@
             height: 23px;
         }
     </style>
+     <script type="text/javascript" language="javascript">
+         function ConfirmOnCancel() {
+             if (confirm("Are you sure?") == true)
+                 return true;
+             else
+                 return false;
+         }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <ajaxToolkit:ToolkitScriptManager runat="Server" EnableScriptGlobalization="true"
@@ -54,11 +62,11 @@
         
                     <asp:Label ID="lbFrom" runat="server" Text="Date From"></asp:Label>
                     <asp:TextBox ID="txtFrom" runat="server"></asp:TextBox>
-                    <ajaxtoolkit:calendarextender ID="CalendarExtender1" runat="server"  
+                    <ajaxtoolkit:calendarextender ID="CalendarExtender1" Format="dd/MM/yyyy" runat="server"  
                         TargetControlID="txtFrom" />
 &nbsp;<asp:Label ID="lbTo" runat="server" Text="To"></asp:Label>
                     <asp:TextBox ID="txtTo" runat="server"></asp:TextBox>
-                    <ajaxtoolkit:calendarextender ID="CalendarExtender2" runat="server"  
+                    <ajaxtoolkit:calendarextender ID="CalendarExtender2" Format="dd/MM/yyyy" runat="server"  
                         TargetControlID="txtTo" />
         
     
@@ -68,7 +76,9 @@
 <asp:Label ID="txtError" runat="server"></asp:Label>
 <br />
 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
-    AllowSorting="True" AutoGenerateColumns="False">
+    AllowSorting="True" AutoGenerateColumns="False" 
+         onrowcommand="GridView1_RowCommand" 
+         onrowdatabound="GridView1_RowDataBound">
 </asp:GridView>
         
     

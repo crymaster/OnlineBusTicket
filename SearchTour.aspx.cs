@@ -148,12 +148,14 @@ public partial class SearchTour : System.Web.UI.Page
                     bfield.HeaderText = "Kid Price";
                     GridView1.Columns.Add(bfield);
 
-                    HyperLinkField hlfield = new HyperLinkField();
-                    hlfield.Text = "Book";
-                    hlfield.DataNavigateUrlFormatString = "Book.aspx?rbid={0}";
-                    hlfield.DataNavigateUrlFields = new string[] { "RBID" };
-                    GridView1.Columns.Add(hlfield);
-
+                    if (Session["BookID"] != null)
+                    {
+                        HyperLinkField hlfield = new HyperLinkField();
+                        hlfield.Text = "Book";
+                        hlfield.DataNavigateUrlFormatString = "Book.aspx?rbid={0}";
+                        hlfield.DataNavigateUrlFields = new string[] { "RBID" };
+                        GridView1.Columns.Add(hlfield);
+                    }
                 }
 
                 GridView1.DataSource = dt1;

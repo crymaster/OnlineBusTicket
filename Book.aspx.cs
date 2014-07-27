@@ -108,12 +108,13 @@ public partial class Book : System.Web.UI.Page
         int bookid = int.Parse(Session["BookID"].ToString());
         DataSet1TableAdapters.BookingDetailsTableAdapter adapt3 = new DataSet1TableAdapters.BookingDetailsTableAdapter();
         double? price = double.Parse(lbPrice.Text.Substring(0, lbPrice.Text.IndexOf("$")));
-        adapt3.InsertQuery(bookid, int.Parse(ddSeat.SelectedValue.ToString()), lbID.Text, price, false);
+        int ticketID = int.Parse(ddSeat.SelectedValue.ToString());
+        adapt3.InsertQuery(bookid, ticketID, lbID.Text, price, false);
         DataSet1TableAdapters.RouteBusTableAdapter adapt4 = new DataSet1TableAdapters.RouteBusTableAdapter();
-        int avaiSeat = int.Parse(lbAvaiSeat.Text) - 1;
-        adapt4.UpdateAvailableSeat(avaiSeat, int.Parse(Request.QueryString["RBID"]));
+        adapt4.UpdateQuery(1, int.Parse(Request.QueryString["RBID"]));
+        DataSet1TableAdapters.TicketsTableAdapter adapt = new DataSet1TableAdapters.TicketsTableAdapter();
+        adapt.UpdateQuery(true, ticketID);
         Response.Redirect("CurrentBooking.aspx");
-
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)

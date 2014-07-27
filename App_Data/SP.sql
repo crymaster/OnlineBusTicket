@@ -1,3 +1,4 @@
+Use OnlineBusTicket
 /****** Object:  StoredProcedure [dbo].[AddTicket]    Script Date: 07/18/2014 23:01:09 ******/
 SET ANSI_NULLS ON
 GO
@@ -6,9 +7,10 @@ GO
 CREATE PROCEDURE [dbo].[AddTicket]
 @rbid int,
 @seatnum int,
+@status bit
 as
- insert into Tickets(RBID,SeatNum)
- values(@rbid,@seatnum,@Type)
+ insert into Tickets(RBID,SeatNum,Status)
+ values(@rbid,@seatnum,@status)
 GO
 /****** Object:  StoredProcedure [dbo].[GetLastedTicketID]    Script Date: 07/18/2014 23:01:10 ******/
 SET ANSI_NULLS ON
@@ -167,8 +169,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[AddCategory]
- @Cat_ID int,
  @Type nvarchar(50),
+ @Rate float,
  @Description nvarchar(100)
  as
  INSERT INTO Categories(Type,Rate,Description)
@@ -253,14 +255,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[AddRoutes]
-	@RouteID nvarchar(50),
 	@StartingPlace int,
 	@Destination int,
 	@Distance int
 AS
 	Insert into Routes values
 	(
-		@RouteID,
 		@StartingPlace,
 		@Destination,
 		@Distance
@@ -502,18 +502,6 @@ CREATE PROCEDURE [dbo].[GetLastedBookID]
 as
  select max(BookID)
  from Bookings
-GO
-/****** Object:  StoredProcedure [dbo].[CountCusIDFromBookings]    Script Date: 07/18/2014 23:01:09 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE PROCEDURE [dbo].[CountCusIDFromBookings]
-@CusId char(6)
-as
-	select count(CustomerID) 
-	from Bookings
-	where CustomerID=@CusId
 GO
 /****** Object:  StoredProcedure [dbo].[AddRouteBus]    Script Date: 07/18/2014 23:01:09 ******/
 SET ANSI_NULLS ON
