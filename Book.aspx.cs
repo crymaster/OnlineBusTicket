@@ -114,7 +114,8 @@ public partial class Book : System.Web.UI.Page
         adapt4.UpdateQuery(1, int.Parse(Request.QueryString["RBID"]));
         DataSet1TableAdapters.TicketsTableAdapter adapt = new DataSet1TableAdapters.TicketsTableAdapter();
         adapt.UpdateQuery(true, ticketID);
-        Response.Redirect("CurrentBooking.aspx");
+        Session["TicketID"] = ticketID;
+        Response.Redirect("PrintTicket.aspx");
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
