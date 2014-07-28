@@ -28,11 +28,8 @@ public class DALRouters:ConnectionString
             SqlCommand cmd = new SqlCommand("AddRoutes", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@RouteID", router.RouterID);
             cmd.Parameters.Add("@StartingPlace", router.StartingPlace);
             cmd.Parameters.Add("@Destination", router.Destination);
-            cmd.Parameters.Add("@StartingTiming", router.StartingTiming);
-            cmd.Parameters.Add("@DestinationTiming", router.DestinationTiming);
             cmd.Parameters.Add("@Distance", router.Distance);
 
             con.Open();
@@ -56,8 +53,6 @@ public class DALRouters:ConnectionString
             cmd.Parameters.Add("@RouteID", router.RouterID);
             cmd.Parameters.Add("@StartingPlace", router.StartingPlace);
             cmd.Parameters.Add("@Destination", router.Destination);
-            cmd.Parameters.Add("@StartingTiming", router.StartingTiming);
-            cmd.Parameters.Add("@DestinationTiming", router.DestinationTiming);
             cmd.Parameters.Add("@Distance", router.Distance);
 
             con.Open();
@@ -80,6 +75,7 @@ public class DALRouters:ConnectionString
         cmd.Parameters.Add("@RouteID", router.RouterID);
         cmd.Parameters.Add("@StartingPlace", router.StartingPlace);
         cmd.Parameters.Add("@Destination", router.Destination);
+        
 
         cmd.Connection = con;
 

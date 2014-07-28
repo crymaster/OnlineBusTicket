@@ -90,4 +90,8 @@ public class BLLBus:ConnectionString
     {
         return dalBus.GetBy_BusName_StationID_Cat_ID(this);
     }
+    public DataSet Get()
+    {
+        return dalBus.Get(this);
+    }
 }

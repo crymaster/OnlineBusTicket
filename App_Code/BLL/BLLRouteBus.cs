@@ -22,11 +22,9 @@ public class BLLRouteBus:ConnectionString
     private int _RBID;
     private string _BusID;
     private string _RouteID;
-    private string _Travels;
     private string _DateStart;
-    private int _MaxSeat;
-    private int _Fake;
-    private int _Counter;
+    private int _AvailableSeat;
+    private float _Price;
 
 #region GETER/SETTER
     public int RBID
@@ -44,30 +42,20 @@ public class BLLRouteBus:ConnectionString
         get { return _BusID; }
         set { _BusID = value; }
     }
-    public string Travels
-    {
-        get { return _Travels; }
-        set { _Travels = value; }
-    }
     public string DateStart
     {
         get { return _DateStart; }
         set { _DateStart = value; }
     }
-    public int MaxSeat
+    public int AvailableSeat
     {
-        get { return _MaxSeat; }
-        set { _MaxSeat = value; }
+        get { return _AvailableSeat; }
+        set { _AvailableSeat = value; }
     }
-    public int Fake
+    public float Price
     {
-        get { return _Fake; }
-        set { _Fake = value; }
-    }
-    public int Counter
-    {
-        get { return _Counter; }
-        set { _Counter = value; }
+        get { return _Price; }
+        set { _Price = value; }
     }
     #endregion
 
@@ -92,5 +80,9 @@ public class BLLRouteBus:ConnectionString
     public DataSet Get()
     {
         return dalRouteBus.Get(this);
+    }
+    public DataSet Search(String BusName, int start, int des, String DateAbove, String DateBelow)
+    {
+        return dalRouteBus.Search(this, BusName, start, des, DateAbove, DateBelow);
     }
 }

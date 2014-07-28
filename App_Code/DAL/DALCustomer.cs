@@ -173,5 +173,19 @@ public class DALCustomer
             return -1;
         }
     }
+    public DataSet Get(BLLCustomer cust)
+    {
+            SqlCommand cmd = new SqlCommand("GetCustomers", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CustomerID", cust.CustomerID);
+            cmd.Parameters.AddWithValue("@Name", cust.Name);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+
+            da.Fill(ds, "Customers");
+
+            return ds;
+    }
 }
 

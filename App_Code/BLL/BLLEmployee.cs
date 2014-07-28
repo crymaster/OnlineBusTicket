@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using System.Data.SqlClient;
+
 
 public class BLLEmployee : ConnectionString
 {
@@ -99,5 +99,13 @@ public class BLLEmployee : ConnectionString
     public DataSet Search()
     {
         return dalObj.Search(this);
+    }
+    public int ChangePassword(String pass)
+    {
+        return dalObj.ChangePassword(this, pass);
+    }
+    public String CheckLogin(String email, String pass)
+    {
+        return dalObj.CheckLogin(email, pass);
     }
 }

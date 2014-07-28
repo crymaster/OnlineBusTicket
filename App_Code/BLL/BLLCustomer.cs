@@ -114,5 +114,9 @@ public class BLLCustomer:ConnectionString
     {
         return dalCust.UpdateTimesBooking(times, user);
     }
+    public DataSet Get()
+    {
+        return dalCust.Get(this);
+    }
 }
 

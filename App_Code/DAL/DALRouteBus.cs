@@ -29,11 +29,8 @@ public class DALRouteBus:ConnectionString
 
             cmd.Parameters.Add("@BusID", rb.BusID);
             cmd.Parameters.Add("@RouteID", rb.RouteID);
-            cmd.Parameters.Add("@Travels", rb.Travels);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
-            cmd.Parameters.Add("@MaxSeat", rb.MaxSeat);
-            cmd.Parameters.Add("@Fake", rb.Fake);
-            cmd.Parameters.Add("@Counter", rb.Counter);
+            cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
@@ -55,11 +52,9 @@ public class DALRouteBus:ConnectionString
             cmd.Parameters.Add("@RBID", rb.RBID);
             cmd.Parameters.Add("@BusID", rb.BusID);
             cmd.Parameters.Add("@RouteID", rb.RouteID);
-            cmd.Parameters.Add("@Travels", rb.Travels);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
-            cmd.Parameters.Add("@MaxSeat", rb.MaxSeat);
-            cmd.Parameters.Add("@Fake", rb.Fake);
-            cmd.Parameters.Add("@Counter", rb.Counter);
+            cmd.Parameters.Add("@AvailableSeat", rb.AvailableSeat);
+            cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
@@ -96,6 +91,49 @@ public class DALRouteBus:ConnectionString
         cmd.CommandText = "GetRouteBus";
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Add("@RBID", rb.RBID);
+        cmd.Connection = con;
+
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+        DataSet ds = new DataSet();
+
+        da.Fill(ds, "RouteBus");
+
+        return ds;
+    }
+    public DataSet Search(BLLRouteBus rb, String BusName, int StartID, int DesID, String DateAbove, String DateBelow)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "SearchRouteBus";
+        cmd.CommandType = CommandType.StoredProcedure;
+        if (rb.RBID == 0)
+            cmd.Parameters.Add("@RBID", "");
+        else
+            cmd.Parameters.Add("@RBID", rb.RBID+"");
+        if (rb.RouteID == null)
+            cmd.Parameters.Add("@RouteID", "");
+        else
+            cmd.Parameters.Add("@RouteID", rb.RouteID);
+        if (rb.BusID == null)
+            cmd.Parameters.Add("@BusID", "");
+        else
+            cmd.Parameters.Add("@BusID", rb.BusID);
+        if (BusName == null)
+            cmd.Parameters.Add("@BusName", "");
+        else
+            cmd.Parameters.Add("@BusName", BusName);
+
+        cmd.Parameters.Add("@StartingPlace", StartID);
+
+        cmd.Parameters.Add("@Destination", DesID);
+        if (DateAbove == "")
+            cmd.Parameters.Add("@DateAbove", "12/04/1990");
+        else
+            cmd.Parameters.Add("@DateAbove", DateAbove);
+        if (DateBelow == "")
+            cmd.Parameters.Add("@DateBelow", "12/04/2100");
+        else
+            cmd.Parameters.Add("@DateBelow", DateBelow);
         cmd.Connection = con;
 
         SqlDataAdapter da = new SqlDataAdapter(cmd);

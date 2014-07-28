@@ -73,9 +73,10 @@ public class DALCentrals:ConnectionString
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "GetCentral";
         cmd.Parameters.Add("@CentralID", cent.CentralID);
-        cmd.Parameters.Add("@Cent_Name", cent.Cent_Name);
-        cmd.Parameters.Add("@Address", cent.Address);
-        cmd.Parameters.Add("@Director", cent.Director);
+        if(cent.Cent_Name !=null)
+            cmd.Parameters.Add("@Cent_Name", cent.Cent_Name);
+        else
+            cmd.Parameters.Add("@Cent_Name", "");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Connection = con;
 

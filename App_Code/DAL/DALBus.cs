@@ -27,8 +27,7 @@ public class DALBus:ConnectionString
             SqlCommand cmd = new SqlCommand("InsertBus", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@BusID", bus.BusID);
-            cmd.Parameters.Add("@BusName", bus.Name);
+            //cmd.Parameters.Add("@BusName", bus.Name);
             cmd.Parameters.Add("@BusNumSeat", bus.NumSeat);
             cmd.Parameters.Add("@BusNumberPlate", bus.NumberPlate);
             cmd.Parameters.Add("@StationID", bus.StationID);
@@ -39,8 +38,9 @@ public class DALBus:ConnectionString
             con.Close();
             return i;
         }
-        catch (Exception) 
+        catch (Exception ex) 
         {
+            throw new DataException(ex.Message);
             return -1;
         }
     }
@@ -53,7 +53,7 @@ public class DALBus:ConnectionString
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@BusID", bus.BusID);
-            cmd.Parameters.Add("@BusName", bus.Name);
+            //cmd.Parameters.Add("@BusName", bus.Name);
             cmd.Parameters.Add("@BusNumSeat", bus.NumSeat);
             cmd.Parameters.Add("@BusNumberPlate", bus.NumberPlate);
             cmd.Parameters.Add("@StationID", bus.StationID);
@@ -138,5 +138,28 @@ public class DALBus:ConnectionString
         {
             return -1;   
         }
+    }
+    public DataSet Get(BLLBus bus)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "GetBus";
+        if(bus.BusID==null)
+            cmd.Parameters.Add("@BusID", "");
+        else
+            cmd.Parameters.Add("@BusID", bus.BusID);
+        cmd.Parameters.Add("@Name", bus.Name);
+        cmd.Parameters.Add("@NumberPLate", bus.NumberPlate);
+        cmd.Parameters.Add("@CentralID", bus.StationID);
+        cmd.Parameters.Add("@Cat_ID", bus.Cat_ID);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = con;
+
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+        DataSet ds = new DataSet();
+
+        da.Fill(ds, "Bus");
+
+        return ds;
     }
 }

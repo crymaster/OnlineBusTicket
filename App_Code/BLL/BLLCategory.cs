@@ -12,6 +12,7 @@ public class BLLCategory:ConnectionString
 {
     private int _Cat_ID;
     private string _Type;
+    private float _Rate;
     private string _Description;
 
     #region GETER/SETTER
@@ -24,6 +25,11 @@ public class BLLCategory:ConnectionString
     {
         get { return _Type; }
         set { _Type = value; }
+    }
+    public float Rate
+    {
+        get { return _Rate; }
+        set { _Rate = value; }
     }
     public string Description
     {

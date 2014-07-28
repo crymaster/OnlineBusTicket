@@ -24,6 +24,7 @@ public class DALCategory
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@Type", cat.Type);
+            cmd.Parameters.Add("@Rate", cat.Rate);
             cmd.Parameters.Add("@Description", cat.Description);
             con.Open();
             int i = cmd.ExecuteNonQuery();
@@ -32,7 +33,7 @@ public class DALCategory
          }
         catch (Exception ex)
         {
-            throw new DataException(ex.Message);
+            //throw new DataException(ex.Message);
             return -1;
         }
      }
@@ -45,6 +46,7 @@ public class DALCategory
 
             cmd.Parameters.Add("@Cat_ID", cat.Cat_ID);
             cmd.Parameters.Add("@Type", cat.Type);
+            cmd.Parameters.Add("@Rate", cat.Rate);
             cmd.Parameters.Add("@Description", cat.Description);
             con.Open();
             int i = cmd.ExecuteNonQuery();
