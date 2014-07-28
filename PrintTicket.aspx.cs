@@ -46,5 +46,6 @@ public partial class PrintTicket : System.Web.UI.Page
     {
         Session["ctrl"] = Panel1;
         ClientScript.RegisterStartupScript(this.GetType(), "onclick", "<script language=javascript>window.open('Print.aspx','PrintMe','height=300px,width=300px,scrollbars=1');</script>");
+        Response.Redirect("CurrentBooking.aspx");
     }
 }

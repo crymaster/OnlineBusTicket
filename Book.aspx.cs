@@ -36,6 +36,9 @@ public partial class Book : System.Web.UI.Page
                 Response.Redirect("index.aspx");
             }
             DataRow row = dt.Rows[0];
+            double kid = double.Parse(Resources.Resource.Kid2);
+            double elder = double.Parse(Resources.Resource.Elder);
+
             lbStart.Text = row["Name"].ToString();
             lbDest.Text = row["Name1"].ToString();
             lbDistance.Text = row["Distance"].ToString() + "$";
@@ -47,8 +50,8 @@ public partial class Book : System.Web.UI.Page
             lbAvaiSeat.Text = row["AvailableSeat"].ToString();
             ViewState["Price"] = double.Parse(row["Price"].ToString());
             lbAdult.Text = double.Parse(row["Price"].ToString()) + "$";
-            lbElder.Text = (float.Parse(row["Price"].ToString()) * 0.7).ToString() + "$";
-            lbKid.Text = (float.Parse(row["Price"].ToString()) * 0.5).ToString() + "$";
+            lbElder.Text = (double.Parse(row["Price"].ToString()) * elder).ToString() + "$";
+            lbKid.Text = (double.Parse(row["Price"].ToString()) * kid).ToString() + "$";
 
             DataSet1TableAdapters.UnbookedSeatTableAdapter adapt1 = new DataSet1TableAdapters.UnbookedSeatTableAdapter();
             dt = adapt1.GetUnbookedSeatOnTour(rbid);
@@ -77,11 +80,11 @@ public partial class Book : System.Web.UI.Page
                 }
                 else if (year > 5 && year < 12)
                 {
-                    lbPrice.Text = price * 0.5 + "$";
+                    lbPrice.Text = price * kid + "$";
                 }
                 else if (year > 50)
                 {
-                    lbPrice.Text = price * 0.7 + "$";
+                    lbPrice.Text = price * elder + "$";
                 }
                 else
                 {

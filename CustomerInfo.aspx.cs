@@ -137,4 +137,8 @@ public partial class CustomerInfo : System.Web.UI.Page
         }
         return retVal;
     }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("index.aspx");
+    }
 }

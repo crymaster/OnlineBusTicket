@@ -82,6 +82,9 @@ public partial class SearchTour : System.Web.UI.Page
                 dt1.Columns.Add(new DataColumn("KidPrice"));
                 dt1.Columns.Add(new DataColumn("ElderPrice"));
 
+                double kid = double.Parse(Resources.Resource.Kid2);
+                double elder = double.Parse(Resources.Resource.Elder);
+
                 for (int i = 0; i < dt1.Rows.Count; i++)
                 {
                     DataRow row = dt1.Rows[i];
@@ -92,8 +95,8 @@ public partial class SearchTour : System.Web.UI.Page
                     }
                     else
                     {
-                        row["KidPrice"] = float.Parse(row["Price"].ToString()) * 0.5;
-                        row["ElderPrice"] = float.Parse(row["Price"].ToString()) * 0.7;
+                        row["KidPrice"] = double.Parse(row["Price"].ToString()) * kid;
+                        row["ElderPrice"] = double.Parse(row["Price"].ToString()) * elder;
                     }
                 }
 

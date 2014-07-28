@@ -52,6 +52,7 @@
             <asp:Button ID="btnContinue" runat="server" onclick="btnContinue_Click" 
                 Text="Continue" />
 &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel" 
+                onclick="btnCancel_Click" />
         </p>
 </asp:Content>

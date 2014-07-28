@@ -82,6 +82,9 @@ public partial class SearchTicket : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         txtError.Text = "";
+        double cancel0 = double.Parse(Resources.Resource.Cancel0.ToString());
+        double cancel1 = double.Parse(Resources.Resource.Cancel1.ToString());
+        double cancel2 = double.Parse(Resources.Resource.Cancel2.ToString());
         if (RadioButton2.Checked == true)
         {
             if (ddStart.SelectedValue.ToString().Equals(ddDest.SelectedValue.ToString()))
@@ -147,15 +150,15 @@ public partial class SearchTicket : System.Web.UI.Page
 
                         if (dayDiff >= 2)
                         {
-                            row["Refund"] = row["Price"];
+                            row["Refund"] = double.Parse(row["Price"].ToString()) * cancel2;
                         }
                         else if (dayDiff == 1)
                         {
-                            row["Refund"] = double.Parse(row["Price"].ToString()) * 0.85;
+                            row["Refund"] = double.Parse(row["Price"].ToString()) * cancel1;
                         }
                         else if (dayDiff == 0)
                         {
-                            row["Refund"] = double.Parse(row["Price"].ToString()) * 0.7;
+                            row["Refund"] = double.Parse(row["Price"].ToString()) * cancel0;
                         }
                     }
                     else
@@ -289,15 +292,15 @@ public partial class SearchTicket : System.Web.UI.Page
 
                     if (dayDiff >= 2)
                     {
-                        row["Refund"] = row["Price"];
+                        row["Refund"] = double.Parse(row["Price"].ToString()) * cancel2;
                     }
                     else if (dayDiff == 1)
                     {
-                        row["Refund"] = double.Parse(row["Price"].ToString()) * 0.85;
+                        row["Refund"] = double.Parse(row["Price"].ToString()) * cancel1;
                     }
                     else if (dayDiff == 0)
                     {
-                        row["Refund"] = double.Parse(row["Price"].ToString()) * 0.7;
+                        row["Refund"] = double.Parse(row["Price"].ToString()) * cancel0;
                     }
                 }
                 else
