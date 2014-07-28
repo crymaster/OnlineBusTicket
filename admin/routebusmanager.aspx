@@ -143,10 +143,11 @@
           <tr class="bg">
             <td class="first"><strong>Price</strong></td>
             <td class="last">
-                <asp:TextBox ID="txtPrice" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                <asp:Label ID="lbPrice" runat="server" Text=""></asp:Label>
+                <%--<asp:TextBox ID="txtPrice" runat="server" CssClass="text"></asp:TextBox>--%>
+                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                     ControlToValidate="txtPrice" ErrorMessage="*" 
-                    ToolTip="Price is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    ToolTip="Price is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>--%>
               </td>
           </tr>
           <tr class="bg">

@@ -30,7 +30,7 @@ public class DALRouteBus:ConnectionString
             cmd.Parameters.Add("@BusID", rb.BusID);
             cmd.Parameters.Add("@RouteID", rb.RouteID);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
-            cmd.Parameters.Add("@Price", rb.Price);
+            //cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
@@ -54,7 +54,7 @@ public class DALRouteBus:ConnectionString
             cmd.Parameters.Add("@RouteID", rb.RouteID);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
             cmd.Parameters.Add("@AvailableSeat", rb.AvailableSeat);
-            cmd.Parameters.Add("@Price", rb.Price);
+            //cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();

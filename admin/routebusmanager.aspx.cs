@@ -76,7 +76,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         rb.BusID = ddlBus.SelectedValue.ToString();
         rb.RouteID = ddlRoute.SelectedValue.ToString();
-        rb.Price =float.Parse(txtPrice.Text.ToString()); ;
+        //rb.Price =float.Parse(txtPrice.Text.ToString()); ;
         rb.DateStart = txtDateStart.Text;
     }
     protected void btnAddRouteBus_Click(object sender, EventArgs e)
@@ -134,7 +134,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             hf.Value = ds.Tables[0].Rows[0]["RBID"].ToString();
             ddlBus.SelectedValue = ds.Tables[0].Rows[0]["BusID"].ToString();
             ddlRoute.SelectedValue = ds.Tables[0].Rows[0]["RouteID"].ToString();
-            txtPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
+            //txtPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
             txtDateStart.Text = ds.Tables[0].Rows[0]["DateStart"].ToString();
 
         }
