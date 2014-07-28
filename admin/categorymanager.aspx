@@ -4,7 +4,7 @@
  <div class="top-bar">
         <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button" 
             onclick="lbtnAddNew_Click" ToolTip="New Central">New</asp:LinkButton>
-        <h1>Centrals</h1>
+        <h1>Category</h1>
     <div class="breadcrumbs"><a href="http://www.free-css.com/">Homepage</a> / <a href="http://www.free-css.com/">
         Contents</a></div>
     </div>
@@ -31,7 +31,7 @@
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <table class="listing form" cellpadding="0" cellspacing="0">
           <tr>
-            <th class="full" colspan="2">Add Routes</th>
+            <th class="full" colspan="2">Add Category</th>
           </tr>
            <tr class="bg">
             <td class="first"><strong>ID</strong></td>
@@ -40,15 +40,27 @@
           </tr>
           <tr class="bg">
             <td class="first"><strong>Name</strong></td>
-            <td class="last"><asp:TextBox ID="txtName" runat="server" CssClass="text"></asp:TextBox>
+            <td class="last"><asp:TextBox ID="txtName" runat="server" CssClass="text" 
+                    Width="221px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                     ControlToValidate="txtName" ErrorMessage="*" 
                     ToolTip="Name is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
               </td>
           </tr>
+          <tr class="bg">
+            <td class="first"><strong>Rate</strong></td>
+            <td class="last"><asp:TextBox ID="txtRate" runat="server" CssClass="text" 
+                    Width="221px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="txtRate" ErrorMessage="*" 
+                    ToolTip="Rate is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                
+              </td>
+          </tr>
            <tr class="bg">
             <td class="first"><strong>Desciption</strong></td>
-            <td class="last"><asp:TextBox ID="txtDesc" runat="server" CssClass="text"></asp:TextBox>
+            <td class="last"><asp:TextBox ID="txtDesc" runat="server" CssClass="text" 
+                    Height="89px" Width="222px"></asp:TextBox>
                
               </td>
           </tr>
@@ -79,15 +91,17 @@
                     <ItemStyle Wrap="True" />
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Type" DataField="Type" 
-                    SortExpression="Name"/>
+                    SortExpression="Type"/>
+                     <asp:BoundField HeaderText="Rate" DataField="Rate" 
+                    SortExpression="Rate"/>
                 <asp:TemplateField HeaderText="Edit - Delete">
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("Cat_ID") %>' CommandName="Select" ToolTip="Edit Category"
-                            ImageUrl="~/manager/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteCentral" runat="server" 
                             CommandArgument='<%# Eval("Cat_ID") %>' CommandName="Delete" ToolTip="Delete Category"
-                            ImageUrl="~/manager/img/hr.gif" />
+                            ImageUrl="img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

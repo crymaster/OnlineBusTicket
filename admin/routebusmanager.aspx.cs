@@ -20,8 +20,24 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         if (!IsPostBack)
         {
             GetGridView();
+            InitSearchField();
         }
     }
+    private void InitSearchField()
+    {
+        ddlStartingPlaceSearch.DataSource = SqlLocation;
+        ddlStartingPlaceSearch.DataTextField = "Name";
+        ddlStartingPlaceSearch.DataValueField = "LocationID";
+        ddlStartingPlaceSearch.DataBind();
+        ddlStartingPlaceSearch.Items.Insert(0, new ListItem("--Select--", "0"));
+
+        ddlDestinationSearch.DataSource = SqlLocation;
+        ddlDestinationSearch.DataTextField = "Name";
+        ddlDestinationSearch.DataValueField = "LocationID";
+        ddlDestinationSearch.DataBind();
+        ddlDestinationSearch.Items.Insert(0, new ListItem("--Select--", "0"));
+    }
+
     private void GetGridView()
     {
         if (rb == null)
@@ -42,10 +58,6 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             lblInformation.Text = "Search fail";
         }
     }
-    protected void btnSearchBusName_Click(object sender, EventArgs e)
-    {
-
-    }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         pInsert.Visible = true;
@@ -64,10 +76,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         rb.BusID = ddlBus.SelectedValue.ToString();
         rb.RouteID = ddlRoute.SelectedValue.ToString();
-        rb.Travels = txtTravels.Text.ToString();
-        rb.MaxSeat = Convert.ToInt32(txtMaxSeat.Text.ToString());
-        rb.Fake = Convert.ToInt32(txtFake.Text.ToString()); ;
-        rb.Counter = Convert.ToInt32(txtCounter.Text.ToString());
+        rb.Price =float.Parse(txtPrice.Text.ToString()); ;
         rb.DateStart = txtDateStart.Text;
     }
     protected void btnAddRouteBus_Click(object sender, EventArgs e)
@@ -125,12 +134,35 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             hf.Value = ds.Tables[0].Rows[0]["RBID"].ToString();
             ddlBus.SelectedValue = ds.Tables[0].Rows[0]["BusID"].ToString();
             ddlRoute.SelectedValue = ds.Tables[0].Rows[0]["RouteID"].ToString();
-            txtTravels.Text = ds.Tables[0].Rows[0]["Travels"].ToString();
-            txtMaxSeat.Text = ds.Tables[0].Rows[0]["MaxSeat"].ToString();
-            txtFake.Text = ds.Tables[0].Rows[0]["Fake"].ToString();
+            txtPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
             txtDateStart.Text = ds.Tables[0].Rows[0]["DateStart"].ToString();
-            txtCounter.Text = ds.Tables[0].Rows[0]["Counter"].ToString();
 
         }
     }
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        LoadSearchResult();
+    }
+    private void LoadSearchResult()
+    {
+        try
+        {
+            rb.RBID = int.Parse(txtIDSearch.Text);
+        }
+        catch (Exception)
+        {
+            rb.RBID = 0;
+        }
+        rb.BusID = txtBusIDSearch.Text;
+        String BusName = txtBusNameSearch.Text;
+        rb.RouteID = txtRouteIDSearch.Text;
+        int StartID = int.Parse(ddlStartingPlaceSearch.SelectedValue);
+        int DesID = int.Parse(ddlDestinationSearch.SelectedValue);
+        String DateAbove = txtDateAboveSearch.Text;
+        String DateBelow = txtDateBelowSearch.Text;
+
+        GridView1.DataSource = rb.Search(BusName, StartID, DesID, DateAbove, DateBelow);
+        GridView1.DataBind();
+    }
+    
 }

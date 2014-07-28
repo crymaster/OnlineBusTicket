@@ -9,10 +9,25 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <div class="menu-left">
+    <ul>
+    <li>
+        <a href="busmanager.aspx">Bus</a>
+        <a href="categorymanager.aspx">Category</a>
+        <a href="centralmanager.aspx">Central</a>
+        <a href="employeemanager.aspx">Employee</a>
+        <a href="locationmanager.aspx">Location</a>
+        <a href="routebusmanager.aspx">Route Bus</a>
+        <a href="routemanager.aspx">Route</a>
+        <a href="rule.aspx">Rule</a>
+    </li>
+    </ul>
+    </div>
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
     </div>
+   
     </form>
 </body>
 </html>

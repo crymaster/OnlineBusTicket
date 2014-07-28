@@ -4,7 +4,7 @@
  <div class="top-bar">
         <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button" 
             onclick="lbtnAddNew_Click" ToolTip="New Central">New</asp:LinkButton>
-        <h1>Centrals</h1>
+        <h1>Locations</h1>
     <div class="breadcrumbs"><a href="http://www.free-css.com/">Homepage</a> / <a href="http://www.free-css.com/">
         Contents</a></div>
     </div>
@@ -31,7 +31,7 @@
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <table class="listing form" cellpadding="0" cellspacing="0">
           <tr>
-            <th class="full" colspan="2">Add Routes</th>
+            <th class="full" colspan="2">Add Location</th>
           </tr>
            <tr class="bg">
             <td class="first"><strong>ID</strong></td>
@@ -78,10 +78,10 @@
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("LocationID") %>' CommandName="Select" ToolTip="Edit Location"
-                            ImageUrl="~/manager/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteCentral" runat="server" 
                             CommandArgument='<%# Eval("LocationID") %>' CommandName="Delete" ToolTip="Delete Location"
-                            ImageUrl="~/manager/img/hr.gif" />
+                            ImageUrl="img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

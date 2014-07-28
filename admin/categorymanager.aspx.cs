@@ -41,6 +41,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
             category.Cat_ID = Cat_ID;
         }
         category.Type = txtName.Text;
+        category.Rate = float.Parse(txtRate.Text);
         category.Description = txtDesc.Text;
     }
     private void GetGridView()
@@ -54,16 +55,17 @@ public partial class manager_categorymanager : System.Web.UI.Page
         ds = new DataSet();
         ds = category.Get();
 
-        if (ds.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count < 1)
         {
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
+            //Say something
         }
-        else
-        {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search fail";
-        }
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
+        //else
+        //{
+        //    lblInformation.Visible = true;
+        //    lblInformation.Text = "Search fail";
+        //}
     }
 
     protected void lbtnAddNew_Click(object sender, EventArgs e)
@@ -71,6 +73,11 @@ public partial class manager_categorymanager : System.Web.UI.Page
         lblInformation.Visible = false;
         pInsert.Visible = true;
         txtID.Enabled = false;
+        category = new BLLCategory();
+        txtID.Text = "";
+        txtName.Text = "";
+        txtRate.Text = "";
+        txtDesc.Text = "";
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
@@ -168,6 +175,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
             txtID.Text = ds.Tables[0].Rows[0]["Cat_ID"].ToString();
             txtID.Enabled = false;
             txtName.Text = ds.Tables[0].Rows[0]["Type"].ToString();
+            txtRate.Text = ds.Tables[0].Rows[0]["Rate"].ToString();
         }
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)

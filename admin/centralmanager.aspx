@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="centralmanager.aspx.cs" Inherits="manager_centralmanager" Title="Untitled Page" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="top-bar">
         <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button" 
@@ -11,17 +10,11 @@
     </div>
       <br />
     <div class="select-bar">
-        <asp:RadioButtonList ID="RadioButtonList1" runat="server" Font-Bold="True" 
-            ForeColor="Red" RepeatDirection="Horizontal">
-            <asp:ListItem Value="1" Selected="True">Central Name</asp:ListItem>
-            <asp:ListItem Value="2">Address</asp:ListItem>
-            <asp:ListItem Value="3">Director</asp:ListItem>
-        </asp:RadioButtonList>
-        <label>
-        <asp:TextBox ID="txtSearchCenrtralName" runat="server">Bus Name</asp:TextBox>
-        </label>
-        <label>
-        <asp:Button ID="btnSearchBusName" runat="server" CssClass="button" 
+        <strong>ID</strong>
+        <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+        <strong>Name</strong>
+        <asp:TextBox ID="txtNameSearch" runat="server"></asp:TextBox>
+        <asp:Button ID="btnSearchBus" runat="server" CssClass="button" 
                     Text="Search" Font-Bold="True" onclick="btnSearchBusName_Click" 
             Height="26px"/>
         <asp:HiddenField ID="hfSearchKey" runat="server" Value="1" />
@@ -69,14 +62,14 @@
           </tr>
           <tr class="bg">
             <td class="first"><strong>Phone</strong></td>
-            <td class="last"><asp:TextBox ID="txtPhone" runat="server" CssClass="text"></asp:TextBox>
+            <td class="last"><asp:TextBox ID="txtPhone" runat="server" ></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
                     ControlToValidate="txtPhone" ErrorMessage="*" 
                     ToolTip="Phone is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+                <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
                     ControlToValidate="txtPhone" ErrorMessage="*" 
                     ToolTip="Ex: 09XXXXXXX or 01XXXXXXXXXX" ValidationExpression="^[0-9]{9,12}$" 
-                    ValidationGroup="Insert"></asp:RegularExpressionValidator>
+                    ValidationGroup="Insert"></asp:RegularExpressionValidator>--%>
               </td>
           </tr>
           <tr class="bg">
@@ -117,10 +110,10 @@
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("CentralID") %>' CommandName="Select" ToolTip="Edit Central"
-                            ImageUrl="~/cms-admin/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteCentral" runat="server" 
                             CommandArgument='<%# Eval("CentralID") %>' CommandName="Delete" ToolTip="Delete Central"
-                            ImageUrl="~/cms-admin/img/hr.gif" />
+                            ImageUrl="img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

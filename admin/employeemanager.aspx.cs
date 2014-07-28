@@ -23,7 +23,16 @@ public partial class manager_employeemanager : System.Web.UI.Page
         {
             SearchEmp();
             lblDOB.Text = DateTime.Now.ToShortDateString();
+            LoadCentralSearch();
         }
+    }
+    private void LoadCentralSearch()
+    {
+        ddlCentralsSearch.DataSource = SqlStation;
+        ddlCentralsSearch.DataTextField = "Cent_Name";
+        ddlCentralsSearch.DataValueField = "CentralID";
+        ddlCentralsSearch.DataBind();
+        ddlCentralsSearch.Items.Insert(0, new ListItem("---Select----", "0"));
     }
     private void gridViewDatabind()
     {
@@ -37,10 +46,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         {
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            ddlGridView.DataSource = ds;
-            ddlGridView.DataTextField = "EmpId";
-            ddlGridView.DataValueField = "EmpId";
-            ddlGridView.DataBind();
+            
         }
     }
     private void setObject_Emp()
@@ -75,7 +81,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
     protected void btnNewEmp_Click(object sender, EventArgs e)
     {
         setObject_Emp();
-        if (txtEmpID.Enabled)
+        if (txtEmpID.Text=="")
         {
             int i = emp.New();
             if (i != -1)
@@ -114,12 +120,13 @@ public partial class manager_employeemanager : System.Web.UI.Page
             }
         }
     }
-    protected void ddlGridView_SelectedIndexChanged(object sender, EventArgs e)
+   
+    private void GridView_Select()
     {
         btnDeleteEmp.Visible = true;
         pInsert.Visible = true;
-        txtEmpID.Enabled = false;
-        emp.EmpID = ddlGridView.SelectedValue.ToString();
+        //txtEmpID.Enabled = false;
+        emp.EmpID = GridView1.SelectedValue.ToString();
         ds = new DataSet();
         ds = emp.GetById();
         txtEmpID.Text = ds.Tables[0].Rows[0]["EmpId"].ToString();
@@ -138,193 +145,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     private void SearchEmp()
     {
-        if (hfSearch.Value == "0")
-        {
-            //Search All
-            emp.Name = "0";
-            emp.Email = "0";
-            emp.Address = "0";
-            emp.Qualification = "0";
-            emp.CentralID = 0;
-
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "1")
-        {
-            //Search Name
-            emp.Name = txtSearchEmp.Text;
-            emp.Email = "0";
-            emp.Address = "0";
-            emp.Qualification = "0";
-            emp.CentralID = 0;
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "2")
-        {
-            //Search Email
-            emp.Name = "0";
-            emp.Email = txtSearchEmp.Text;
-            emp.Address = "0";
-            emp.Qualification = "0";
-            emp.CentralID = 0;
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "3")
-        {
-            //Search Address
-            emp.Name = "0";
-            emp.Email = "0";
-            emp.Address = txtSearchEmp.Text;
-            emp.Qualification = "0";
-            emp.CentralID = 0;
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "4")
-        {
-            //Search Quafilication
-            emp.Name = "0";
-            emp.Email = "0";
-            emp.Address = "0";
-            emp.Qualification = txtSearchEmp.Text;
-            emp.CentralID = 0;
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "5")
-        {
-            //Search Centrals
-            emp.Name = "0";
-            emp.Email = "0";
-            emp.Address = "0";
-            emp.Qualification = "0";
-            emp.CentralID = Convert.ToInt32(ddlCentralsSearch.SelectedValue.ToString());
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else if (hfSearch.Value == "6")
-        {
-            //Search Role
-            emp.Name = "0";
-            emp.Email = "0";
-            emp.Address = "0";
-            emp.Qualification = "0";
-            emp.CentralID = 0;
-
-            ds = new DataSet();
-            ds = emp.Search();
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                if (!IsPostBack == false)
-                {
-                    GridView1.DataSource = ds;
-                    GridView1.DataBind();
-                    lblInformation.Visible = false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Employee to fail!";
-            }
-        }
-        else
-        {
-            gridViewDatabind();
-        }
+        gridViewDatabind();
     }
-    protected void ddlCentralsSearch_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        hfSearch.Value = "5";
-        SearchEmp();
-    }
+    
     protected void ddlRoleSearch_SelectedIndexChanged(object sender, EventArgs e)
     {
         hfSearch.Value = "6";
@@ -332,31 +155,18 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        if (RadioButtonList1.SelectedValue == "0")
+        if (txtIDSearch.Text.Trim() != "")
         {
-            hfSearch.Value = "0";
-            SearchEmp();
+            emp.EmpID = txtIDSearch.Text;
         }
-        else if (RadioButtonList1.SelectedValue == "1")
+        else
         {
-            hfSearch.Value = "1";
-            SearchEmp();
+            emp.EmpID = "0";
         }
-        else if (RadioButtonList1.SelectedValue == "2")
-        {
-            hfSearch.Value = "2";
-            SearchEmp();
-        }
-        else if (RadioButtonList1.SelectedValue == "3")
-        {
-            hfSearch.Value = "3";
-            SearchEmp();
-        }
-        else if (RadioButtonList1.SelectedValue == "4")
-        {
-            hfSearch.Value = "4";
-            SearchEmp();
-        }
+        emp.Name = txtNameSearch.Text;
+        emp.CentralID = int.Parse(ddlCentralsSearch.SelectedValue);
+        GridView1.DataSource = emp.Search();
+        GridView1.DataBind();
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
@@ -417,5 +227,14 @@ public partial class manager_employeemanager : System.Web.UI.Page
             lblInformation.Visible = true;
             lblInformation.Text = "Delete Bus to fail!";
         }
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        lblInformation.Text = "";
+        GridView_Select();
+    }
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridView_Select();
     }
 }

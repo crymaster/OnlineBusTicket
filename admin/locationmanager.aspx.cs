@@ -53,26 +53,23 @@ public partial class manager_locationmaanger : System.Web.UI.Page
        
         if (ds.Tables[0].Rows.Count > 0)
         {
+            //say something
+        }
             GridView1.DataSource = ds;
             GridView1.DataBind();
-        }
-        else
-        {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search fail";
-        }
+        
     }
    
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         lblInformation.Visible = false;
         pInsert.Visible = true;
-        txtLocationID.Enabled = false;
+        txtLocationID.Visible = false;
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
         setobj_Location();
-        if (!txtLocationID.Visible || !txtLocationID.Enabled)
+        if (!txtLocationID.Visible)
         {
             int i = location.Add();
             if (i != -1)
@@ -119,11 +116,13 @@ public partial class manager_locationmaanger : System.Web.UI.Page
         location.Name = txtNameSearch.Text;
         ds = new DataSet();
         ds = location.Get();
-        if (ds.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count < 1)
         {
-            hfSearchKey.Value = "0";
-            GetGridView();
+            //Say something
         }
+        hfSearchKey.Value = "0";
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -157,6 +156,7 @@ public partial class manager_locationmaanger : System.Web.UI.Page
             location = new BLLLocation();
         }
         pInsert.Visible = true;
+        txtLocationID.Visible = true;
         location.LocationID = int.Parse(GridView1.SelectedValue.ToString());
         location.Name = "";
         ds = new DataSet();

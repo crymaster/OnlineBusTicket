@@ -4,34 +4,31 @@
  <div class="top-bar">
         <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button" 
             onclick="lbtnAddNew_Click" ToolTip="New Central">New</asp:LinkButton>
-        <h1>Centrals</h1>
+        <h1>Route</h1>
     <div class="breadcrumbs"><a href="http://www.free-css.com/">Homepage</a> / <a href="http://www.free-css.com/">
         Contents</a></div>
     </div>
       <br />
     <div class="select-bar">
-        <label>
         <strong>Starting Place</strong>
         <asp:DropDownList ID="ddlStartingPlaceSearch" runat="server" 
             
-            Width="145px" AutoPostBack="True" 
-            onselectedindexchanged="ddlStartingPlaceSearch_SelectedIndexChanged">
+            Width="145px" >
+            <asp:ListItem Text="Add New" Value="0" />
         </asp:DropDownList>
         <strong>Destination</strong>
-        <asp:DropDownList ID="ddlDestinationSearch" runat="server" 
-            AutoPostBack="True" 
-            onselectedindexchanged="ddlDestinationSearch_SelectedIndexChanged">
+        <asp:DropDownList ID="ddlDestinationSearch" runat="server"   
+            Width="145px" >
         </asp:DropDownList>
         <asp:Button ID="btnSearchRoutes" runat="server" CssClass="button" 
                     Text="Search" Font-Bold="True" onclick="btnSearchBusName_Click" 
             Height="26px"/>
         <asp:HiddenField ID="hfSearchKey" runat="server" Value="0" />
-       <%-- <asp:SqlDataSource ID="SqlCentrals" runat="server" 
+      <asp:SqlDataSource ID="SqlLocation" runat="server" 
             ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-            
-            SelectCommand="SELECT [StartingName], [Locations_StartingID] FROM [Location_Starting]">
-        </asp:SqlDataSource>--%>
-        </label>
+            SelectCommand="SELECT LocationID, Name FROM Locations">
+        </asp:SqlDataSource>
+        
     </div>
     <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
             Font-Bold="True" Font-Size="15px"></asp:Label>
@@ -44,13 +41,16 @@
           </tr>
           <tr class="bg">
             <td class="first"><strong>Route ID</strong></td>
-            <td class="last"><asp:TextBox ID="txtRouteID" runat="server" CssClass="text"></asp:TextBox>
+            <td class="last"><asp:TextBox ID="txtRouteID" runat="server" CssClass="text" 
+                    Enabled="False"></asp:TextBox>
               </td>
           </tr>
           <tr>
             <td class="first" width="172"><strong>Starting Place</strong></td>
             <td class="last">
                 <asp:DropDownList ID="ddlStartingPlace" runat="server" 
+                  DataSourceID="SqlLocation" DataTextField="Name" 
+                    DataValueField="LocationID"
                     onselectedindexchanged="ddlStartingPlace_SelectedIndexChanged">
                 </asp:DropDownList>
               </td>
@@ -59,55 +59,11 @@
             <td class="first"><strong>Destination</strong></td>
             <td class="last">
                 <asp:DropDownList ID="ddlDestination" runat="server"
+                  DataSourceID="SqlLocation" DataTextField="Name" 
+                    DataValueField="LocationID"
                     onselectedindexchanged="ddlDestination_SelectedIndexChanged">
                 </asp:DropDownList>
               </td>
-          </tr>
-          <tr>
-            <td class="first"><strong>Starting Timing</strong></td>
-            <td class="last">
-                <asp:TextBox ID="txtStartingTiming_hour" runat="server" CssClass="text" Width="30px"></asp:TextBox>
-                <strong>:</strong>
-                <asp:TextBox ID="txtStartingTiming_minute" runat="server" CssClass="text" Width="30px"></asp:TextBox>
-                <strong>24hr</strong>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
-                    ControlToValidate="txtStartingTiming_hour" ErrorMessage="*" 
-                    ToolTip="Hour is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
-                    ControlToValidate="txtStartingTiming_minute" ErrorMessage="*" 
-                    ToolTip="Minute is Empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" 
-                    ControlToValidate="txtStartingTiming_hour" ErrorMessage="*" 
-                    ToolTip="Not is number" ValidationExpression="^[0-9]{1,2}$" 
-                    ValidationGroup="Insert"></asp:RegularExpressionValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" 
-                    ControlToValidate="txtStartingTiming_minute" ErrorMessage="*" 
-                    ToolTip="Not is number" ValidationExpression="^[0-9]{1,2}$" 
-                    ValidationGroup="Insert"></asp:RegularExpressionValidator>
-                </td>
-          </tr>
-          <tr class="bg">
-            <td class="first"><strong>Destination Timing</strong></td>
-            <td class="last">
-                <asp:TextBox ID="txtDestinationTiming_hour" runat="server" CssClass="text" Width="30px"></asp:TextBox>
-                <strong>:</strong>
-                <asp:TextBox ID="txtDestinationTiming_minute" runat="server" CssClass="text" Width="30px"></asp:TextBox>
-                <strong>24hr</strong>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
-                    ControlToValidate="txtDestinationTiming_hour" ErrorMessage="*" 
-                    ToolTip="Hour is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                    ControlToValidate="txtDestinationTiming_minute" ErrorMessage="*" 
-                    ToolTip="Minute is Empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" 
-                    ControlToValidate="txtDestinationTiming_hour" ErrorMessage="*" 
-                    ToolTip="Not is number" ValidationExpression="^[0-9]{1,2}$" 
-                    ValidationGroup="Insert"></asp:RegularExpressionValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-                    ControlToValidate="txtDestinationTiming_minute" ErrorMessage="*" 
-                    ToolTip="Not is number" ValidationExpression="^[0-9]{1,2}$" 
-                    ValidationGroup="Insert"></asp:RegularExpressionValidator>
-                </td>
           </tr>
           <tr class="bg">
             <td class="first"><strong>Distance</strong></td>
@@ -150,20 +106,16 @@
                     SortExpression="StartingName"/>
                 <asp:BoundField HeaderText="Destination" DataField="DestinationName" 
                     SortExpression="DestinationName"/>
-                <asp:BoundField HeaderText="Starting Timing" DataField="StartingTiming" 
-                    SortExpression="StartingTiming"/>
-                <asp:BoundField HeaderText="Destination Timing" DataField="DestinationTiming" 
-                    SortExpression="DestinationTiming"/>
                 <asp:BoundField DataField="Distance" HeaderText="Distance" 
                     SortExpression="Distance" />
                 <asp:TemplateField HeaderText="Edit - Delete">
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("RouteID") %>' CommandName="Select" ToolTip="Edit Central"
-                            ImageUrl="~/manager/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteCentral" runat="server" 
                             CommandArgument='<%# Eval("RouteID") %>' CommandName="Delete" ToolTip="Delete Central"
-                            ImageUrl="~/manager/img/hr.gif" />
+                            ImageUrl="img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

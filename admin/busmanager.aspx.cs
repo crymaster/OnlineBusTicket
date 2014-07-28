@@ -41,24 +41,53 @@ public partial class manager_busmanager : System.Web.UI.Page
             {
                 gridViewDatabind();
             }
+            LoadCategorySearch();
+            LoadCentralSearch();
         }
     }
-    
+    private void LoadCentralSearch()
+    {
+        ddlCentralSearch.DataSource = SqlCentral;
+        ddlCentralSearch.DataTextField = "Cent_Name";
+        ddlCentralSearch.DataValueField = "CentralID";
+        ddlCentralSearch.DataBind();
+        ddlCentralSearch.Items.Insert(0, new ListItem("---Select---", "0"));
+    }
+    private void LoadCategorySearch()
+    {
+        ddlCategoriesSearch.DataSource = SqlCategories;
+        ddlCategoriesSearch.DataTextField = "Type";
+        ddlCategoriesSearch.DataValueField = "Cat_ID";
+        ddlCategoriesSearch.DataBind();
+        ddlCategoriesSearch.Items.Insert(0, new ListItem("---Select---", "0"));
+    }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
+        bus_BLL = new BLLBus();
         pInsert.Visible = true;
         lblInformation.Text = "";
         lblInformation.Visible = false;
         txtBusID.Text = "";
-        txtBusID.Enabled = true;
         txtBusName.Text = "";
         txtNumSeat.Text = "";
         txtNumberPlate.Text = "";
     }
-    protected void btnSearchBusName_Click(object sender, EventArgs e)
+    protected void btnSearchBus_Click(object sender, EventArgs e)
     {
-        getByStation_Categories(3);
-        hfStationCategories.Value = "3";
+        LoadGridView();
+        lblInformation.Text = "";
+        //getByStation_Categories(3);
+        //hfStationCategories.Value = "3";
+    }
+    private void LoadGridView()
+    {
+        bus_BLL.BusID = txtIDSearch.Text;
+        bus_BLL.Name = txtNameSearch.Text;
+        bus_BLL.NumberPlate = txtNumberPlateSearch.Text;
+        bus_BLL.StationID = int.Parse(ddlCentralSearch.SelectedValue);
+        bus_BLL.Cat_ID = int.Parse(ddlCategoriesSearch.SelectedValue);
+        GridView1.DataSource = bus_BLL.Get();
+        GridView1.DataBind();
     }
     protected void ddlStationSearch_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -73,17 +102,14 @@ public partial class manager_busmanager : System.Web.UI.Page
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
         setObj_Bus();
-        if (txtBusID.Enabled)
+        if (txtBusID.Text=="")
         {
             int i = bus_BLL.Add_Bus();
             if (i != -1)
             {
                 lblInformation.Visible = true;
                 lblInformation.Text = "Add Bus to complete!";
-                if (!IsPostBack == false)
-                {
-                    gridViewDatabind();
-                }
+                LoadGridView();
                 pInsert.Visible = false;
             }
             else
@@ -99,11 +125,8 @@ public partial class manager_busmanager : System.Web.UI.Page
             {
                 lblInformation.Visible = true;
                 lblInformation.Text = "Update Bus to complete!";
-                if (!IsPostBack == false)
-                {
-                    gridViewDatabind();
-                }
-                pInsert.Visible = false;
+                LoadGridView();
+                pInsert.Visible = true;
             }
             else
             {
@@ -144,7 +167,7 @@ public partial class manager_busmanager : System.Web.UI.Page
         dv = new DataView();
         if (hfStationCategories.Value == "1")
         {
-            bus_BLL.StationID = Convert.ToInt32(ddlStationSearch.SelectedValue.ToString());
+            bus_BLL.StationID = Convert.ToInt32(ddlCentralSearch.SelectedValue.ToString());
             bus_BLL.Cat_ID = 0;
             ds = new DataSet();
             ds = bus_BLL.GetBy_StationID_Cat_ID();
@@ -237,7 +260,6 @@ public partial class manager_busmanager : System.Web.UI.Page
         ds = new DataSet();
         ds = bus_BLL.getByID();
         txtBusID.Text = ds.Tables[0].Rows[0]["BusID"].ToString();
-        txtBusID.Enabled = false;
         txtBusName.Text = ds.Tables[0].Rows[0]["Name"].ToString();
         txtNumSeat.Text = ds.Tables[0].Rows[0]["NumSeat"].ToString();
         txtNumberPlate.Text = ds.Tables[0].Rows[0]["NumberPlate"].ToString();
@@ -250,7 +272,7 @@ public partial class manager_busmanager : System.Web.UI.Page
         if (Station_Categories == 1)
         {
             bus_BLL.Name = "0";
-            bus_BLL.StationID = Convert.ToInt32(ddlStationSearch.SelectedValue.ToString());
+            bus_BLL.StationID = Convert.ToInt32(ddlCentralSearch.SelectedValue.ToString());
             bus_BLL.Cat_ID = 0;
             ds = new DataSet();
             ds = bus_BLL.GetBy_StationID_Cat_ID();
@@ -294,7 +316,7 @@ public partial class manager_busmanager : System.Web.UI.Page
         else
         {
             bus_BLL = new BLLBus();
-            bus_BLL.Name = txtSearchBusName.Text.ToString();
+            bus_BLL.Name = txtNameSearch.Text.ToString();
             bus_BLL.StationID = 0;
             bus_BLL.Cat_ID = 0;
             ds = new DataSet();

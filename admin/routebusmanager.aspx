@@ -11,18 +11,84 @@
     </div>
       <br />
     <div class="select-bar">
-        <label>
-        <asp:TextBox ID="txtSearchBusName" runat="server">Bus Name</asp:TextBox>
-        </label>
-        <label>
-        <asp:Button ID="btnSearchBusName" runat="server" CssClass="button" 
-                    Text="Search" Font-Bold="True" onclick="btnSearchBusName_Click"/>
-        </label>
+    <table>
+    <tr>
+    <td>
+    <strong>ID</strong>
+    </td>
+    <td>
+    <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+    </td>
+    <td>
+     <strong>Route ID</strong>
+    </td>
+    <td>
+    <asp:TextBox ID="txtRouteIDSearch" runat="server"></asp:TextBox>
+    </td>
+   
+    <td>
+        <strong>Bus ID</strong>
+    </td>
+    <td>
+        <asp:TextBox ID="txtBusIDSearch" runat="server"></asp:TextBox>
+    </td>
+    <td>
+    <strong>Bus Name</strong>
+    </td>
+    <td>
+    <asp:TextBox ID="txtBusNameSearch" runat="server"></asp:TextBox>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <strong>Starting Place</strong>
+    </td>
+    <td>
+    <asp:DropDownList ID="ddlStartingPlaceSearch" runat="server" 
+            Width="145px" >
+        </asp:DropDownList>
+    </td>
+    <td>
+    <strong>Destination</strong>
+    </td>
+    <td>
+    <asp:DropDownList ID="ddlDestinationSearch" runat="server"   
+            Width="145px" >
+        </asp:DropDownList>
+    </td>
+    
+        <td>
+        <strong>Date Start</strong>
+        </td>
+        <td>
+        <asp:TextBox ID="txtDateAboveSearch" runat="server" CssClass="text"></asp:TextBox>
+                <cc1:CalendarExtender ID="CalendarExtender1" runat="server" 
+                    Enabled="True" TargetControlID="txtDateAboveSearch"></cc1:CalendarExtender>
+        </td>
+        <td>
+        <strong>Date Start</strong>
+        </td>
+        <td>
+        <asp:TextBox ID="txtDateBelowSearch" runat="server" CssClass="text"></asp:TextBox>
+                <cc1:CalendarExtender ID="CalendarExtender2" runat="server" 
+                    Enabled="True" TargetControlID="txtDateBelowSearch"></cc1:CalendarExtender>
+        </td>
+        </tr>
+        <tr>
+        <td colspan="8">
+         <asp:Button ID="btnSearch" runat="server" CssClass="button" 
+                    Text="Search" Font-Bold="True"
+            Height="26px" onclick="btnSearch_Click"/>
+        </td>
+        </tr>
+            </table>
+        <asp:HiddenField ID="hfSearchKey" runat="server" Value="0" />
+      <asp:SqlDataSource ID="SqlLocation" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
+            SelectCommand="SELECT LocationID, Name FROM Locations">
+        </asp:SqlDataSource>
+        
     </div>
-    <div class="select-bar">
-        <strong>Search Stations</strong>
-        <strong>Search Categories</strong>
-        </div>
     <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
             Font-Bold="True" Font-Size="15px"></asp:Label>
         <asp:HiddenField ID="hf" runat="server" Value="0" />
@@ -34,7 +100,7 @@
             <th class="full" colspan="2">Add ROUTE BUS</th>
           </tr>
           <tr>
-            <td class="first" width="172" style="height: 21px"><strong>Bus ID</strong></td>
+            <td class="first" width="172" style="height: 21px"><strong>Bus Name</strong></td>
             <td class="last" style="height: 21px">
                 <asp:DropDownList ID="ddlBus" runat="server" 
                     DataSourceID="SqlBus" DataTextField="Name" DataValueField="BusID" 
@@ -47,24 +113,20 @@
               </td>
           </tr>
           <tr class="bg">
-            <td class="first"><strong>Route ID</strong></td>
+            <td class="first"><strong>Route</strong></td>
             <td class="last">
                 <asp:DropDownList ID="ddlRoute" runat="server" 
-                    DataSourceID="SqlRoute" DataTextField="RouteID" DataValueField="RouteID" 
+                    DataSourceID="SqlRoute" DataTextField="RouteName" DataValueField="RouteID" 
                     >
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlRoute" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-                    SelectCommand="SELECT * FROM [Routes] ORDER BY [RouteID]">
+                    SelectCommand="SELECT Routes.RouteID, (Select Name FROM Locations WHERE Locations.LocationID=Routes.StartingPlace) AS StartingName, 
+			(Select Name FROM Locations WHERE Locations.LocationID=Routes.Destination) AS DestinationName,
+			 Routes.Distance, ((Select Name FROM Locations WHERE Locations.LocationID=Routes.StartingPlace) + ' - ' + (Select Name FROM Locations WHERE Locations.LocationID=Routes.Destination) ) as RouteName
+				FROM [OnlineBusTicket].[dbo].[Routes]
+			inner join Locations ON Routes.StartingPlace=Locations.LocationID">
                 </asp:SqlDataSource>
-              </td>
-          </tr>
-          <tr>
-            <td class="first"><strong>Travels</strong></td>
-            <td class="last"><asp:TextBox ID="txtTravels" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                    ControlToValidate="txtTravels" ErrorMessage="*" ToolTip="Travels is empty" 
-                    ValidationGroup="Insert"></asp:RequiredFieldValidator>
               </td>
           </tr>
           <tr class="bg">
@@ -79,27 +141,13 @@
               </td>
           </tr>
           <tr class="bg">
-            <td class="first" style="height: 20px"><strong>Max Seat</strong></td>
-            <td class="last" style="height: 20px"><asp:TextBox ID="txtMaxSeat" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                    ControlToValidate="txtMaxSeat" ErrorMessage="*" 
-                    ToolTip="Max Seat is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator></td>
-          </tr>
-          <tr class="bg">
-            <td class="first"><strong>Fake</strong></td>
+            <td class="first"><strong>Price</strong></td>
             <td class="last">
-                <asp:TextBox ID="txtFake" runat="server" CssClass="text"></asp:TextBox>
+                <asp:TextBox ID="txtPrice" runat="server" CssClass="text"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                    ControlToValidate="txtFake" ErrorMessage="*" 
-                    ToolTip="Fake is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    ControlToValidate="txtPrice" ErrorMessage="*" 
+                    ToolTip="Price is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
               </td>
-          </tr>
-          <tr class="bg">
-            <td class="first"><strong>Counter</strong></td>
-            <td class="last"><asp:TextBox ID="txtCounter" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
-                    ControlToValidate="txtCounter" ErrorMessage="*" 
-                    ToolTip="Counter is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator></td>
           </tr>
           <tr class="bg">
             <td class="first">
@@ -122,30 +170,33 @@
      <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="listing" 
             DataKeyNames="RBID" AutoGenerateColumns="False" 
+            AllowPaging="True" 
             onrowdeleting="GridView1_RowDeleting" 
             onselectedindexchanged="GridView1_SelectedIndexChanged" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
-                <asp:BoundField DataField="RBID" HeaderText="Route Bus ID" 
+                <asp:BoundField DataField="RBID" HeaderText="RBID" 
                     SortExpression="RBID" />
-                <asp:BoundField DataField="Name" HeaderText="Bus Name" SortExpression="Name" />
                 <asp:BoundField DataField="RouteID" HeaderText="Route ID" 
                     SortExpression="RouteID" />
-                <asp:BoundField DataField="Travels" HeaderText="Travels" 
-                    SortExpression="Travels" />
+                <asp:BoundField DataField="BusID" HeaderText="Bus ID" 
+                    SortExpression="BusID" />
+                <asp:BoundField DataField="Name" HeaderText="Bus Name" SortExpression="Name" />
+                <asp:BoundField DataField="RouteName" HeaderText="Route Name" 
+                    SortExpression="RouteID" />
                 <asp:BoundField DataField="DateStart" HeaderText="Date Start" 
                     SortExpression="DateStart" />
-                <asp:BoundField DataField="MaxSeat" HeaderText="Max Seat" 
+                <asp:BoundField DataField="AvailableSeat" HeaderText="Available Seat" 
                     SortExpression="MaxSeat" />
-                <asp:BoundField DataField="Counter" HeaderText="Counter" 
-                    SortExpression="Counter" />
+                <asp:BoundField DataField="Price" HeaderText="Price" 
+                    SortExpression="Price" />
                 <asp:TemplateField HeaderText="Edit - Delete">
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("RBID") %>' CommandName="Select" ToolTip="Edit Route Bus"
-                            ImageUrl="~/cms-admin/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteBus" runat="server" CommandArgument='<%# Eval("RBID") %>' CommandName="Delete" ToolTip="Delete Route Bus"
-                            ImageUrl="~/cms-admin/img/hr.gif" />
+                            ImageUrl="img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -157,14 +208,25 @@
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         </asp:GridView>
     </div>
-    <div class="select-bar">
+  <%--  <div class="select-bar">
         <strong>Route</strong>
         </div>
     <div class="table"><img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <asp:GridView ID="GridView2" runat="server" Width="100%" CssClass="listing" DataKeyNames="RouteID" 
             AllowPaging="True" AllowSorting="True" DataSourceID="SqlRoute" 
+            AutoGenerateColumns="false"
              >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+            <Columns>
+                <asp:BoundField DataField="RouteID" HeaderText="Route ID" 
+                    SortExpression="RouteID" />
+                <asp:BoundField DataField="StartingName" HeaderText="Starting Name" 
+                    SortExpression="StartingName" />
+                <asp:BoundField DataField="DestinationName" HeaderText="Destination Name" 
+                    SortExpression="DestinationName" />
+                    <asp:BoundField DataField="Distance" HeaderText="Distance" 
+                    SortExpression="Distance" />
+                    </Columns>
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
@@ -172,6 +234,6 @@
             <EditRowStyle BackColor="#999999" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         </asp:GridView>
-    </div>
+    </div>--%>
 </asp:Content>
 

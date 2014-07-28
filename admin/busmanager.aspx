@@ -12,29 +12,26 @@
     </div>
     
      <div class="select-bar">
-        <label>
-        <asp:TextBox ID="txtSearchBusName" runat="server">Bus Name</asp:TextBox>
-        </label>
-        <label>
-        <asp:Button ID="btnSearchBusName" runat="server" CssClass="button" 
-                    Text="Search" Font-Bold="True" onclick="btnSearchBusName_Click"/>
-        </label>
-    </div>
-    
-     <div class="select-bar">
-        <strong>Search Stations</strong>
-        <asp:DropDownList ID="ddlStationSearch" runat="server" 
-            DataSourceID="SqlStation" DataTextField="Cent_Name" 
-            DataValueField="CentralID" 
-            onselectedindexchanged="ddlStationSearch_SelectedIndexChanged" 
-            AutoPostBack="True">
+      <strong>ID</strong>
+        <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+     <strong>Name</strong>
+        <asp:TextBox ID="txtNameSearch" runat="server"></asp:TextBox>
+        
+         <strong>Number Plate</strong>
+        <asp:TextBox ID="txtNumberPlateSearch" runat="server"></asp:TextBox>
+        
+        <strong>Central</strong>
+        <asp:DropDownList ID="ddlCentralSearch" runat="server" 
+            
+            >
         </asp:DropDownList>
-        <strong>Search Categories</strong>
+        <strong>Category</strong>
         <asp:DropDownList ID="ddlCategoriesSearch" runat="server" 
-            DataSourceID="SqlCategories" DataTextField="Type" DataValueField="Cat_ID" 
-            AutoPostBack="True" 
-            onselectedindexchanged="ddlCategoriesSearch_SelectedIndexChanged">
+           
+            >
         </asp:DropDownList>
+        <asp:Button ID="btnSearchBus" runat="server" CssClass="button" 
+                    Text="Search" Font-Bold="True" onclick="btnSearchBus_Click"/>
     </div>
     <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
             Font-Bold="True" Font-Size="15px"></asp:Label>
@@ -48,18 +45,17 @@
           </tr>
           <tr>
             <td class="first" width="172"><strong>Bus ID</strong></td>
-            <td class="last"><asp:TextBox ID="txtBusID" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                    ControlToValidate="txtBusID" ErrorMessage="*" ToolTip="Bus ID is empty" 
-                    ValidationGroup="InsertBus"></asp:RequiredFieldValidator>
+            <td class="last"><asp:TextBox ID="txtBusID" runat="server" CssClass="text" 
+                    Enabled="False"></asp:TextBox>
               </td>
           </tr>
           <tr class="bg">
             <td class="first"><strong>Bus Name</strong></td>
-            <td class="last"><asp:TextBox ID="txtBusName" runat="server" CssClass="text"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+            <td class="last"><asp:TextBox ID="txtBusName" runat="server" CssClass="text" 
+                    Enabled="False"></asp:TextBox>
+               <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                     ControlToValidate="txtBusName" ErrorMessage="*" ToolTip="Bus Name is empty" 
-                    ValidationGroup="InsertBus"></asp:RequiredFieldValidator>
+                    ValidationGroup="InsertBus"></asp:RequiredFieldValidator>--%>
               </td>
           </tr>
           <tr>
@@ -82,18 +78,18 @@
               </td>
           </tr>
           <tr class="bg">
-            <td class="first"><strong>Station ID</strong></td>
+            <td class="first"><strong>Central</strong></td>
             <td class="last"><asp:DropDownList ID="ddlStationID" runat="server" CssClass="text" 
-                    DataSourceID="SqlStation" DataTextField="Cent_Name" 
+                    DataSourceID="SqlCentral" DataTextField="Cent_Name" 
                     DataValueField="CentralID"></asp:DropDownList>
-                <asp:SqlDataSource ID="SqlStation" runat="server" 
+                <asp:SqlDataSource ID="SqlCentral" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
                     SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] ORDER BY [Cent_Name]">
                 </asp:SqlDataSource>
               </td>
           </tr>
           <tr class="bg">
-            <td class="first"><strong>Catelogies ID</strong></td>
+            <td class="first"><strong>Catelogy</strong></td>
             <td class="last"><asp:DropDownList ID="ddlCatelogies" runat="server" 
                     CssClass="text" DataSourceID="SqlCategories" DataTextField="Type" 
                     DataValueField="Cat_ID"></asp:DropDownList>
@@ -131,17 +127,17 @@
                     <ItemStyle Wrap="True" />
                 </asp:BoundField>
                 <asp:BoundField HeaderText="Bus Name" DataField="Name" SortExpression="Name"/>
-                <asp:BoundField HeaderText="Number Seat" DataField="NumSeat" SortExpression="NumSeat"/>
                 <asp:BoundField HeaderText="Number Plate" DataField="NumberPlate" SortExpression="NumberPlate"/>
-                <asp:BoundField HeaderText="Station ID" DataField="Cent_Name" SortExpression="Cent_Name"/>
-                <asp:BoundField HeaderText="Categories ID" DataField="Type" SortExpression="Type"/>
+                <asp:BoundField HeaderText="Number Seat" DataField="NumSeat" SortExpression="NumSeat"/>
+                <asp:BoundField HeaderText="Central" DataField="Cent_Name" SortExpression="Cent_Name"/>
+                <asp:BoundField HeaderText="Category" DataField="Type" SortExpression="Type"/>
                 <asp:TemplateField HeaderText="Edit - Delete">
                     <ItemTemplate>
                         <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("BusID") %>' CommandName="Select" ToolTip="Edit Bus"
-                            ImageUrl="~/cms-admin/img/edit-icon.gif" Height="16px" />
+                            ImageUrl="~/admin/img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteBus" runat="server" CommandArgument='<%# Eval("BusID") %>' CommandName="Delete" ToolTip="Delete Bus"
-                            ImageUrl="~/cms-admin/img/hr.gif" />
+                            ImageUrl="~/admin/img/hr.gif" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

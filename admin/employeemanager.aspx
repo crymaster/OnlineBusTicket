@@ -10,30 +10,21 @@
     </div>
       <br />
     <div class="select-bar">
-        <asp:RadioButtonList ID="RadioButtonList1" runat="server" Font-Bold="True" 
-            ForeColor="#FF3300" RepeatDirection="Horizontal">
-            <asp:ListItem Selected="True" Value="0">All</asp:ListItem>
-            <asp:ListItem Value="1">Name</asp:ListItem>
-            <asp:ListItem Value="2">Email</asp:ListItem>
-            <asp:ListItem Value="3">Address</asp:ListItem>
-            <asp:ListItem Value="4">Quafilication</asp:ListItem>
-        </asp:RadioButtonList>
-        <label>
-        <asp:TextBox ID="txtSearchEmp" runat="server"></asp:TextBox>
-        &nbsp;&nbsp;
+       <strong>ID</strong>
+        <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+        <strong>Name</strong>
+        <asp:TextBox ID="txtNameSearch" runat="server"></asp:TextBox>
+        <strong>Central</strong>
+        <asp:DropDownList ID="ddlCentralsSearch" runat="server" CssClass="text" >
+        </asp:DropDownList>
         <asp:Button ID="btnSearch" runat="server" CssClass="button" 
                             Font-Bold="True" Text="Search" onclick="btnSearch_Click"/>
-        </label>
         &nbsp;&nbsp;&nbsp;
         
     </div>
     <div class="select-bar">
         <strong>Centrals ID</strong>
-        <asp:DropDownList ID="ddlCentralsSearch" runat="server" CssClass="text" 
-                            DataSourceID="SqlStation" DataTextField="Cent_Name" 
-            DataValueField="CentralID" AutoPostBack="True" 
-            onselectedindexchanged="ddlCentralsSearch_SelectedIndexChanged">
-        </asp:DropDownList>
+        
  
         <asp:HiddenField ID="hfSearch" runat="server" Value="9" />
     </div>
@@ -50,10 +41,10 @@
                     <td class="first" width="172">
                         <strong>Employee ID</strong></td>
                     <td class="last">
-                        <asp:TextBox ID="txtEmpID" runat="server" CssClass="text"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                        <asp:TextBox ID="txtEmpID" runat="server" CssClass="text" Enabled="False"></asp:TextBox>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
                             ControlToValidate="txtEmpID" ErrorMessage="*" ToolTip="Bus ID is empty" 
-                            ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                            ValidationGroup="Insert"></asp:RequiredFieldValidator>--%>
                     </td>
                 </tr>
                 <tr class="bg">
@@ -158,7 +149,9 @@
             CellPadding="4" ForeColor="#333333" 
             GridLines="None" AllowPaging="True" AllowSorting="True" 
             onpageindexchanging="GridView1_PageIndexChanging" 
-            onsorting="GridView1_Sorting" >
+            onsorting="GridView1_Sorting" 
+            onselectedindexchanged="GridView1_SelectedIndexChanged" 
+            onrowediting="GridView1_RowEditing" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField HeaderText="EmpId" DataField="EmpId" SortExpression="EmpId" 
@@ -174,7 +167,16 @@
                 <asp:BoundField DataField="DOB" HeaderText="DOB" SortExpression="DOB" />
                 <asp:BoundField DataField="Qualification" HeaderText="Qualification" 
                     SortExpression="Qualification" />
+             <asp:TemplateField HeaderText="Edit">
+                    <ItemTemplate>
+                        <asp:ImageButton ID="ibtnEditBus" runat="server" 
+                            CommandArgument='<%# Eval("EmpId") %>' CommandName="Select" ToolTip="Edit Employee"
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
+                       
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
+            
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
@@ -182,11 +184,6 @@
             <EditRowStyle BackColor="#999999" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         </asp:GridView>
-        <div class="select"> <strong>Edit Employee: </strong>
-          <asp:DropDownList ID="ddlGridView" runat ="server" AutoPostBack="True" 
-                onselectedindexchanged="ddlGridView_SelectedIndexChanged"></asp:DropDownList>
-            &nbsp;</div>
-    
     </div>
 </asp:Content>
 

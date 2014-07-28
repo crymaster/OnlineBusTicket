@@ -24,23 +24,26 @@ public partial class manager_routemanager : System.Web.UI.Page
             hfSearchKey.Value = "0";
             GetGridView();
             LoadLocationList();
+            
         }
     }
 
     private void LoadLocationList()
     {
-        BLLLocation locations = new BLLLocation();
-        locations.LocationID = 0;
-        locations.Name = "0";
-        DataSet ds=locations.Get();
-        ddlDestination.DataTextField = "Name";
-        ddlDestination.DataValueField = "LocationID";
-        ddlDestination.DataSource = ds;
-        ddlDestination.DataBind();
-        ddlStartingPlace.DataTextField = "Name";
-        ddlStartingPlace.DataValueField = "LocationID";
-        ddlStartingPlace.DataSource = ds;
-        ddlStartingPlace.DataBind();
+        ddlStartingPlaceSearch.DataSource = SqlLocation;
+        ddlStartingPlaceSearch.DataTextField = "Name";
+        ddlStartingPlaceSearch.DataValueField = "LocationID";
+        ddlStartingPlaceSearch.DataBind();
+        ddlStartingPlaceSearch.Items.Insert(0, new ListItem("--Select--", "0"));
+        ddlStartingPlaceSearch.SelectedIndex = 0;
+
+        ddlDestinationSearch.DataTextField = "Name";
+        ddlDestinationSearch.DataValueField = "LocationID";
+        ddlDestinationSearch.DataSource = SqlLocation;
+        ddlDestinationSearch.DataBind();
+        ddlDestinationSearch.Items.Insert(0, new ListItem("--Select--", "0"));
+        ddlDestinationSearch.SelectedIndex = 0;
+
     }
     private void setobj_Route()
     {
@@ -49,9 +52,9 @@ public partial class manager_routemanager : System.Web.UI.Page
             routes = new BLLRouters();
         }
         routes.RouterID = txtRouteID.Text;
-        routes.StartingPlace = Convert.ToInt32(ddlStartingPlace.SelectedValue.ToString());
-        routes.Destination = Convert.ToInt32(ddlDestination.SelectedValue.ToString());
-        setTime();
+        routes.StartingPlace = Convert.ToInt32(ddlStartingPlace.SelectedValue);
+        routes.Destination = Convert.ToInt32(ddlDestination.SelectedValue);
+        Response.Write(routes.StartingPlace + "---" + routes.Destination);
         routes.Distance = Convert.ToInt32(txtDistance.Text);
     }
     private void GetGridView()
@@ -88,62 +91,24 @@ public partial class manager_routemanager : System.Web.UI.Page
             lblInformation.Text = "Search fail";
         }
     }
-    private bool setTime()
-    {
-        if (Convert.ToInt32(txtStartingTiming_hour.Text.ToString()) >= 0 && Convert.ToInt32(txtStartingTiming_hour.Text.ToString()) < 24)
-        {
-            if (Convert.ToInt32(txtStartingTiming_minute.Text.ToString()) >= 0 && Convert.ToInt32(txtStartingTiming_minute.Text.ToString()) < 60)
-            {
-                routes.StartingTiming = txtStartingTiming_hour.Text.ToString() + ":" + txtStartingTiming_minute.Text.ToString();
-                lblInformation.Visible = false;
-
-                if (Convert.ToInt32(txtDestinationTiming_hour.Text.ToString()) >= 0 && Convert.ToInt32(txtDestinationTiming_hour.Text.ToString()) < 24)
-                {
-                    if (Convert.ToInt32(txtDestinationTiming_minute.Text.ToString()) >= 0 && Convert.ToInt32(txtDestinationTiming_minute.Text.ToString()) < 60)
-                    {
-                        routes.DestinationTiming = txtDestinationTiming_hour.Text.ToString() + ":" + txtDestinationTiming_minute.Text.ToString();
-                        lblInformation.Visible = false;
-                    }
-                    else
-                    {
-                        lblInformation.Visible = true;
-                        lblInformation.Text = "Destination Timing Error";
-                        return false;
-                    }
-                }
-                else
-                {
-                    lblInformation.Visible = true;
-                    lblInformation.Text = "Destination Timing Error";
-                    return false;
-                }
-            }
-            else
-            {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Starting Timing Error";
-                return false;
-            }
-        }
-        else
-        {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Starting Timing Error";
-            return false;
-        }
-        return true;
-    }
+   
 
 
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         lblInformation.Visible = false;
         pInsert.Visible = true;
+        txtDistance.Text = "";
+        txtRouteID.Text = "";
+        ddlStartingPlaceSearch.SelectedIndex = 0;
+        ddlDestinationSearch.SelectedIndex = 0;
+        GetGridView();
+        
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
         setobj_Route();
-        if (txtRouteID.Enabled)
+        if (txtRouteID.Text=="")
         {
             int i = routes.Add();
             if (i != -1)
@@ -166,6 +131,7 @@ public partial class manager_routemanager : System.Web.UI.Page
             {
                 lblInformation.Visible = true;
                 lblInformation.Text = "Update to complete";
+                GetGridView();
             }
             else
             {
@@ -185,16 +151,26 @@ public partial class manager_routemanager : System.Web.UI.Page
         {
             routes = new BLLRouters();
         }
+
+        pInsert.Visible = false;
+        lblInformation.Visible = false;
+
         routes.RouterID = "0";
-        routes.StartingPlace = 0;
-        routes.Destination = 0;
+        routes.StartingPlace = int.Parse(ddlStartingPlaceSearch.SelectedValue);
+        routes.Destination = int.Parse(ddlDestinationSearch.SelectedValue);
         ds = new DataSet();
         ds = routes.Get();
         if (ds.Tables[0].Rows.Count > 0)
         {
             hfSearchKey.Value = "0";
-            GetGridView();
+            
         }
+        else
+        {
+            //To Do something when DataBind empty
+        }
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -236,7 +212,6 @@ public partial class manager_routemanager : System.Web.UI.Page
         if (ds.Tables[0].Rows.Count > 0)
         {
             txtRouteID.Text = ds.Tables[0].Rows[0]["RouteID"].ToString();
-            txtRouteID.Enabled = false;
             ddlStartingPlace.SelectedValue = ds.Tables[0].Rows[0]["StartingPlace"].ToString();
             ddlDestination.SelectedValue = ds.Tables[0].Rows[0]["Destination"].ToString();
             txtDistance.Text = ds.Tables[0].Rows[0]["Distance"].ToString();

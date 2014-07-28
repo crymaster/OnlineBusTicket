@@ -1,10 +1,10 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-
+<%@ Register TagPrefix="bv" TagName="BusView" Src="~/ViewListBus.ascx" %>
+<%@ Register TagPrefix="cv" TagName="CusView" Src="~/CustomerView.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet"  type="text/css" href="css/all.css"/>
     <title>Untitled Page</title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -29,6 +29,8 @@
                     &nbsp;&nbsp;
                     <asp:HyperLink ID="hlCurrent" runat="server" NavigateUrl="CurrentBooking.aspx" 
                         Visible="False">Current  Booking</asp:HyperLink>
+                &nbsp;&nbsp;&nbsp;
+                    <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="Regulation.aspx">Regulation</asp:HyperLink>
 &nbsp;&nbsp;&nbsp;
                     <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="about.aspx">About</asp:HyperLink>
                 </td>
@@ -41,6 +43,12 @@
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
+    </div>
+     <div id="list-bus-view">
+        <bv:BusView runat="server" > </bv:BusView>
+    </div>
+     <div id="list-customer-view">
+        <cv:CusView runat="server" > </cv:CusView>
     </div>
     </form>
 </body>

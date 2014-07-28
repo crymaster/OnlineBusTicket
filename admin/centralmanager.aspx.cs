@@ -70,7 +70,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
                 {
                     GetGridView();
                 }
-                pInsert.Visible = false;
+                pInsert.Visible = true;
                 lblCentID.Visible = false;
                 txtCentralID.Visible = false;
                 txtCentralID.Enabled = true;
@@ -85,10 +85,12 @@ public partial class manager_centralmanager : System.Web.UI.Page
     protected void btnCloseAddBus_Click(object sender, EventArgs e)
     {
         pInsert.Visible = false;
+        lblInformation.Text = "";
     }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         pInsert.Visible = true;
+        txtCentralID.Text = "";
         txtCent_Name.Text = "";
         txtAddress.Text = "";
         txtDirector.Text = "";
@@ -105,7 +107,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
         if (hfSearchKey.Value == "0")
         {
             centrals.CentralID = 0;
-            centrals.Cent_Name = "0";
+            centrals.Cent_Name = "";
             centrals.Address = "0";
             centrals.Director = "0";
             ds = new DataSet();
@@ -114,7 +116,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
         else if (hfSearchKey.Value == "1")
         {
             centrals.CentralID = 0;
-            centrals.Cent_Name = txtSearchCenrtralName.Text.ToString();
+            centrals.Cent_Name = txtNameSearch.Text.ToString();
             centrals.Address = "0";
             centrals.Director = "0";
             ds = new DataSet();
@@ -123,8 +125,8 @@ public partial class manager_centralmanager : System.Web.UI.Page
         else if (hfSearchKey.Value == "2")
         {
             centrals.CentralID = 0;
-            centrals.Cent_Name = "0";
-            centrals.Address = txtSearchCenrtralName.Text;
+            centrals.Cent_Name = "";
+            centrals.Address = txtNameSearch.Text;
             centrals.Director = "0";
             ds = new DataSet();
             ds = centrals.Get();
@@ -132,31 +134,29 @@ public partial class manager_centralmanager : System.Web.UI.Page
         else if (hfSearchKey.Value == "3")
         {
             centrals.CentralID = 0;
-            centrals.Cent_Name = "0";
+            centrals.Cent_Name = "";
             centrals.Address = "0";
-            centrals.Director = txtSearchCenrtralName.Text;
+            centrals.Director = txtNameSearch.Text;
             ds = new DataSet();
             ds = centrals.Get();
         }
-        if (ds.Tables[0].Rows.Count > 0)
+        if (ds.Tables[0].Rows.Count < 1)
         {
+            //Say something
+        }
             GridView1.DataSource = ds;
             GridView1.DataBind();
-        }
-        else
-        {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search fail";
-        }
+       
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        lblInformation.Text = "";
         if (centrals == null)
         {
             centrals = new BLLCentrals();
         }
         centrals.CentralID = Convert.ToInt32(GridView1.SelectedValue.ToString());
-        centrals.Cent_Name = "0";
+        centrals.Cent_Name = "";
         centrals.Address = "0";
         centrals.Director = "0";
         centrals.Phone = "0";
@@ -205,22 +205,22 @@ public partial class manager_centralmanager : System.Web.UI.Page
     }
     protected void btnSearchBusName_Click(object sender, EventArgs e)
     {
-        lblInformation.Visible = false;
-        if (RadioButtonList1.SelectedValue == "1")
+        try
         {
-            hfSearchKey.Value = "1";
-            GetGridView();
+            centrals.CentralID = int.Parse(txtIDSearch.Text);
         }
-        else if (RadioButtonList1.SelectedValue == "2")
+        catch (Exception)
         {
-            hfSearchKey.Value = "2";
-            GetGridView();
+            centrals.CentralID = 0;
         }
-        else if (RadioButtonList1.SelectedValue == "3")
-        {
-            hfSearchKey.Value = "3";
-            GetGridView();
-        }
+        centrals.Cent_Name = txtNameSearch.Text;
+        LoadGridView();
+
+    }
+    private void LoadGridView()
+    {
+        GridView1.DataSource = centrals.Get();
+        GridView1.DataBind();
     }
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
     {
