@@ -19,6 +19,7 @@ public partial class manager_busmanager : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             bus_BLL.BusID = "";

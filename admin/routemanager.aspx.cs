@@ -19,6 +19,7 @@ public partial class manager_routemanager : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             hfSearchKey.Value = "0";

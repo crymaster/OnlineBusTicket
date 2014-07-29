@@ -17,6 +17,28 @@ public class DALAdmin
 	{
         con = new SqlConnection(connectionString);
 	}
+    public DataSet GetAdminByID(BLLAdmin admin)
+    {
+        try
+        {
+            SqlCommand cmd = new SqlCommand("GetAdminByID", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@AdminID", admin.AdminID);
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+
+            da.Fill(ds, "Admins");
+            con.Close();
+            return ds;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
     //public int Add(BLLAdmin emp)
     //{
     //    try
@@ -159,23 +181,30 @@ public class DALAdmin
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@Email", Email);
-            cmd.Parameters.Add("@Password", Pass);
+            cmd.Parameters.Add("@Password", SHA1Password(Pass));
 
             con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-            {
-                String id = reader.GetSchemaTable().Rows[0][1].ToString();
-                con.Close();
-                return int.Parse(id);
-            }
+            //SqlDataReader reader = cmd.ExecuteReader();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+
+            da.Fill(ds, "Admins");
+            String id = ds.Tables[0].Rows[0]["AdminID"].ToString();
+            con.Close();
+            return int.Parse(id);
+            //if (reader.HasRows)
+            //{
+            //    String id = reader.GetSchemaTable().Rows[0]["AdminID"].ToString();
+            //    con.Close();
+            //    return int.Parse(id);
+            //}
 
         }
         catch (Exception)
         {
             return -1;
         }
-        return -1;
     }
     private String SHA1Password(String password)
     {

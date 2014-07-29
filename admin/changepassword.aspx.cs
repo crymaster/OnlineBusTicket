@@ -16,7 +16,7 @@ public partial class manager_changepasword : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        //BLLAdmin.HasLogin(Session, Request, Response);
     }
     protected void btnChange_Click(object sender, EventArgs e)
     {

@@ -10,6 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
 
+
 public class BLLAdmin : ConnectionString
 {
     private int _AdminID;
@@ -18,6 +19,13 @@ public class BLLAdmin : ConnectionString
 
 
     private DALAdmin dalObj = null;
+    public static void HasLogin(System.Web.SessionState.HttpSessionState Session, System.Web.HttpRequest Request, System.Web.HttpResponse Response)
+    {
+        if (Session["AdminID"] == null || Session["AdminID"].ToString() == "")
+        {
+            Response.Redirect("login.aspx");
+        }
+    }
     public BLLAdmin()
     {
         dalObj = new DALAdmin(connectionString);
@@ -51,5 +59,9 @@ public class BLLAdmin : ConnectionString
     public int CheckLogin(String email, String pass)
     {
         return dalObj.CheckLogin(email, pass);
+    }
+    public DataSet GetAdminByID()
+    {
+        return dalObj.GetAdminByID(this);
     }
 }

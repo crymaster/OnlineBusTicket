@@ -159,7 +159,7 @@ public class DALEmployee
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@Email", Email);
-            cmd.Parameters.Add("@Password", Pass);
+            cmd.Parameters.Add("@Password", SHA1Password(Pass));
 
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();

@@ -19,6 +19,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             SearchEmp();
@@ -68,6 +69,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     protected void lbtnAddNew_Click1(object sender, EventArgs e)
     {
+        lbMode.Text = "Add Employee";
         pInsert.Visible = true;
         txtEmpID.Text = "";
         txtEmpID.Visible = true;
@@ -230,11 +232,29 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        lbMode.Text = "Update Employee";
         lblInformation.Text = "";
+        ResetPasswordPanel.Visible = true;
         GridView_Select();
     }
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
         GridView_Select();
+    }
+    protected void btnResetPass_Click(object sender, EventArgs e)
+    {
+        lblInformation.Visible = true;
+        emp.EmpID = txtEmpID.Text;
+        int result=emp.ChangePassword("HNA");
+        if (result != -1)
+        {
+            lblInformation.Text = "Reset Pass complete!";
+            pInsert.Visible = false;
+        }
+        else
+        {
+            lblInformation.Text = "Reset Pass fail !";
+        }
+
     }
 }

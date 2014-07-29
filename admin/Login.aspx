@@ -1,19 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
+﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" Title="Untitled Page" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<form runat="server">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <style type="text/css">
-        .style1
-        {
-            width: 94px;
-        }
-    </style>
-</head>
-<body>
-    <form id="form1" runat="server">
+
     <div>
         
         <br />
@@ -37,16 +26,14 @@
                 </td>
             </tr>
             <tr>
-                <td class="style1">
+                <td class="style1" colspan="2">
                     <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Login" />
                 </td>
-                <td>
+              <%--  <td>
                     <asp:CheckBox ID="ckRemember" runat="server" Text="Remember Me" />
-                </td>
+                </td>--%>
             </tr>
         </table>
         
     </div>
-    </form>
-</body>
-</html>
+</form>

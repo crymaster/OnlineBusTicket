@@ -17,18 +17,8 @@ public partial class admin_index : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            if (Session["AdminID"] == null && Session["AdminID"]== "")
-            {
-                Response.Redirect("login.aspx");
-                linkLogout.Visible = false;
-            }
+           
         }
     }
-    protected void LinkButton1_Click(object sender, EventArgs e)
-    {
-        Session["AdminEmail"] = null;
-        Session["AdminName"] = null;
-        Session["AdminId"] = null;
-        Response.Redirect("Login.aspx");
-    }
+   
 }

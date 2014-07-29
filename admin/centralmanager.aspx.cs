@@ -19,6 +19,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             hfSearchKey.Value = "0";
@@ -89,6 +90,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
     }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
+        lbMode.Text = "Add Central";
         pInsert.Visible = true;
         txtCentralID.Text = "";
         txtCent_Name.Text = "";
@@ -150,6 +152,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        lbMode.Text = "Update Central";
         lblInformation.Text = "";
         if (centrals == null)
         {

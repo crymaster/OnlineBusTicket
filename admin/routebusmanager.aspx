@@ -11,7 +11,7 @@
     </div>
       <br />
     <div class="select-bar">
-    <table>
+    <table class="table">
     <tr>
     <td>
     <strong>ID</strong>
@@ -169,7 +169,7 @@
     </asp:Panel>
     <div class="table">
      <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
-        <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="listing" 
+        <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="table" 
             DataKeyNames="RBID" AutoGenerateColumns="False" 
             AllowPaging="True" 
             onrowdeleting="GridView1_RowDeleting" 

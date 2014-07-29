@@ -19,6 +19,7 @@ public partial class manager_locationmaanger : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             hfSearchKey.Value = "0";
@@ -62,14 +63,15 @@ public partial class manager_locationmaanger : System.Web.UI.Page
    
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
+        lbMode.Text = "Add Location";
         lblInformation.Visible = false;
         pInsert.Visible = true;
-        txtLocationID.Visible = false;
+        
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
         setobj_Location();
-        if (!txtLocationID.Visible)
+        if (txtLocationID.Text=="")
         {
             int i = location.Add();
             if (i != -1)
@@ -155,6 +157,8 @@ public partial class manager_locationmaanger : System.Web.UI.Page
         {
             location = new BLLLocation();
         }
+        lbMode.Text = "Update Location";
+        lblInformation.Text = "";
         pInsert.Visible = true;
         txtLocationID.Visible = true;
         location.LocationID = int.Parse(GridView1.SelectedValue.ToString());

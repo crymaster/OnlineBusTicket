@@ -19,6 +19,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
     DataView dv = new DataView();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             hfSearchKey.Value = "0";
@@ -70,6 +71,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
 
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
+        lbMode.Text = "Add Category";
         lblInformation.Visible = false;
         pInsert.Visible = true;
         txtID.Enabled = false;
@@ -161,6 +163,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        lbMode.Text = "Update Category";
         if (category == null)
         {
             category = new BLLCategory();

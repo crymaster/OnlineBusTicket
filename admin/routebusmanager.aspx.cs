@@ -17,6 +17,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
     BLLRouteBus rb = new BLLRouteBus();
     protected void Page_Load(object sender, EventArgs e)
     {
+        //BLLAdmin.HasLogin(Session, Request, Response);
         if (!IsPostBack)
         {
             GetGridView();

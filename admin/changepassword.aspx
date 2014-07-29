@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:Panel ID="ChangePanel" runat="server">
-        <table>
+        <table class="table">
 <tr>
 <td>
  Current pasword

@@ -91,7 +91,7 @@
     </div>
     </asp:Panel>
         <asp:GridView ID="GridView1" runat="server" Width="100%" 
-            AutoGenerateColumns="False" CssClass="listing" DataKeyNames="RouteID" 
+            AutoGenerateColumns="False" CssClass="table" DataKeyNames="RouteID" 
             CellPadding="4" ForeColor="#333333" 
             GridLines="None" onrowdeleting="GridView1_RowDeleting" 
             onselectedindexchanged="GridView1_SelectedIndexChanged" AllowPaging="True" 
