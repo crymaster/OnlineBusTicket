@@ -5,51 +5,56 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="stylesheet" type="text/css" href="css/customer-master.css" media="screen" />
     <title>Untitled Page</title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div class="header">
+	<div class="user-name">
         <asp:Label ID="txtWelcome" runat="server"></asp:Label>
         <br />
         <asp:HyperLink ID="linkLogOut" runat="server" NavigateUrl="Logout.aspx">Logout</asp:HyperLink>
         <br />
+		</div>
         <table style="width:100%;">
             <tr>
-                <td>
-                    <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="index.aspx">Home</asp:HyperLink>
+				<td class="logo">
+                    &nbsp;</td>
+                <td class="navigation-menu">
+                    <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="index.aspx" class="menu-item">Home</asp:HyperLink>
 &nbsp;&nbsp;&nbsp;
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="SearchTour.aspx">Bus Tour</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="SearchTour.aspx" class="menu-item">Bus Tour</asp:HyperLink>
                 &nbsp;&nbsp;
-                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="SearchTicket.aspx">Booked Ticket</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="SearchTicket.aspx" class="menu-item">Booked Ticket</asp:HyperLink>
                 &nbsp;&nbsp;&nbsp;
-                &nbsp;<asp:HyperLink ID="hlStart" runat="server" NavigateUrl="CustomerInfo.aspx">Start Booking</asp:HyperLink>
+                &nbsp;<asp:HyperLink ID="hlStart" runat="server" NavigateUrl="CustomerInfo.aspx" class="menu-item">Start Booking</asp:HyperLink>
                     &nbsp;&nbsp;
                     <asp:HyperLink ID="hlCurrent" runat="server" NavigateUrl="CurrentBooking.aspx" 
-                        Visible="False">Current  Booking</asp:HyperLink>
+                        Visible="False" class="menu-item">Current  Booking</asp:HyperLink>
                 &nbsp;&nbsp;&nbsp;
-                    <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="Regulation.aspx">Regulation</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="Regulation.aspx" class="menu-item">Regulation</asp:HyperLink>
 &nbsp;&nbsp;&nbsp;
-                    <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="about.aspx">About</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="about.aspx" class="menu-item">About</asp:HyperLink>
                 </td>
-                <td>
-                    &nbsp;</td>
+                
                 <td>
                     &nbsp;</td>
             </tr>
-        </table>
+			</table>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
     </div>
-     <div id="list-bus-view">
+     <div id="list-bus-view" class="content-top">
         <bv:BusView runat="server" > </bv:BusView>
     </div>
-     <div id="list-customer-view">
+     <div id="list-customer-view" class="content-center">
         <cv:CusView runat="server" > </cv:CusView>
     </div>
     </form>
+	<div id="footer"></div>
 </body>
 </html>
