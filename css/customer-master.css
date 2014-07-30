@@ -9,20 +9,107 @@
     background: #a0c73f;
 }
 
+.container
+{
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    max-width: 980px;
+}
+.container:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#content
+{
+    padding: 20px 0;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("image_style/content.jpg");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat-y;
+    background-size: auto auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 30px;
+    width: 920px;
+}
+
+.select-bar
+{
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+input:not(.button), select
+{
+    margin: 10px 20px 10px 10px;
+}
+
+#list-customer-view
+{
+    padding: 0 20px;
+}
+
+#content_wrapper_bottom
+{
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("image_style/content_bottom.jpg");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    height: 15px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    width: 1000px;
+}
+
+#footer
+{
+    text-align: center;
+    padding: 30px;
+    color: #333;
+    
+}
+
 
 /*style header*/
 .header
 {
    width: 100%;
     height: 265px;	
-	background: url(image_style/header.png) no-repeat top center; 
+	background: url(image_style/style_header.jpg) no-repeat top center; 
 }
 
+/*user-name*/
+.user-name
+{
+    float: right;
+    padding: 20px 40px;
+    color: #fff;
+    font-size: 15px;
+}
 
 /*style menu*/
 .navigation-menu
 {
-    float: right;
+    width: 80%;
 	padding-top: 70px;
 	height: 43px;
 }
@@ -49,3 +136,18 @@
 	background-size: 100% 100%;
 }
 
+.logo
+{
+    padding-bottom: 0;
+    padding-left: 50px;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: center;
+    width: 20%;
+}
+
+.logo img
+{
+    width: 250px;
+    height: 150px;
+}

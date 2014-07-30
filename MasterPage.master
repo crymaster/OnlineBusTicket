@@ -20,9 +20,9 @@
         <br />
 		</div>
         <table style="width:100%;">
-            <tr>
+            <tr class="container">
 				<td class="logo">
-                    &nbsp;</td>
+                    <img alt="image" src="css/image_style/logo.png"></td>
                 <td class="navigation-menu">
                     <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="index.aspx" class="menu-item">Home</asp:HyperLink>
 &nbsp;&nbsp;&nbsp;
@@ -43,18 +43,21 @@
                 <td>
                     &nbsp;</td>
             </tr>
-			</table>
+			</table>        
+    </div>
+    <div id="content" class="container">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
+         <div id="list-bus-view" class="content-top">
+            <bv:BusView runat="server" > </bv:BusView>
+        </div>
+         <div id="list-customer-view" class="content-center">
+            <cv:CusView runat="server" > </cv:CusView>
+        </div>
     </div>
-     <div id="list-bus-view" class="content-top">
-        <bv:BusView runat="server" > </bv:BusView>
-    </div>
-     <div id="list-customer-view" class="content-center">
-        <cv:CusView runat="server" > </cv:CusView>
-    </div>
+    <div id="content_wrapper_bottom"></div>
     </form>
-	<div id="footer"></div>
+	<div id="footer"> HNA-Aptech | C1203L | Group | 8-2014 </div>
 </body>
 </html>
