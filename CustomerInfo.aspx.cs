@@ -17,7 +17,7 @@ public partial class CustomerInfo : System.Web.UI.Page
     {
         DataSet1TableAdapters.CustomersTableAdapter adapt = new DataSet1TableAdapters.CustomersTableAdapter();
         DataTable dt = adapt.GetByCustomerID(txtID.Text);
-
+        Response.Write("Row: "+dt.Rows.Count);
         if (dt.Rows.Count > 0)
         {
             DataRow row = dt.Rows[0];

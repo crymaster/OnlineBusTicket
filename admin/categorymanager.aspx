@@ -25,8 +25,8 @@
             onclick="lbtnAddNew_Click">New Category</asp:LinkButton>
     </div>
      <asp:HiddenField ID="hfSearchKey" runat="server" Value="0" />
-    <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>
+    <div><%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
+            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
     </div>
     <asp:Panel ID="pInsert" runat="server" Visible="False">
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
@@ -50,7 +50,7 @@
                 <asp:TextBox ID="txtName" runat="server" CssClass="data-input form-control" 
                     Width="221px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                    ControlToValidate="txtName" ErrorMessage="*" 
+                    ControlToValidate="txtName" ErrorMessage="Name is required !" 
                     ToolTip="Name is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
               </td>
           </tr>
@@ -60,7 +60,7 @@
                 <asp:TextBox ID="txtRate" runat="server" CssClass="data-input form-control" 
                     Width="221px"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                    ControlToValidate="txtRate" ErrorMessage="*" 
+                    ControlToValidate="txtRate" ErrorMessage="Rate is requied !" 
                     ToolTip="Rate is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>
                 
               </td>

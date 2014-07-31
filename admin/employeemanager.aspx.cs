@@ -23,7 +23,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         if (!IsPostBack)
         {
             SearchEmp();
-            lblDOB.Text = DateTime.Now.ToShortDateString();
+            //lblDOB.Text = DateTime.Now.ToShortDateString();
             LoadCentralSearch();
         }
     }
@@ -50,7 +50,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
             
         }
     }
-    private void setObject_Emp()
+    private bool setObject_Emp()
     {
         if (emp == null)
         {
@@ -63,9 +63,26 @@ public partial class manager_employeemanager : System.Web.UI.Page
         emp.Email = txtEmail.Text;
         emp.Address = txtAddress.Text;
         emp.Phone = txtPhone.Text;
-        lblDOB.Text = DateTime.Now.ToShortDateString();
-        emp.DOB = lblDOB.Text;
+        try
+        {
+            DateTime dt = Convert.ToDateTime(txtDOB.Text);
+            if (DateTime.Compare(dt, new DateTime()) > 0)
+            {
+                // Check datetime must be before today
+                BLLCommon.ShowError(Response, 16);
+                txtDOB.Focus();
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            BLLCommon.ShowError(Response, 15);
+            txtDOB.Focus();
+            return false;
+        }
+        emp.DOB = txtDOB.Text;
         emp.Qualification = txtQualification.Text;
+        return true;
     }
     protected void lbtnAddNew_Click1(object sender, EventArgs e)
     {
@@ -77,7 +94,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         txtEmail.Text = "";
         txtAddress.Text = "";
         txtPhone.Text = "";
-        lblDOB.Text = DateTime.Now.ToShortDateString();
+        txtDOB.Text = "";
         txtQualification.Text = "";
     }
     protected void btnNewEmp_Click(object sender, EventArgs e)
@@ -88,8 +105,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
             int i = emp.New();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Employee to complete!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Employee to complete!";
+                BLLCommon.ShowResult(Response, "Add Employee", 1);
                 if (!IsPostBack == false)
                 {
                     gridViewDatabind();
@@ -98,8 +116,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Employee to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Employee to fail!";
+                BLLCommon.ShowResult(Response, "Add Employee", 2);
             }
         }
         else
@@ -107,8 +126,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
             int i = emp.Update();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Employee to complete!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update Employee to complete!";
+                BLLCommon.ShowResult(Response, "Update Employee", 1);
                 if (!IsPostBack == false)
                 {
                     gridViewDatabind();
@@ -117,8 +137,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Employee to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update Employee to fail!";
+                BLLCommon.ShowResult(Response, "Update Employee", 2);
             }
         }
     }
@@ -137,13 +158,13 @@ public partial class manager_employeemanager : System.Web.UI.Page
         txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
         txtAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
         txtPhone.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-        lblDOB.Text = ds.Tables[0].Rows[0]["DOB"].ToString();
+        txtDOB.Text = ds.Tables[0].Rows[0]["DOB"].ToString();
         txtQualification.Text = ds.Tables[0].Rows[0]["Qualification"].ToString();
     }
     protected void btnCloseNewEmp_Click(object sender, EventArgs e)
     {
         pInsert.Visible = false;
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
     }
     private void SearchEmp()
     {
@@ -215,8 +236,9 @@ public partial class manager_employeemanager : System.Web.UI.Page
         int i = emp.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to complete!";
+            BLLCommon.ShowResult(Response, "Delete Employee", 1);
             if (!IsPostBack == false)
             {
                 SearchEmp();
@@ -226,14 +248,15 @@ public partial class manager_employeemanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to fail!";
+            BLLCommon.ShowResult(Response, "Delete Employee", 2);
         }
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         lbMode.Text = "Update Employee";
-        lblInformation.Text = "";
+        //lblInformation.Text = "";
         ResetPasswordPanel.Visible = true;
         GridView_Select();
     }
@@ -243,17 +266,19 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     protected void btnResetPass_Click(object sender, EventArgs e)
     {
-        lblInformation.Visible = true;
+        //lblInformation.Visible = true;
         emp.EmpID = txtEmpID.Text;
         int result=emp.ChangePassword("HNA");
         if (result != -1)
         {
-            lblInformation.Text = "Reset Pass complete!";
+            //lblInformation.Text = "Reset Pass complete!";
+            BLLCommon.ShowResult(Response, "Reset Password", 1);
             pInsert.Visible = false;
         }
         else
         {
-            lblInformation.Text = "Reset Pass fail !";
+            BLLCommon.ShowResult(Response, "Reset Password", 2);
+            //lblInformation.Text = "Reset Pass fail !";
         }
 
     }

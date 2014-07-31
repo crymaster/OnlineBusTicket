@@ -30,8 +30,8 @@
      CssClass="button btn btn-success" 
             onclick="lbtnAddNew_Click">New Central</asp:LinkButton>
     </div>
-    <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>
+    <div><%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
+            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
     </div>
     <asp:Panel ID="pInsert" runat="server" Visible="False">
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />

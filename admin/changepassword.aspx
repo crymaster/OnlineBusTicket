@@ -4,11 +4,14 @@
     <asp:Panel ID="ChangePanel" runat="server">
         <table class="table">
 <tr>
-<td>
+<td width="20%">
  Current pasword
 </td>
-<td>
-    <asp:TextBox ID="txtCurrent" runat="server" TextMode="Password"></asp:TextBox>
+<td >
+    <asp:TextBox ID="txtCurrent" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
+    ControlToValidate="txtCurrent" runat="server" 
+    ErrorMessage="Password is required !"></asp:RequiredFieldValidator>
 </td>
 </tr>
 <tr>
@@ -16,7 +19,10 @@
  New pasword
 </td>
 <td>
-    <asp:TextBox ID="txtNew" runat="server" TextMode="Password"></asp:TextBox>
+    <asp:TextBox ID="txtNew" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
+    ControlToValidate="txtNew" runat="server" 
+    ErrorMessage="New Password is required !"></asp:RequiredFieldValidator>
 </td>
 </tr>
 <tr>
@@ -24,16 +30,19 @@
  Re-New pasword
 </td>
 <td>
-    <asp:TextBox ID="txtReNew" runat="server" TextMode="Password"></asp:TextBox>
+    <asp:TextBox ID="txtReNew" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" 
+    ControlToValidate="txtReNew" runat="server" 
+    ErrorMessage="Re Password is not compair !"></asp:RequiredFieldValidator>
 </td>
 </tr>
 <tr>
 <td>
     <asp:Button ID="btnChange" runat="server" Text="Change Password" 
-        onclick="btnChange_Click" />
+        onclick="btnChange_Click" CssClass="btn btn-primary" />
 </td>
 <td>
-    <asp:Button ID="txtCancel" runat="server" Text="Cancel" />
+    <asp:Button ID="txtCancel" runat="server" Text="Cancel" CssClass="btn btn-info" />
 </td>
 </tr>
 </table>

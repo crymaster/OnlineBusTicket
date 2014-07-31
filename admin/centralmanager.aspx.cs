@@ -45,8 +45,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
             int i = centrals.Add();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Centrals to complete!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Centrals to complete!";
+                BLLCommon.ShowResult(Response, "Add Central", 1);
                 if (!IsPostBack == false)
                 {
                     GetGridView();
@@ -55,8 +56,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Centrals to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Centrals to fail!";
+                BLLCommon.ShowResult(Response, "Add Central", 2);
             }
         }
         else
@@ -65,8 +67,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
             int i = centrals.Update();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Centrals to complete!";
+                //lblinformation.visible = true;
+                //lblInformation.Text = "Update Centrals to complete!";
+                BLLCommon.ShowResult(Response, "Update Central", 1);
                 if (!IsPostBack == false)
                 {
                     GetGridView();
@@ -78,15 +81,16 @@ public partial class manager_centralmanager : System.Web.UI.Page
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Centrals to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update Centrals to fail!";
+                BLLCommon.ShowResult(Response, "Update Central", 2);
             }
         }
     }
     protected void btnCloseAddBus_Click(object sender, EventArgs e)
     {
         pInsert.Visible = false;
-        lblInformation.Text = "";
+        //lblInformation.Text = "";
     }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
@@ -97,7 +101,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
         txtAddress.Text = "";
         txtDirector.Text = "";
         txtPhone.Text = "";
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
     }
 
     private void GetGridView()
@@ -153,7 +157,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         lbMode.Text = "Update Central";
-        lblInformation.Text = "";
+        //lblInformation.Text = "";
         if (centrals == null)
         {
             centrals = new BLLCentrals();
@@ -193,8 +197,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
         int i = centrals.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to complete!";
+            BLLCommon.ShowResult(Response, "Delete Central", 1);
             if (!IsPostBack == false)
             {
                 GetGridView();
@@ -202,8 +207,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to fail!";
+            BLLCommon.ShowResult(Response, "Delete Central", 2);
         }
     }
     protected void btnSearchBusName_Click(object sender, EventArgs e)

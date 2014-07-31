@@ -66,8 +66,8 @@ public partial class manager_busmanager : System.Web.UI.Page
     {
         bus_BLL = new BLLBus();
         pInsert.Visible = true;
-        lblInformation.Text = "";
-        lblInformation.Visible = false;
+        //lblInformation.Text = "";
+        //lblInformation.Visible = false;
         txtBusID.Text = "";
         txtBusName.Text = "";
         txtNumSeat.Text = "";
@@ -75,8 +75,9 @@ public partial class manager_busmanager : System.Web.UI.Page
     }
     protected void btnSearchBus_Click(object sender, EventArgs e)
     {
+
         LoadGridView();
-        lblInformation.Text = "";
+        //lblInformation.Text = "";
         //getByStation_Categories(3);
         //hfStationCategories.Value = "3";
     }
@@ -102,21 +103,26 @@ public partial class manager_busmanager : System.Web.UI.Page
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
-        setObj_Bus();
+        if (!setObj_Bus())
+        {
+            return;
+        }
         if (txtBusID.Text=="")
         {
             int i = bus_BLL.Add_Bus();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Bus to complete!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Bus to complete!";
+                BLLCommon.ShowResult(Response, "Add Bus", 1);
                 LoadGridView();
                 pInsert.Visible = false;
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add Bus to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add Bus to fail!";
+                BLLCommon.ShowResult(Response, "Add Bus", 2);
             }
         }
         else
@@ -124,15 +130,17 @@ public partial class manager_busmanager : System.Web.UI.Page
             int i = bus_BLL.Update_Bus();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Bus to complete!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update Bus to complete!";
+                BLLCommon.ShowResult(Response, "Update Bus", 1);
                 LoadGridView();
                 pInsert.Visible = true;
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update Bus to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update Bus to fail!";
+                BLLCommon.ShowResult(Response, "Update Bus", 2);
             }
         }
     }
@@ -150,8 +158,9 @@ public partial class manager_busmanager : System.Web.UI.Page
         int i = bus_BLL.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to complete!";
+            BLLCommon.ShowResult(Response, "Delete Bus", 1);
             if (!IsPostBack == false)
             {
                 gridViewDatabind();
@@ -159,8 +168,9 @@ public partial class manager_busmanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Bus to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Bus to fail!";
+            BLLCommon.ShowResult(Response, "Delete Bus", 2);
         }
     }
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
@@ -283,13 +293,13 @@ public partial class manager_busmanager : System.Web.UI.Page
                 {
                     GridView1.DataSource = ds;
                     GridView1.DataBind();
-                    lblInformation.Visible = false;
+                    //lblInformation.Visible = false;
                 }
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Bus to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Search Bus to fail!";
             }
         }
         else if (Station_Categories == 2)
@@ -305,13 +315,13 @@ public partial class manager_busmanager : System.Web.UI.Page
                 {
                     GridView1.DataSource = ds;
                     GridView1.DataBind();
-                    lblInformation.Visible = true;
+                    //lblInformation.Visible = true;
                 }
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Bus to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Search Bus to fail!";
             }
         }
         else
@@ -328,13 +338,13 @@ public partial class manager_busmanager : System.Web.UI.Page
                 {
                     GridView1.DataSource = ds;
                     GridView1.DataBind();
-                    lblInformation.Visible = false;
+                    //lblInformation.Visible = false;
                 }
             }
             else
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Search Bus to fail!";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Search Bus to fail!";
             }
         }
     }
@@ -351,19 +361,34 @@ public partial class manager_busmanager : System.Web.UI.Page
             GridView1.DataBind();
         }
     }
-    private void setObj_Bus()
+    private bool setObj_Bus()
     {
         if (bus_BLL == null)
         {
             bus_BLL = new BLLBus();
         }
-        bus_BLL.BusID = txtBusID.Text;
-        bus_BLL.Name = txtBusName.Text;
-        bus_BLL.NumSeat = Convert.ToInt32(txtNumSeat.Text.ToString());
-        bus_BLL.NumberPlate = txtNumberPlate.Text.ToString();
-        bus_BLL.StationID = Convert.ToInt32(ddlStationID.SelectedValue.ToString());
-        bus_BLL.Cat_ID = Convert.ToInt32(ddlCatelogies.SelectedValue.ToString());
+        try
+        {
+            bus_BLL.BusID = txtBusID.Text;
+            bus_BLL.Name = txtBusName.Text;
+            try{
+                bus_BLL.NumSeat = Convert.ToInt32(txtNumSeat.Text.ToString());
+            }catch(Exception){
+                BLLCommon.ShowError(Response, 1);
+                return false;
+            }
+            bus_BLL.NumberPlate = txtNumberPlate.Text.ToString();
+            bus_BLL.StationID = Convert.ToInt32(ddlStationID.SelectedValue.ToString());
+            bus_BLL.Cat_ID = Convert.ToInt32(ddlCatelogies.SelectedValue.ToString());
+        }
+        catch (Exception)
+        {
+            BLLCommon.ShowError(Response, 0);
+            return false;
+        }
+        return true;
     }
+    
     private string ConvertSortDirectionToSql(SortDirection sortDirection)
     {
         string newSortDirection = String.Empty;

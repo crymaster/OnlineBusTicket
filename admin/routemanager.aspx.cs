@@ -46,7 +46,7 @@ public partial class manager_routemanager : System.Web.UI.Page
         ddlDestinationSearch.SelectedIndex = 0;
 
     }
-    private void setobj_Route()
+    private bool setobj_Route()
     {
         if (routes == null)
         {
@@ -55,8 +55,26 @@ public partial class manager_routemanager : System.Web.UI.Page
         routes.RouterID = txtRouteID.Text;
         routes.StartingPlace = Convert.ToInt32(ddlStartingPlace.SelectedValue);
         routes.Destination = Convert.ToInt32(ddlDestination.SelectedValue);
-        Response.Write(routes.StartingPlace + "---" + routes.Destination);
-        routes.Distance = Convert.ToInt32(txtDistance.Text);
+        if (routes.StartingPlace == routes.Destination)
+        {
+            BLLCommon.ShowError(Response, 7);
+            return false;
+        }
+        try
+        {
+            routes.Distance = Convert.ToInt32(txtDistance.Text);
+            if (routes.Distance <= 0)
+            {
+                BLLCommon.ShowError(Response, 9);
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            BLLCommon.ShowError(Response, 8);
+            return false;
+        }
+        return true;
     }
     private void GetGridView()
     {
@@ -88,8 +106,8 @@ public partial class manager_routemanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search fail";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Search fail";
         }
     }
    
@@ -97,7 +115,8 @@ public partial class manager_routemanager : System.Web.UI.Page
 
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
-        lblInformation.Visible = false;
+        lbMode.Text = "Add Route";
+        //lblInformation.Visible = false;
         pInsert.Visible = true;
         txtDistance.Text = "";
         txtRouteID.Text = "";
@@ -108,21 +127,26 @@ public partial class manager_routemanager : System.Web.UI.Page
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
-        setobj_Route();
+        if (!setobj_Route())
+        {
+            return;
+        }
         if (txtRouteID.Text=="")
         {
             int i = routes.Add();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add to complete";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add to complete";
+                BLLCommon.ShowResult(Response, "Add Route", 1);
                 hfSearchKey.Value = "0";
                 GetGridView();
             }
             else
             {
-                lblInformation.Visible = false;
-                lblInformation.Text = "Add to fail";
+                //lblInformation.Visible = false;
+                //lblInformation.Text = "Add to fail";
+                BLLCommon.ShowResult(Response, "Add Route", 2);
             }
         }
         else
@@ -130,20 +154,22 @@ public partial class manager_routemanager : System.Web.UI.Page
             int i = routes.Update();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update to complete";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update to complete";
+                BLLCommon.ShowResult(Response, "Update Route", 1);
                 GetGridView();
             }
             else
             {
-                lblInformation.Visible = false;
-                lblInformation.Text = "Update to fail";
+                //lblInformation.Visible = false;
+                //lblInformation.Text = "Update to fail";
+                BLLCommon.ShowResult(Response, "Update Route", 2);
             }
         }
     }
     protected void btnCloseAddBus_Click(object sender, EventArgs e)
     {
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
         pInsert.Visible = false;
     }
     protected void btnSearchBusName_Click(object sender, EventArgs e)
@@ -154,7 +180,7 @@ public partial class manager_routemanager : System.Web.UI.Page
         }
 
         pInsert.Visible = false;
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
 
         routes.RouterID = "0";
         routes.StartingPlace = int.Parse(ddlStartingPlaceSearch.SelectedValue);
@@ -183,8 +209,9 @@ public partial class manager_routemanager : System.Web.UI.Page
         int i = routes.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Route to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Route to complete!";
+            BLLCommon.ShowResult(Response, "Delete Route", 1);
             if (!IsPostBack == false)
             {
                 hfSearchKey.Value = "0";
@@ -193,8 +220,9 @@ public partial class manager_routemanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Route to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Route to fail!";
+            BLLCommon.ShowResult(Response, "Delete Route", 2);
         }
     }
 
@@ -204,6 +232,7 @@ public partial class manager_routemanager : System.Web.UI.Page
         {
             routes = new BLLRouters();
         }
+        lbMode.Text = "Update Route";
         pInsert.Visible = true;
         routes.RouterID = GridView1.SelectedValue.ToString();
         routes.StartingPlace = 0;
@@ -238,12 +267,12 @@ public partial class manager_routemanager : System.Web.UI.Page
         {
             hfSearchKey.Value = "1";
             GetGridView();
-            lblInformation.Visible = false;
+            //lblInformation.Visible = false;
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search Fail";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Search Fail";
         }
     }
     protected void ddlDestinationSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -261,12 +290,12 @@ public partial class manager_routemanager : System.Web.UI.Page
         {
             hfSearchKey.Value = "1";
             GetGridView();
-            lblInformation.Visible = false;
+            //lblInformation.Visible = false;
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search Fail";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Search Fail";
         }
     }
     protected void ddlStartingPlace_SelectedIndexChanged(object sender, EventArgs e)

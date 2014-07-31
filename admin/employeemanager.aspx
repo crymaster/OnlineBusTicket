@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="employeemanager.aspx.cs" Inherits="manager_employeemanager" Title="Untitled Page" %>
+<%@ Register assembly="AjaxControlToolkit"  namespace="AjaxControlToolkit" tagprefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div class="top-bar">
       
         <h1>Employee</h1>
@@ -43,8 +46,8 @@
             onclick="lbtnAddNew_Click1">New Employee</asp:LinkButton>
     </div>
     <div>
-     <asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>
+     <%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
+            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
     <asp:Panel ID="pInsert" runat="server" Visible="False">
         <div class="table"> <%--<img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />--%>
             <table cellpadding="0" cellspacing="0" class="table">
@@ -131,7 +134,11 @@
                     <td class="first">
                         <strong>DOB</strong></td>
                     <td class="last">
-                        <asp:Label ID="lblDOB" runat="server" CssClass="bold"></asp:Label>
+                    <asp:TextBox ID="txtDOB" runat="server" 
+                CssClass="search-input form-control"></asp:TextBox>
+              <cc1:CalendarExtender ID="CalendarExtender1" runat="server" 
+                    Enabled="True" TargetControlID="txtDOB"></cc1:CalendarExtender>
+                        <asp:RequiredFieldValidator ControlToValidate="txtDOB" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr class="bg">
@@ -151,7 +158,7 @@
                     <strong>Password</strong>
                     </td>
                     <td>
-                        <asp:Button ID="btnResetPass" runat="server" Text="Password" CssClass="btn btn-success" onclick="btnResetPass_Click" />
+                        <asp:Button ID="btnResetPass" runat="server" Text="Reset" CssClass="btn btn-success" onclick="btnResetPass_Click" />
                     </td>
                     </tr>
                     </asp:Panel>

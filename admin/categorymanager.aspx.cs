@@ -26,7 +26,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
             GetGridView();
         }
     }
-    private void setobj_Location()
+    private bool setobj_Location()
     {
         if (category == null)
         {
@@ -35,15 +35,34 @@ public partial class manager_categorymanager : System.Web.UI.Page
         int Cat_ID = -1;
         try
         {
-
             category.Cat_ID = int.Parse(txtID.Text);
         }
-        catch (Exception ex) {
+        catch (Exception) {
             category.Cat_ID = Cat_ID;
         }
         category.Type = txtName.Text;
-        category.Rate = float.Parse(txtRate.Text);
+        try
+        {
+            category.Rate = float.Parse(txtRate.Text);
+            if (category.Rate <= 0)
+            {
+                BLLCommon.ShowError(Response, 4);
+                return false;
+            }
+            if (category.Rate > 10)
+            {
+                BLLCommon.ShowError(Response, 10);
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            BLLCommon.ShowError(Response, 3);
+            return false;
+        }
+        
         category.Description = txtDesc.Text;
+        return true;
     }
     private void GetGridView()
     {
@@ -72,7 +91,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         lbMode.Text = "Add Category";
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
         pInsert.Visible = true;
         txtID.Enabled = false;
         category = new BLLCategory();
@@ -83,21 +102,26 @@ public partial class manager_categorymanager : System.Web.UI.Page
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
-        setobj_Location();
+        if (!setobj_Location())
+        {
+            return;
+        }
         if (txtID.Text =="")
         {
             int i = category.Add();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Add to complete";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Add to complete";
+                BLLCommon.ShowResult(Response, "Add Category", 1);
                 hfSearchKey.Value = "0";
                 GetGridView();
             }
             else
             {
-                lblInformation.Visible = false;
-                lblInformation.Text = "Add to fail";
+                //lblInformation.Visible = false;
+                //lblInformation.Text = "Add to fail";
+                BLLCommon.ShowResult(Response, "Add Category", 1);
             }
         }
         else
@@ -105,19 +129,21 @@ public partial class manager_categorymanager : System.Web.UI.Page
             int i = category.Update();
             if (i != -1)
             {
-                lblInformation.Visible = true;
-                lblInformation.Text = "Update to complete";
+                //lblInformation.Visible = true;
+                //lblInformation.Text = "Update to complete";
+                BLLCommon.ShowResult(Response, "Update Category", 1);
             }
             else
             {
-                lblInformation.Visible = false;
-                lblInformation.Text = "Update to fail";
+                //lblInformation.Visible = false;
+                //lblInformation.Text = "Update to fail";
+                BLLCommon.ShowResult(Response, "Update Category", 2);
             }
         }
     }
     protected void btnCloseAddBus_Click(object sender, EventArgs e)
     {
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
         pInsert.Visible = false;
     }
     protected void btnSearchBusName_Click(object sender, EventArgs e)
@@ -146,8 +172,9 @@ public partial class manager_categorymanager : System.Web.UI.Page
         int i = category.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Category to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Category to complete!";
+            BLLCommon.ShowResult(Response, "Delete Category", 1);
             if (!IsPostBack == false)
             {
                 hfSearchKey.Value = "0";
@@ -156,8 +183,9 @@ public partial class manager_categorymanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Category to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Category to fail!";
+            BLLCommon.ShowResult(Response, "Delete Category", 2);
         }
     }
 

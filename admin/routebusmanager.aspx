@@ -3,12 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="top-bar">
-        <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button" 
-            onclick="lbtnAddNew_Click">New</asp:LinkButton>
-        <h1>Add Route Bus</h1>
-    <div class="breadcrumbs"><a href="http://www.free-css.com/">Homepage</a> / <a href="http://www.free-css.com/">
-        Contents</a></div>
-    </div>
+      <h1>Route Bus</h1>
       <br />
     <div class="select-bar">
     <table class="table">
@@ -17,26 +12,29 @@
     <strong>ID</strong>
     </td>
     <td>
-    <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtIDSearch" runat="server" CssClass="search-input form-control"></asp:TextBox>
     </td>
     <td>
      <strong>Route ID</strong>
     </td>
     <td>
-    <asp:TextBox ID="txtRouteIDSearch" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtRouteIDSearch" runat="server" 
+            CssClass="search-input form-control"></asp:TextBox>
     </td>
    
     <td>
         <strong>Bus ID</strong>
     </td>
     <td>
-        <asp:TextBox ID="txtBusIDSearch" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtBusIDSearch" runat="server" 
+            CssClass="search-input form-control"></asp:TextBox>
     </td>
     <td>
     <strong>Bus Name</strong>
     </td>
     <td>
-    <asp:TextBox ID="txtBusNameSearch" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtBusNameSearch" runat="server" 
+            CssClass="search-input form-control"></asp:TextBox>
     </td>
     </tr>
     <tr>
@@ -45,7 +43,7 @@
     </td>
     <td>
     <asp:DropDownList ID="ddlStartingPlaceSearch" runat="server" 
-            Width="145px" >
+            Width="145px" CssClass="search-input form-control" >
         </asp:DropDownList>
     </td>
     <td>
@@ -53,7 +51,7 @@
     </td>
     <td>
     <asp:DropDownList ID="ddlDestinationSearch" runat="server"   
-            Width="145px" >
+            Width="145px" CssClass="search-input form-control" >
         </asp:DropDownList>
     </td>
     
@@ -61,7 +59,8 @@
         <strong>Date Start</strong>
         </td>
         <td>
-        <asp:TextBox ID="txtDateAboveSearch" runat="server" CssClass="text"></asp:TextBox>
+        <asp:TextBox ID="txtDateAboveSearch" runat="server" 
+                CssClass="search-input form-control"></asp:TextBox>
                 <cc1:CalendarExtender ID="CalendarExtender1" runat="server" 
                     Enabled="True" TargetControlID="txtDateAboveSearch"></cc1:CalendarExtender>
         </td>
@@ -69,16 +68,16 @@
         <strong>Date Start</strong>
         </td>
         <td>
-        <asp:TextBox ID="txtDateBelowSearch" runat="server" CssClass="text"></asp:TextBox>
+        <asp:TextBox ID="txtDateBelowSearch" runat="server" 
+                CssClass="search-input form-control"></asp:TextBox>
                 <cc1:CalendarExtender ID="CalendarExtender2" runat="server" 
                     Enabled="True" TargetControlID="txtDateBelowSearch"></cc1:CalendarExtender>
         </td>
         </tr>
         <tr>
         <td colspan="8">
-         <asp:Button ID="btnSearch" runat="server" CssClass="button" 
-                    Text="Search" Font-Bold="True"
-            Height="26px" onclick="btnSearch_Click"/>
+         <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" 
+                    Text="Search" Font-Bold="True" onclick="btnSearch_Click"/>
         </td>
         </tr>
             </table>
@@ -87,23 +86,28 @@
             ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
             SelectCommand="SELECT LocationID, Name FROM Locations">
         </asp:SqlDataSource>
-        
+        <div class="action">
+    <asp:LinkButton ID="LinkButton2" runat="server"
+     CssClass="button btn btn-success" 
+            onclick="lbtnAddNew_Click">New Route Bus</asp:LinkButton>
     </div>
-    <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>
+    </div>
+    <div><%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
+            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
         <asp:HiddenField ID="hf" runat="server" Value="0" />
     </div>
     <asp:Panel ID="pInsert" runat="server" Visible="False">
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <table class="listing form" cellpadding="0" cellspacing="0">
           <tr>
-            <th class="full" colspan="2">Add ROUTE BUS</th>
+            <th class="full" colspan="2">
+                <asp:Label ID="lbMode" runat="server" Text="Label"></asp:Label></th>
           </tr>
           <tr>
             <td class="first" width="172" style="height: 21px"><strong>Bus Name</strong></td>
             <td class="last" style="height: 21px">
                 <asp:DropDownList ID="ddlBus" runat="server" 
-                    DataSourceID="SqlBus" DataTextField="Name" DataValueField="BusID" 
+                    DataSourceID="SqlBus" DataTextField="Name" DataValueField="BusID" CssClass="data-input form-control" 
                     >
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlBus" runat="server" 
@@ -116,7 +120,7 @@
             <td class="first"><strong>Route</strong></td>
             <td class="last">
                 <asp:DropDownList ID="ddlRoute" runat="server" 
-                    DataSourceID="SqlRoute" DataTextField="RouteName" DataValueField="RouteID" 
+                    DataSourceID="SqlRoute" DataTextField="RouteName" DataValueField="RouteID" CssClass="data-input form-control" 
                     >
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="SqlRoute" runat="server" 
@@ -131,7 +135,8 @@
           </tr>
           <tr class="bg">
             <td class="first"><strong>Date start</strong></td>
-            <td class="last"><asp:TextBox ID="txtDateStart" runat="server" CssClass="text"></asp:TextBox>
+            <td class="last"><asp:TextBox ID="txtDateStart" runat="server" 
+                    CssClass="data-input form-control"></asp:TextBox>
                 <cc1:CalendarExtender ID="txtDateStart_CalendarExtender" runat="server" 
                     Enabled="True" TargetControlID="txtDateStart">
                 </cc1:CalendarExtender>
@@ -141,13 +146,15 @@
               </td>
           </tr>
           <tr class="bg">
+            <td class="first"><strong>Seat</strong></td>
+            <td class="last">
+                <asp:Label ID="lbSeat" runat="server" Text=""></asp:Label>
+              </td>
+          </tr>
+          <tr class="bg">
             <td class="first"><strong>Price</strong></td>
             <td class="last">
                 <asp:Label ID="lbPrice" runat="server" Text=""></asp:Label>
-                <%--<asp:TextBox ID="txtPrice" runat="server" CssClass="text"></asp:TextBox>--%>
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                    ControlToValidate="txtPrice" ErrorMessage="*" 
-                    ToolTip="Price is empty" ValidationGroup="Insert"></asp:RequiredFieldValidator>--%>
               </td>
           </tr>
           <tr class="bg">
@@ -156,11 +163,11 @@
                 </cc1:ToolkitScriptManager>
               </td>
             <td class="last">
-                    <asp:Button ID="btnAddRouteBus" runat="server" CssClass="button" 
-                    Text="Save Bus" Font-Bold="True" 
+                    <asp:Button ID="btnAddRouteBus" runat="server" CssClass="btn btn-primary" 
+                    Text="Save" Font-Bold="True" 
                         ValidationGroup="Insert" onclick="btnAddRouteBus_Click" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="btnCloseAddRouteBus" runat="server" CssClass="button" 
+                    <asp:Button ID="btnCloseAddRouteBus" runat="server" CssClass="btn btn-info" 
                     Text="Close" Font-Bold="True"/></td>
           </tr>
         </table>
@@ -178,9 +185,9 @@
             <Columns>
                 <asp:BoundField DataField="RBID" HeaderText="RBID" 
                     SortExpression="RBID" />
-                <asp:BoundField DataField="RouteID" HeaderText="Route ID" 
+                <asp:BoundField DataField="RouteID" HeaderText="RID" 
                     SortExpression="RouteID" />
-                <asp:BoundField DataField="BusID" HeaderText="Bus ID" 
+                <asp:BoundField DataField="BusID" HeaderText="BID" 
                     SortExpression="BusID" />
                 <asp:BoundField DataField="Name" HeaderText="Bus Name" SortExpression="Name" />
                 <asp:BoundField DataField="RouteName" HeaderText="Route Name" 
@@ -193,11 +200,23 @@
                     SortExpression="Price" />
                 <asp:TemplateField HeaderText="Edit - Delete">
                     <ItemTemplate>
-                        <asp:ImageButton ID="ibtnEditBus" runat="server" 
+                      <%--  <asp:ImageButton ID="ibtnEditBus" runat="server" 
                             CommandArgument='<%# Eval("RBID") %>' CommandName="Select" ToolTip="Edit Route Bus"
                             ImageUrl="img/edit-icon.gif" Height="16px" />
                         <asp:ImageButton ID="ibtnDeleteBus" runat="server" CommandArgument='<%# Eval("RBID") %>' CommandName="Delete" ToolTip="Delete Route Bus"
-                            ImageUrl="img/hr.gif" />
+                            ImageUrl="img/hr.gif" />--%>
+                        <asp:LinkButton ID="Button1" runat="server" 
+                        CommandArgument='<%# Eval("RBID") %>' 
+                        CommandName="Select" ToolTip="Edit Route Bus"
+                        CssClass="btn btn-default btn-lg">
+                        <span class=" glyphicon glyphicon-pencil"></span>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton1" runat="server" 
+                        CommandArgument='<%# Eval("RBID") %>' 
+                        CommandName="Delete" ToolTip="Delete Route Bus"
+                        CssClass="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        </asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

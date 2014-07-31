@@ -21,10 +21,25 @@ public partial class manager_changepasword : System.Web.UI.Page
     protected void btnChange_Click(object sender, EventArgs e)
     {
         BLLAdmin admin = new BLLAdmin();
+        if(txtNew.Text != txtReNew.Text)
+        {
+            BLLCommon.ShowError(Response, 12);
+            return;
+        }
+        if(txtNew.Text.IndexOf(' ') >0)
+        {
+            BLLCommon.ShowError(Response, 13);
+            return;
+        }
+        if (txtNew.Text.Length <= 8)
+        {
+            BLLCommon.ShowError(Response, 14);
+            return;
+        }
         int result = admin.CheckLogin(Session["AdminEmail"].ToString(), txtCurrent.Text);
         if (result ==-1)
         {
-            Response.Write("Pass incorrect !");
+            BLLCommon.ShowError(Response, 11);
         }
         else
         {
@@ -37,7 +52,7 @@ public partial class manager_changepasword : System.Web.UI.Page
             }
             else
             {
-                Response.Write("Fail");
+                BLLCommon.ShowResult(Response, "Change Password", 2);
             }
 
         }

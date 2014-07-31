@@ -55,21 +55,22 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Search fail";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Search fail";
         }
     }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
         pInsert.Visible = true;
-        lblInformation.Visible = false;
+        lbMode.Text = "";
+        //lblInformation.Visible = false;
     }
     protected void btnCloseAddRouteBus_Click(object sender, EventArgs e)
     {
         pInsert.Visible = false;
-        lblInformation.Visible = false;
+        //lblInformation.Visible = false;
     }
-    private void setObj_RouteBus()
+    private bool setObj_RouteBus()
     {
         if (rb == null)
         {
@@ -77,17 +78,37 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         rb.BusID = ddlBus.SelectedValue.ToString();
         rb.RouteID = ddlRoute.SelectedValue.ToString();
-        //rb.Price =float.Parse(txtPrice.Text.ToString()); ;
+        try
+        {
+            DateTime dt = Convert.ToDateTime(txtDateStart.Text);
+            if (DateTime.Compare(dt, new DateTime()) >0 )
+            {
+                // Check datetime must be after today
+                BLLCommon.ShowError(Response, 6);
+                txtDateStart.Focus();
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            BLLCommon.ShowError(Response, 5);
+            return false;
+        }
         rb.DateStart = txtDateStart.Text;
+        return true;
     }
     protected void btnAddRouteBus_Click(object sender, EventArgs e)
     {
-        setObj_RouteBus();
+        if (!setObj_RouteBus())
+        {
+            return;
+        }
         int i = rb.Add();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Add to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Add to complete!";
+            BLLCommon.ShowResult(Response, "Add Route Bus", 1);
             pInsert.Visible = false;
             if (!IsPostBack == false)
             {
@@ -96,8 +117,9 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Add to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Add to fail!";
+            BLLCommon.ShowResult(Response, "Add Route Bus", 2);
         }
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -110,8 +132,9 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         int i = rb.Delete();
         if (i != -1)
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Route Bus to complete!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Route Bus to complete!";
+            BLLCommon.ShowResult(Response, "Delete Route Bus", 1);
             if (!IsPostBack == false)
             {
                 GetGridView();
@@ -119,8 +142,9 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         else
         {
-            lblInformation.Visible = true;
-            lblInformation.Text = "Delete Route Bus to fail!";
+            //lblInformation.Visible = true;
+            //lblInformation.Text = "Delete Route Bus to fail!";
+            BLLCommon.ShowResult(Response, "Delete Route Bus", 2);
         }
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)

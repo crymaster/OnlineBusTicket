@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
  <div class="top-bar row">
-        <h1>Add Bus</h1>
+        <h1>Bus</h1>
      <div class="select-bar">
      <table class="table">
      <tr>
@@ -58,8 +58,9 @@
     <asp:LinkButton ID="lbtnAddNew" runat="server" CssClass="button btn btn-success" 
             onclick="lbtnAddNew_Click">New Bus</asp:LinkButton>
     </div>
-    <div><asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>
+    <div>
+    <%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
+            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
         <asp:HiddenField ID="hfStationCategories" runat="server" Value="0" />
     </div>
     <asp:Panel ID="pInsert" runat="server" Visible="False">

@@ -44,12 +44,12 @@
         
         </asp:ContentPlaceHolder>
     </div>
-     <div id="list-bus-view">
+    <%-- <div id="list-bus-view">
         <bv:BusView runat="server" > </bv:BusView>
     </div>
      <div id="list-customer-view">
         <cv:CusView runat="server" > </cv:CusView>
-    </div>
+    </div>--%>
     </form>
 </body>
 </html>
