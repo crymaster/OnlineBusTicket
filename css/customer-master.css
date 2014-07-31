@@ -52,17 +52,22 @@
 }
 #list-bus-view .list-view-bus
 {
-    padding: 0 20px;
+    padding: 20px;
     margin-bottom: 30px;
-    width: 30%;
+    width: 28%;
     display: inline-block;
     float: left;
+    border: 1px solid #a0c73f;
+    border-radius: 3px;
+    
 }
 .list-view-bus .list-view-bus-item
 {
  display: inline-block;
  width: 100%;   
  text-align: left;
+ margin-bottom: 10px;
+ color: #333;
 }
 
 .list-view-bus .list-view-bus-item strong
@@ -80,22 +85,36 @@
     width: 100%;
 }
 
+.list-view-bus .button-search input.button
+{
+    padding: 10px;
+    border: 1px solid #a0c73f;
+    color: #148e17;
+    border-radius: 3px;
+}
+
+.list-view-bus .button-search input.button:hover
+{
+    background: #a0c73f;
+    color: #fff;
+}
+
+
 #list-customer-view
 {
-    width: 66%;
+    width: 65%;
     display: block;
+    float: right;
+    padding: 0 0 0 20px;
 }
 
 
 input:not(.button), select
 {
     margin: 10px 20px 10px 10px;
+    padding: 3px;
 }
 
-#list-customer-view
-{
-    padding: 0 20px;
-}
 
 #content_wrapper_bottom
 {
