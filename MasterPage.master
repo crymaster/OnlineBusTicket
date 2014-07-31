@@ -56,16 +56,16 @@
             <cv:CusView runat="server" > </cv:CusView>
         </div>
     </div>
-<<<<<<< HEAD
+
     <%-- <div id="list-bus-view">
         <bv:BusView runat="server" > </bv:BusView>
     </div>
      <div id="list-customer-view">
         <cv:CusView runat="server" > </cv:CusView>
     </div>--%>
-=======
+
     <div id="content_wrapper_bottom"></div>
->>>>>>> origin/master
+
     </form>
 	<div id="footer"> HNA-Aptech | C1203L | Group | 8-2014 </div>
 </body>

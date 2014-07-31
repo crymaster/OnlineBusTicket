@@ -1,25 +1,34 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ViewListBus.ascx.cs" Inherits="ViewListBus" %>
-<div class="select-bar">
+<div class="select-bar list-view-bus">
+    <div class="list-view-bus-item">
       <strong>ID</strong>
         <asp:TextBox ID="txtIDSearch" runat="server"></asp:TextBox>
+        </div>
+        <div class="list-view-bus-item">
      <strong>Name</strong>
         <asp:TextBox ID="txtNameSearch" runat="server"></asp:TextBox>
-        
+        </div>
+        <div class="list-view-bus-item">        
          <strong>Number Plate</strong>
         <asp:TextBox ID="txtNumberPlateSearch" runat="server"></asp:TextBox>
-        
+        </div>
+        <div class="list-view-bus-item">
         <strong>Central</strong>
         <asp:DropDownList ID="ddlCentralSearch" runat="server" 
             
             >
         </asp:DropDownList>
+        </div>
+        <div class="list-view-bus-item">
         <strong>Category</strong>
         <asp:DropDownList ID="ddlCategoriesSearch" runat="server" 
            
             >
         </asp:DropDownList>
+        </div>
+        <div class="button-search">
         <asp:Button ID="btnSearchBus" runat="server" CssClass="button" 
-                    Text="Search" Font-Bold="True" onclick="btnSearchBus_Click"/>
+                    Text="Search" Font-Bold="True" onclick="btnSearchBus_Click"/></div>
                      <asp:SqlDataSource ID="SqlCentral" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
                     SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] ORDER BY [Cent_Name]">

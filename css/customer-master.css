@@ -46,11 +46,46 @@
     width: 920px;
 }
 
-.select-bar
+#list-bus-view
+{
+    
+}
+#list-bus-view .list-view-bus
 {
     padding: 0 20px;
     margin-bottom: 30px;
+    width: 30%;
+    display: inline-block;
+    float: left;
 }
+.list-view-bus .list-view-bus-item
+{
+ display: inline-block;
+ width: 100%;   
+ text-align: left;
+}
+
+.list-view-bus .list-view-bus-item strong
+{
+    max-width: 90px;
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+.list-view-bus .list-view-bus-item input, .list-view-bus .list-view-bus-item select
+{
+    margin: 5px 0;
+    max-width: 250px;
+    width: 100%;
+}
+
+#list-customer-view
+{
+    width: 66%;
+    display: block;
+}
+
 
 input:not(.button), select
 {
