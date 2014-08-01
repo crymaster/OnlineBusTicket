@@ -5,42 +5,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style type="text/css">
-        .style1
-        {
-            width: 94px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/login-form.css" media="screen" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="form-login">
     <div>
-        
-        <br />
-        <br />
-        <table style="width:100%;">
+    <h1 class="login-title">Login</h1>
+        <table style="" class="table-login">
             <tr>
                 <td class="style1">
                     <asp:Label ID="Label1" runat="server" Text="Email"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" class="input-text"></asp:TextBox>
                     <asp:Label ID="txtError" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="style1">
-                    <asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text="Password" ></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" class="input-text"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="style1">
                     <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Login" />
                 </td>
-                <td>
+                <td class="remember">
                     <asp:CheckBox ID="ckRemember" runat="server" Text="Remember Me" />
                 </td>
             </tr>

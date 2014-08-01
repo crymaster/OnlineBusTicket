@@ -1,0 +1,112 @@
+﻿body 
+{
+    margin: 0;
+	padding: 0;
+	line-height: 1.5em;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+    background: #a0c73f;
+}
+
+.form-login
+{
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5),  
+                0 1px 1px rgba(0, 0, 0, .5),
+                0 3px 0 #fff,
+                0 4px 0 rgba(0, 0, 0, .5),
+                0 6px 0 #fff,  
+                0 7px 0 rgba(0, 0, 0, .5);
+    position: absolute;
+    z-index: 0;   
+    max-width: 400px;
+    width: 100%;
+    background: #fff; 
+    top: 30%;
+    left:33%;
+    padding: 40px 20px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.form-login:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border: 1px dashed #ccc;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    box-shadow: 0 0 0 1px #fff;
+}
+
+
+h1.login-title {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    margin: 0 0 30px 0;
+    letter-spacing: 4px;
+    font: normal 26px/1 Verdana, Helvetica;
+    position: relative;
+}
+
+h1.login-title:after, 
+h1.login-title:before {
+    background-color: #777;
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 15px;
+    width: 120px;   
+}
+
+h1.login-title:after {      
+    right: 0;
+}
+
+h1.login-title:before {
+    background-image: linear-gradient(right, #777, #fff);
+    left: 0;
+}
+
+.table-login
+{
+    width: 100%;
+}
+
+.table-login .style1
+{
+    font-size: 14px;
+    text-align: right; 
+}
+
+.table-login .input-text
+{
+    max-width: 250px;
+    width: 100%;   
+    padding: 5px;
+}
+
+.table-login .style1 #Button1
+{
+    padding: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    background: #a0c73f;
+    border: 2px dashed #fff;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.table-login .style1 #Button1:hover
+{
+    background: #1a9932;
+}
+
+.table-login .remember
+{
+    text-align: left;
+    vertical-align: bottom;
+}
