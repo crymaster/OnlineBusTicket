@@ -38,8 +38,9 @@ public class DALEmployee
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            throw ex;
             return -1;
         }
     }
@@ -207,6 +208,7 @@ public class DALEmployee
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
@@ -217,6 +219,10 @@ public class DALEmployee
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System;
 using System.Data;
 using System.Configuration;
@@ -30,15 +29,16 @@ public class DALRouteBus:ConnectionString
             cmd.Parameters.Add("@BusID", rb.BusID);
             cmd.Parameters.Add("@RouteID", rb.RouteID);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
-            //cmd.Parameters.Add("@Price", rb.Price);
+            cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            throw ex;
             return -1;
         }
     }
@@ -53,16 +53,17 @@ public class DALRouteBus:ConnectionString
             cmd.Parameters.Add("@BusID", rb.BusID);
             cmd.Parameters.Add("@RouteID", rb.RouteID);
             cmd.Parameters.Add("@DateStart", rb.DateStart);
-            cmd.Parameters.Add("@AvailableSeat", rb.AvailableSeat);
-            //cmd.Parameters.Add("@Price", rb.Price);
+            //cmd.Parameters.Add("@AvailableSeat", rb.AvailableSeat);
+            cmd.Parameters.Add("@Price", rb.Price);
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            throw ex;
             return -1;
         }
     }
@@ -80,8 +81,9 @@ public class DALRouteBus:ConnectionString
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            throw ex;
             return -1;
         }
     }
@@ -176,6 +178,7 @@ public class DALRouteBus:ConnectionString
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
@@ -186,6 +189,10 @@ public class DALRouteBus:ConnectionString
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

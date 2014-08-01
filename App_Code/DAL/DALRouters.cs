@@ -136,6 +136,7 @@ public class DALRouters:ConnectionString
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
@@ -146,6 +147,10 @@ public class DALRouters:ConnectionString
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

@@ -183,20 +183,25 @@ public class DALBus:ConnectionString
             con.Open();
             cmd.Connection = con;
             SqlDataReader rdr = cmd.ExecuteReader();
-            
+
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
                 }
-               return false;   
+                return false;
             }
         }
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

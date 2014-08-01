@@ -85,7 +85,7 @@ public class BLLCommon
         }
         else if (error == 16)
         {
-            Message(response, "Are you sure about Date of birth ! She/He isn't borned now");
+            Message(response, "Are you sure about Date of birth ! She/He isnt borned now");
         }
         else if (error == 17)
         {
@@ -110,6 +110,22 @@ public class BLLCommon
         else if (error == 22)
         {
             Message(response, "This number plate is exist ! Please chose other number plate !");
+        }
+        else if (error == 23)
+        {
+            Message(response, "Cannot load distance, please try again !");
+        }
+        else if (error == 24)
+        {
+            Message(response, "Cannot load price, please try again !");
+        }
+        else if (error == 25)
+        {
+            Message(response, "Cannot load rate, please try again !");
+        }
+        else if (error == 26)
+        {
+            Message(response, "Price must be greater than 0, please try again !");
         }
         else
         {

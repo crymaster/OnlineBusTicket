@@ -68,26 +68,29 @@ public partial class manager_employeemanager : System.Web.UI.Page
         }
         emp.Address = txtAddress.Text;
         emp.Phone = txtPhone.Text;
-        try
-        {
+        //try
+        //{
             DateTime dt = Convert.ToDateTime(txtDOB.Text);
-            if (DateTime.Compare(dt, new DateTime()) > 0)
+            if (DateTime.Compare(dt, DateTime.Now) > 0)
             {
                 // Check datetime must be before today
                 BLLCommon.ShowError(Response, 16);
                 txtDOB.Focus();
                 return false;
             }
-        }
-        catch (Exception)
-        {
-            BLLCommon.ShowError(Response, 15);
-            txtDOB.Focus();
-            return false;
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    throw ex;
+        //    BLLCommon.ShowError(Response, 15);
+        //    txtDOB.Focus();
+        //    return false;
+        //}
         emp.DOB = txtDOB.Text;
+        BLLCommon.Message(Response, "DOB " + emp.DOB);
+        
         emp.Qualification = txtQualification.Text;
-        return true;
+        return false;
     }
     protected void lbtnAddNew_Click1(object sender, EventArgs e)
     {
@@ -104,7 +107,10 @@ public partial class manager_employeemanager : System.Web.UI.Page
     }
     protected void btnNewEmp_Click(object sender, EventArgs e)
     {
-        setObject_Emp();
+        if (!setObject_Emp())
+        {
+            return;
+        }
         if (txtEmpID.Text=="")
         {
             int i = emp.New();

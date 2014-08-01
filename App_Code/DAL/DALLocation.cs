@@ -34,8 +34,9 @@ public class DALLocation:ConnectionString
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            //throw ex;
             return -1;
         }
     }
@@ -122,10 +123,10 @@ public class DALLocation:ConnectionString
             con.Open();
             cmd.Connection = con;
             SqlDataReader rdr = cmd.ExecuteReader();
-
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
@@ -136,6 +137,10 @@ public class DALLocation:ConnectionString
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

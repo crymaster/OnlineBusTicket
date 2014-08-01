@@ -68,20 +68,27 @@ public partial class manager_locationmaanger : System.Web.UI.Page
    
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
+        txtLocationID.Text = "";
         lbMode.Text = "Add Location";
+        txtName.Text = "";
         //lblInformation.Visible = false;
         pInsert.Visible = true;
         
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
+        
         if (!setobj_Location())
         {
             return;
         }
+        
         if (txtLocationID.Text=="")
         {
             int i = location.Add();
+            //Response.Write(txtLocationID.Text + " - " + location.LocationID);
+            //Response.Write(txtName.Text + " - " + location.Name);
+            //Response.Write(i);
             if (i != -1)
             {
                 //lblInformation.Visible = true;

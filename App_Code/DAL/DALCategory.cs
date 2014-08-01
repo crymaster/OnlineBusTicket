@@ -85,7 +85,14 @@ public class DALCategory
         cmd.CommandType = CommandType.StoredProcedure;
 
         cmd.Parameters.Add("@Cat_ID", cat.Cat_ID);
-        cmd.Parameters.Add("@Type", cat.Type);
+        if (cat.Type == null)
+        {
+            cmd.Parameters.Add("@Type", "");
+        }
+        else
+        {
+            cmd.Parameters.Add("@Type", cat.Type);
+        }
       
 
         cmd.Connection = con;
@@ -124,6 +131,7 @@ public class DALCategory
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
@@ -134,6 +142,10 @@ public class DALCategory
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

@@ -51,7 +51,7 @@
     </td>
     <td>
     <asp:DropDownList ID="ddlDestinationSearch" runat="server"   
-            Width="145px" CssClass="search-input form-control" >
+            Width="145px" CssClass="search-input form-control"  >
         </asp:DropDownList>
     </td>
     
@@ -92,38 +92,18 @@
             onclick="lbtnAddNew_Click">New Route Bus</asp:LinkButton>
     </div>
     </div>
-    <div><%--<asp:Label ID="lblInformation" runat="server" ForeColor="Red" Visible="False" 
-            Font-Bold="True" Font-Size="15px"></asp:Label>--%>
+    <div><%--  <asp:ImageButton ID="ibtnEditBus" runat="server" 
+                            CommandArgument='<%# Eval("RBID") %>' CommandName="Select" ToolTip="Edit Route Bus"
+                            ImageUrl="img/edit-icon.gif" Height="16px" />
+                        <asp:ImageButton ID="ibtnDeleteBus" runat="server" CommandArgument='<%# Eval("RBID") %>' CommandName="Delete" ToolTip="Delete Route Bus"
+                            ImageUrl="img/hr.gif" />--%>
         <asp:HiddenField ID="hf" runat="server" Value="0" />
     </div>
-    <asp:Panel ID="pInsert" runat="server" Visible="False">
-        <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
-        <table class="listing form" cellpadding="0" cellspacing="0">
-          <tr>
-            <th class="full" colspan="2">
-                <asp:Label ID="lbMode" runat="server" Text="Label"></asp:Label></th>
-          </tr>
-          <tr>
-            <td class="first" width="172" style="height: 21px"><strong>Bus Name</strong></td>
-            <td class="last" style="height: 21px">
-                <asp:DropDownList ID="ddlBus" runat="server" 
-                    DataSourceID="SqlBus" DataTextField="Name" DataValueField="BusID" CssClass="data-input form-control" 
-                    >
-                </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlBus" runat="server" 
+    <asp:SqlDataSource ID="SqlBus" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
                     SelectCommand="SELECT [BusID], [Name] FROM [Bus] ORDER BY [Name]">
                 </asp:SqlDataSource>
-              </td>
-          </tr>
-          <tr class="bg">
-            <td class="first"><strong>Route</strong></td>
-            <td class="last">
-                <asp:DropDownList ID="ddlRoute" runat="server" 
-                    DataSourceID="SqlRoute" DataTextField="RouteName" DataValueField="RouteID" CssClass="data-input form-control" 
-                    >
-                </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlRoute" runat="server" 
+    <asp:SqlDataSource ID="SqlRoute" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
                     SelectCommand="SELECT Routes.RouteID, (Select Name FROM Locations WHERE Locations.LocationID=Routes.StartingPlace) AS StartingName, 
 			(Select Name FROM Locations WHERE Locations.LocationID=Routes.Destination) AS DestinationName,
@@ -131,6 +111,38 @@
 				FROM [OnlineBusTicket].[dbo].[Routes]
 			inner join Locations ON Routes.StartingPlace=Locations.LocationID">
                 </asp:SqlDataSource>
+    <asp:Panel ID="pInsert" runat="server" Visible="False"  >
+        <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
+        <table class="listing form" cellpadding="0" cellspacing="0">
+          <tr>
+            <th class="full" colspan="2">
+                <asp:Label ID="lbMode" runat="server" Text="Label"></asp:Label></th>
+          </tr>
+          <tr>
+            <td class="first" width="172" style="height: 21px"><strong>Route Bus ID</strong></td>
+            <td class="last" style="height: 21px">
+                <asp:TextBox ID="txtRBID" runat="server" Enabled="false" ></asp:TextBox>
+              </td>
+          </tr>
+          <tr>
+            <td class="first" width="172" style="height: 21px"><strong>Bus Name</strong></td>
+            <td class="last" style="height: 21px">
+                <asp:DropDownList ID="ddlBus" runat="server" 
+                    CssClass="data-input form-control" onselectedindexchanged="ddlBus_SelectedIndexChanged" 
+                    AutoPostBack="true" >
+                </asp:DropDownList>
+                
+              </td>
+          </tr>
+          <tr class="bg">
+            <td class="first"><strong>Route</strong></td>
+            <td class="last">
+                <asp:DropDownList ID="ddlRoute" runat="server" 
+                    
+                    CssClass="data-input form-control" onselectedindexchanged="ddlRoute_SelectedIndexChanged" 
+                    AutoPostBack="true" >
+                </asp:DropDownList>
+                
               </td>
           </tr>
           <tr class="bg">
@@ -154,7 +166,7 @@
           <tr class="bg">
             <td class="first"><strong>Price</strong></td>
             <td class="last">
-                <asp:Label ID="lbPrice" runat="server" Text=""></asp:Label>
+                <asp:TextBox ID="txtPrice" runat="server" CssClass="data-input form-control"></asp:TextBox>
               </td>
           </tr>
           <tr class="bg">
@@ -168,15 +180,14 @@
                         ValidationGroup="Insert" onclick="btnAddRouteBus_Click" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="btnCloseAddRouteBus" runat="server" CssClass="btn btn-info" 
-                    Text="Close" Font-Bold="True"/></td>
+                    Text="Close" Font-Bold="True" onclick="btnCloseAddRouteBus_Click1"/></td>
           </tr>
         </table>
         
     </div>
     </asp:Panel>
     <div class="table">
-     <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
-        <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="table" 
+     <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" /><asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="table" 
             DataKeyNames="RBID" AutoGenerateColumns="False" 
             AllowPaging="True" 
             onrowdeleting="GridView1_RowDeleting" 
@@ -227,7 +238,7 @@
             <EditRowStyle BackColor="#999999" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         </asp:GridView>
-    </div>
+    &nbsp;</div>
   <%--  <div class="select-bar">
         <strong>Route</strong>
         </div>
