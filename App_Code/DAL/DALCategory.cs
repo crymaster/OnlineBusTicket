@@ -98,5 +98,44 @@ public class DALCategory
 
         return ds;
     }
+    public bool CheckDupType(BLLCategory cat)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = "SELECT COUNT(*) as total FROM Categories WHERE ";
+            if (cat.Cat_ID ==0)
+            {
+                CommanText += "Type = @Type";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Type", cat.Type);
+            }
+            else
+            {
+                CommanText += "Type = @Type AND Cat_ID != @Cat_ID";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Type", cat.Type);
+                cmd.Parameters.Add("@Cat_ID", cat.Cat_ID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 
 }

@@ -78,10 +78,11 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         rb.BusID = ddlBus.SelectedValue.ToString();
         rb.RouteID = ddlRoute.SelectedValue.ToString();
+        rb.DateStart = txtDateStart.Text;
         try
         {
             DateTime dt = Convert.ToDateTime(txtDateStart.Text);
-            if (DateTime.Compare(dt, new DateTime()) >0 )
+            if (DateTime.Compare(dt, new DateTime()) < 0 )
             {
                 // Check datetime must be after today
                 BLLCommon.ShowError(Response, 6);
@@ -94,7 +95,12 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             BLLCommon.ShowError(Response, 5);
             return false;
         }
-        rb.DateStart = txtDateStart.Text;
+        if (rb.CheckDupRouteBus())
+        {
+            BLLCommon.ShowError(Response, 18);
+            return false;
+        }
+        
         return true;
     }
     protected void btnAddRouteBus_Click(object sender, EventArgs e)

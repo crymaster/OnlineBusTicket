@@ -61,7 +61,7 @@ public class BLLCommon
         }
         else if (error == 10)
         {
-            Message(response, "Rate is too must");
+            Message(response, "Rate is too large");
         }
         else if (error == 11)
         {
@@ -86,6 +86,30 @@ public class BLLCommon
         else if (error == 16)
         {
             Message(response, "Are you sure about Date of birth ! She/He isn't borned now");
+        }
+        else if (error == 17)
+        {
+            Message(response, "This route is exist ! Please chose other route !");
+        }
+        else if (error == 18)
+        {
+            Message(response, "How to a bus can run in both two route concurrently ! Please choose again !");
+        }
+        else if (error == 19)
+        {
+            Message(response, "This name is exist ! Please chose other name !");
+        }
+        else if (error == 20)
+        {
+            Message(response, "This email is exist ! Please chose other email !");
+        }
+        else if (error == 21)
+        {
+            Message(response, "This type is exist ! Please chose other type !");
+        }
+        else if (error == 22)
+        {
+            Message(response, "This number plate is exist ! Please chose other number plate !");
         }
         else
         {

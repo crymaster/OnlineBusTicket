@@ -41,6 +41,11 @@ public partial class manager_categorymanager : System.Web.UI.Page
             category.Cat_ID = Cat_ID;
         }
         category.Type = txtName.Text;
+        if (category.CheckDupType())
+        {
+            BLLCommon.ShowError(Response, 21);
+            return false;
+        }
         try
         {
             category.Rate = float.Parse(txtRate.Text);

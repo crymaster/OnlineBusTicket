@@ -107,4 +107,46 @@ public class DALRouters:ConnectionString
             return -1;
         }
     }
+    public bool CheckDupStartDes(BLLRouters route)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = " SELECT COUNT(*) FROM Routes "
+			+ " WHERE Routes.StartingPlace=@StartingPlace "
+            + " AND Routes.Destination=@Destination ";
+            if (route.RouterID == null || route.RouterID == "" || route.RouterID == "0")
+            {
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@StartingPlace", route.StartingPlace);
+                cmd.Parameters.Add("@Destination", route.Destination);
+            }
+            else
+            {
+                CommanText += " AND Routes.RouteID != @RouteID ";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@RouteID", route.RouterID);
+                cmd.Parameters.Add("@StartingPlace", route.StartingPlace);
+                cmd.Parameters.Add("@Destination", route.Destination);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 }

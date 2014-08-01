@@ -56,5 +56,9 @@ public class BLLLocation : ConnectionString
     {
         return dalLocation.Get(this);
     }
+    public bool CheckDupName()
+    {
+        return dalLocation.CheckDupName(this);
+    }
    
 }

@@ -108,4 +108,8 @@ public class BLLEmployee : ConnectionString
     {
         return dalObj.CheckLogin(email, pass);
     }
+    public bool CheckDupEmail()
+    {
+        return dalObj.CheckDupEmail(this);
+    }
 }

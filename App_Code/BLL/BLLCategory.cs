@@ -58,4 +58,8 @@ public class BLLCategory:ConnectionString
     {
         return dalCat.Get(this);
     }
+    public bool CheckDupType()
+    {
+        return dalCat.CheckDupType(this);
+    }
 }

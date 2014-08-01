@@ -38,9 +38,8 @@ public class DALBus:ConnectionString
             con.Close();
             return i;
         }
-        catch (Exception ex) 
+        catch (Exception) 
         {
-            throw new DataException(ex.Message);
             return -1;
         }
     }
@@ -161,5 +160,44 @@ public class DALBus:ConnectionString
         da.Fill(ds, "Bus");
 
         return ds;
+    }
+    public bool CheckDupNumPlate(BLLBus bus)
+    {
+        try
+        {
+            SqlCommand cmd=null;
+            string CommanText = "SELECT COUNT(*) as total FROM BUS WHERE ";
+            if (bus.BusID == "" || bus.BusID == null || bus.BusID == "0")
+            {
+                CommanText += "NumberPlate = @NumberPlate";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@NumberPLate", bus.NumberPlate);
+            }
+            else
+            {
+                CommanText += "NumberPlate = @NumberPlate AND BusID != @BusID";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@NumberPLate", bus.NumberPlate);
+                cmd.Parameters.Add("@BusID", bus.BusID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+            
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+               return false;   
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
     }
 }

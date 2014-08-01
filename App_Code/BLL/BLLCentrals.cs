@@ -73,4 +73,8 @@ public class BLLCentrals:ConnectionString
     {
         return dalCent.Delete(this);
     }
+    public bool CheckDupName()
+    {
+        return dalCent.CheckDupName(this);
+    }
 }

@@ -94,4 +94,8 @@ public class BLLBus:ConnectionString
     {
         return dalBus.Get(this);
     }
+    public bool CheckDupNumberPlate()
+    {
+        return dalBus.CheckDupNumPlate(this);
+    }
 }

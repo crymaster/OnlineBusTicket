@@ -85,4 +85,8 @@ public class BLLRouteBus:ConnectionString
     {
         return dalRouteBus.Search(this, BusName, start, des, DateAbove, DateBelow);
     }
+    public bool CheckDupRouteBus()
+    {
+        return dalRouteBus.CheckDupRouteBus(this);
+    }
 }

@@ -181,4 +181,43 @@ public class DALEmployee
     {
         return password;
     }
+    public bool CheckDupEmail(BLLEmployee emp)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = "SELECT COUNT(*) as total FROM Employees WHERE ";
+            if (emp.EmpID == null || emp.EmpID=="" || emp.EmpID=="0")
+            {
+                CommanText += "Email = @Email";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Email", emp.Name);
+            }
+            else
+            {
+                CommanText += "Email = @Email AND EmpID != @EmpID";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Email", emp.Email);
+                cmd.Parameters.Add("@EmpID", emp.EmpID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 }

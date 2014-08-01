@@ -378,6 +378,11 @@ public partial class manager_busmanager : System.Web.UI.Page
                 return false;
             }
             bus_BLL.NumberPlate = txtNumberPlate.Text.ToString();
+            if (bus_BLL.CheckDupNumberPlate())
+            {
+                BLLCommon.ShowError(Response, 22);
+                return false;
+            }
             bus_BLL.StationID = Convert.ToInt32(ddlStationID.SelectedValue.ToString());
             bus_BLL.Cat_ID = Convert.ToInt32(ddlCatelogies.SelectedValue.ToString());
         }

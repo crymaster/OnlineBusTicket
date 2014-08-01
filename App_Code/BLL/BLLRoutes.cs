@@ -79,4 +79,8 @@ public class BLLRouters : ConnectionString
     {
         return dalRouters.Get(this);
     }
+    public bool CheckDupStartDes()
+    {
+        return dalRouters.CheckDupStartDes(this);
+    }
 }

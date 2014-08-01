@@ -26,19 +26,25 @@ public partial class manager_locationmaanger : System.Web.UI.Page
             GetGridView();
         }
     }
-    private void setobj_Location()
+    private bool setobj_Location()
     {
         if (location == null)
         {
             location = new BLLLocation();
         }
-        int locationID = -1;
+        int locationID = 0;
         try
         {
             location.LocationID = int.Parse(txtLocationID.Text);
         }
         catch (Exception) { }
         location.Name = txtName.Text;
+        if (location.CheckDupName())
+        {
+            BLLCommon.ShowError(Response, 19);
+            return false;
+        }
+        return true;
     }
     private void GetGridView()
     {
@@ -69,7 +75,10 @@ public partial class manager_locationmaanger : System.Web.UI.Page
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
-        setobj_Location();
+        if (!setobj_Location())
+        {
+            return;
+        }
         if (txtLocationID.Text=="")
         {
             int i = location.Add();
@@ -97,6 +106,7 @@ public partial class manager_locationmaanger : System.Web.UI.Page
                 //lblInformation.Visible = true;
                 //lblInformation.Text = "Update to complete";
                 BLLCommon.ShowResult(Response, "Update Location", 1);
+                GetGridView();
             }
             else
             {
@@ -142,6 +152,7 @@ public partial class manager_locationmaanger : System.Web.UI.Page
             //lblInformation.Visible = true;
             //lblInformation.Text = "Delete Location to complete!";
             BLLCommon.ShowResult(Response, "Delete Location", 1);
+            GetGridView();
             if (!IsPostBack == false)
             {
                 hfSearchKey.Value = "0";

@@ -61,6 +61,11 @@ public partial class manager_employeemanager : System.Web.UI.Page
 
         emp.Name = txtName.Text;
         emp.Email = txtEmail.Text;
+        if (emp.CheckDupEmail())
+        {
+            BLLCommon.ShowError(Response, 20);
+            return false;
+        }
         emp.Address = txtAddress.Text;
         emp.Phone = txtPhone.Text;
         try

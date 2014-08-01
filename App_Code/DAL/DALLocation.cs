@@ -100,4 +100,43 @@ public class DALLocation:ConnectionString
             return -1;
         }
     }
+    public bool CheckDupName(BLLLocation local)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = "SELECT COUNT(*) as total FROM Locations WHERE ";
+            if (local.LocationID == 0)
+            {
+                CommanText += "Name = @Name";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Name", local.Name);
+            }
+            else
+            {
+                CommanText += "Name = @Name AND LocationID != @LocationID";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Name", local.Name);
+                cmd.Parameters.Add("@LocationID", local.LocationID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 }

@@ -60,6 +60,10 @@ public partial class manager_routemanager : System.Web.UI.Page
             BLLCommon.ShowError(Response, 7);
             return false;
         }
+        if(routes.CheckDupStartDes()){
+            BLLCommon.ShowError(Response, 17);
+            return false;
+        }
         try
         {
             routes.Distance = Convert.ToInt32(txtDistance.Text);

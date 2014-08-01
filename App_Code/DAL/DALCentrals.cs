@@ -108,4 +108,43 @@ public class DALCentrals:ConnectionString
             return -1;
         }
     }
+    public bool CheckDupName(BLLCentrals cent)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = "SELECT COUNT(*) as total FROM Centrals WHERE ";
+            if (cent.CentralID == 0)
+            {
+                CommanText += "Cent_Name = @Cent_Name";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Cent_Name", cent.Cent_Name);
+            }
+            else
+            {
+                CommanText += "Cent_Name = @Cent_Name AND CentralID != @CentralID";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@Cent_Name", cent.Cent_Name);
+                cmd.Parameters.Add("@CentralID", cent.CentralID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 }

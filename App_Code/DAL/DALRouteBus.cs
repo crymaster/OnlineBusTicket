@@ -144,4 +144,49 @@ public class DALRouteBus:ConnectionString
 
         return ds;
     }
+    public bool CheckDupRouteBus(BLLRouteBus rb)
+    {
+        try
+        {
+            SqlCommand cmd = null;
+            string CommanText = " SELECT COUNT(*) FROM RouteBus "
+            + " WHERE RouteID=@RouteID "
+            + " AND BusID=@BusID "
+            +" AND DateStart=@DateStart ";
+            if (rb.RBID == 0)
+            {
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@RouteID", rb.RouteID);
+                cmd.Parameters.Add("@BusID", rb.BusID);
+                cmd.Parameters.Add("@DateStart", rb.DateStart);
+            }
+            else
+            {
+                CommanText += " AND RBID != @RBID ";
+                cmd = new SqlCommand(CommanText);
+                cmd.Parameters.Add("@RouteID", rb.RouteID);
+                cmd.Parameters.Add("@BusID", rb.BusID);
+                cmd.Parameters.Add("@DateStart", rb.DateStart);
+                cmd.Parameters.Add("@RBID", rb.RBID);
+            }
+            con.Open();
+            cmd.Connection = con;
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                int total = rdr.GetInt32(0);
+                if (total > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+        return false;
+    }
 }

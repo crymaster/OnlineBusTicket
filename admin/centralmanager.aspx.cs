@@ -26,20 +26,29 @@ public partial class manager_centralmanager : System.Web.UI.Page
             GetGridView();
         }
     }
-    private void setObj_Central()
+    private bool setObj_Central()
     {
         if (centrals == null)
         {
             centrals = new BLLCentrals();
         }
         centrals.Cent_Name = txtCent_Name.Text;
+        if (centrals.CheckDupName())
+        {
+            BLLCommon.ShowError(Response, 19);
+            return false;
+        }
         centrals.Address = txtAddress.Text;
         centrals.Director = txtDirector.Text;
         centrals.Phone = txtPhone.Text;
+        return true;
     }
     protected void btnAddBus_Click(object sender, EventArgs e)
     {
-        setObj_Central();
+        if (!setObj_Central())
+        {
+            return;
+        }
         if (txtCentralID.Enabled)
         {
             int i = centrals.Add();
