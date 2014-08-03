@@ -110,10 +110,11 @@
 }
 
 
+
 /***************************Style Home******************************/
 #list-bus-view
 {
-    
+    clear: both;
 }
 #list-bus-view .list-view-bus
 {
@@ -209,8 +210,45 @@ input:not(.button), select
 /*********************************End style Home page**************************************/
 
 /*********************************Bus tour**************************************/
-.list-search-tour
+.view-list
 {
-    
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("image_style/highway1.png");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: auto auto;  
+    display: inline-block;
+    margin-bottom: 30px;
+    -webkit-box-shadow: -1px -1px 8px 3px rgba(19, 86, 23, 0.75);
+    -moz-box-shadow:    -1px -1px 8px 3px rgba(19, 86, 23, 0.75);
+    box-shadow:         -1px -1px 8px 3px rgba(19, 86, 23, 0.75);
+    padding: 20px 30px;
+}
+.view-list .view-list-item
+{
+    float: left;
+    display: block;
+    color: #0d9f29;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.view-list .view-list-search-item
+{
+    clear: both;   
+}
+.view-list .view-list-search-item input
+{    
+    background: #a0c73f;
+    border: 1px dashed #fff;
+    color: #fff;
+    margin-left: 0;
+    padding: 5px 10px;
+}
+.view-list .view-list-search-item input:hover
+{
+    background: #1a9932;
 }
 /*********************************End Bus tour**************************************/

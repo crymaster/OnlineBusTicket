@@ -1,13 +1,16 @@
 ﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" Title="Untitled Page" %>
-
-<form runat="server">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/login-form.css" media="screen" />
+</head>
+<body>
+<form runat="server" class="form-login">
 
 
     <div>
-        
-        <br />
-        <br />
-        <table style="width:100%;">
+        <h1 class="login-title">Login</h1>
+        <table class="table-login">
             <tr>
                 <td class="style1">
                     <asp:Label ID="Label1" runat="server" Text="Email"></asp:Label>
@@ -37,3 +40,5 @@
         
     </div>
 </form>
+</body>
+</html>
