@@ -132,7 +132,8 @@
                         <asp:LinkButton ID="LinkButton1" runat="server" 
                         CommandArgument='<%# Eval("CentralID") %>' 
                         CommandName="Delete" ToolTip="Delete Central"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                        OnClientClick="return confirm('Deleting Central will delete all Bus have this Central. Are you sure delete this Central ?')" >
                         <span class="glyphicon glyphicon-remove"></span>
                         </asp:LinkButton>
                         

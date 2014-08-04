@@ -111,7 +111,7 @@
                     DataValueField="CentralID"></asp:DropDownList>
                 <asp:SqlDataSource ID="SqlCentral" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-                    SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] ORDER BY [Cent_Name]">
+                    SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] WHERE Deactived='N' ORDER BY [Cent_Name]">
                 </asp:SqlDataSource>
               </td>
           </tr>
@@ -122,7 +122,7 @@
                     DataValueField="Cat_ID"></asp:DropDownList>
                 <asp:SqlDataSource ID="SqlCategories" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-                    SelectCommand="SELECT [Cat_ID], [Type] FROM [Categories] ORDER BY [Type]">
+                    SelectCommand="SELECT [Cat_ID], [Type] FROM [Categories] WHERE Deactived='N' ORDER BY [Type]">
                 </asp:SqlDataSource>
               </td>
           </tr>
@@ -170,7 +170,8 @@
                         <asp:LinkButton ID="LinkButton1" runat="server" 
                         CommandArgument='<%# Eval("BusID") %>' 
                         CommandName="Delete" ToolTip="Delete Bus"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                        OnClientClick="return confirm('Deleting Bus will delete all RouteBus have this Bus. Are you sure delete this Bus ?')" >
                         <span class="glyphicon glyphicon-remove"></span>
                         </asp:LinkButton>
                         

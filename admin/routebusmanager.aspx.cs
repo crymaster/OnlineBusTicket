@@ -311,7 +311,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         //Response.Write("ID: " + bus.BusID);
         //return;
         DataSet dsBus = bus.getByID();      
-        int catID = int.Parse(dsBus.Tables[0].Rows[0]["StationID"].ToString());
+        int catID = int.Parse(dsBus.Tables[0].Rows[0]["Cat_ID"].ToString());
 
         lbSeat.Text = dsBus.Tables[0].Rows[0]["NumSeat"].ToString();
 

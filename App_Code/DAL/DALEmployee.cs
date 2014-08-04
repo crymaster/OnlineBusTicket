@@ -115,7 +115,7 @@ public class DALEmployee
             cmd.Parameters.Add("@EmpId", 0);
         else
             cmd.Parameters.Add("@EmpId", emp.EmpID);
-        if (emp.EmpID == null)
+        if (emp.Name == null)
             cmd.Parameters.Add("@Name", "");
         else 
             cmd.Parameters.Add("@Name", emp.Name);

@@ -32,7 +32,7 @@
         <asp:HiddenField ID="hfSearchKey" runat="server" Value="0" />
       <asp:SqlDataSource ID="SqlLocation" runat="server" 
             ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-            SelectCommand="SELECT LocationID, Name FROM Locations">
+            SelectCommand="SELECT LocationID, Name FROM Locations WHERE Deactived='N'">
         </asp:SqlDataSource>
         
     </div>
@@ -137,13 +137,15 @@
                              <asp:LinkButton ID="Button1" runat="server" 
                         CommandArgument='<%# Eval("RouteID") %>' 
                         CommandName="Select" ToolTip="Edit Route"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                         >
                         <span class=" glyphicon glyphicon-pencil"></span>
                         </asp:LinkButton>
                         <asp:LinkButton ID="LinkButton1" runat="server" 
                         CommandArgument='<%# Eval("RouteID") %>' 
                         CommandName="Delete" ToolTip="Delete Route"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                        OnClientClick="return confirm('Deleting Route will delete all RouteBus have this Route. Are you sure delete this Route ?')" >
                         <span class="glyphicon glyphicon-remove"></span>
                         </asp:LinkButton>
                     </ItemTemplate>

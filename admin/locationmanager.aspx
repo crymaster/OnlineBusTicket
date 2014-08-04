@@ -97,7 +97,8 @@
                                 </asp:LinkButton>
                                 <asp:LinkButton ID="LinkButton1" runat="server" 
                                     CommandArgument='<%# Eval("LocationID") %>' CommandName="Delete" 
-                                    CssClass="btn btn-default btn-lg" ToolTip="Delete Location">
+                                    CssClass="btn btn-default btn-lg" ToolTip="Delete Location"
+                                    OnClientClick="return confirm('Deleting Location will delete all Route have this Location. Are you sure delete this Location ?')" >
                                 <span class="glyphicon glyphicon-remove"></span>
                                 </asp:LinkButton>
                             </ItemTemplate>

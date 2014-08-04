@@ -42,7 +42,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
             ds = new DataSet();
         }
         emp.EmpID = "";
-        ds = emp.GetById();
+        ds = emp.Search();
         if (ds.Tables[0].Rows.Count > 0)
         {
             GridView1.DataSource = ds;
@@ -90,7 +90,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         BLLCommon.Message(Response, "DOB " + emp.DOB);
         
         emp.Qualification = txtQualification.Text;
-        return false;
+        return true;
     }
     protected void lbtnAddNew_Click1(object sender, EventArgs e)
     {
@@ -157,7 +157,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
    
     private void GridView_Select()
     {
-        btnDeleteEmp.Visible = true;
+        //btnDeleteEmp.Visible = true;
         pInsert.Visible = true;
         //txtEmpID.Enabled = false;
         emp.EmpID = GridView1.SelectedValue.ToString();
@@ -254,7 +254,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
             {
                 SearchEmp();
             }
-            btnDeleteEmp.Visible = false;
+            //btnDeleteEmp.Visible = false;
             pInsert.Visible = false;
         }
         else

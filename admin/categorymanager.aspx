@@ -114,7 +114,8 @@
                         <asp:LinkButton ID="LinkButton1" runat="server" 
                         CommandArgument='<%# Eval("Cat_ID") %>' 
                         CommandName="Delete" ToolTip="Delete Category"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                        OnClientClick="return confirm('Deleting Category will delete all Bus have this Category. Are you sure delete this Category ?')" >
                         <span class="glyphicon glyphicon-remove"></span>
                         </asp:LinkButton>
                         

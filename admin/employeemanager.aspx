@@ -77,7 +77,7 @@
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlStation" runat="server" 
                             ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-                            SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] ORDER BY [Cent_Name]">
+                            SelectCommand="SELECT [CentralID], [Cent_Name] FROM [Centrals] WHERE Deactived='N' ORDER BY [Cent_Name]">
                         </asp:SqlDataSource>
                     </td>
                 </tr>
@@ -170,9 +170,10 @@
                     <td class="last">
                         <asp:Button ID="btnNewEmp" runat="server" CssClass="btn btn-primary" Font-Bold="True" 
                             onclick="btnNewEmp_Click" Text="Save" ValidationGroup="Insert" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="btnDeleteEmp" runat="server" CssClass="btn btn-warning" 
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <%--<asp:Button ID="btnDeleteEmp" runat="server" CssClass="btn btn-warning" 
                             Font-Bold="True" onclick="btnDeleteEmp_Click" Text="Delete" 
-                            Visible="False" />
+                            Visible="False" />--%>
                         &nbsp;&nbsp;
                         <asp:Button ID="btnCloseNewEmp" runat="server" CssClass="btn btn-info" 
                             Font-Bold="True" Text="Close" onclick="btnCloseNewEmp_Click" />
@@ -191,6 +192,7 @@
             onpageindexchanging="GridView1_PageIndexChanging" 
             onsorting="GridView1_Sorting" 
             onselectedindexchanged="GridView1_SelectedIndexChanged" 
+            OnRowDeleting="btnDeleteEmp_Click"
             onrowediting="GridView1_RowEditing" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
@@ -216,7 +218,12 @@
                         CssClass="btn btn-default btn-lg">
                         <span class=" glyphicon glyphicon-pencil"></span>
                         </asp:LinkButton>
-                      
+                      <asp:LinkButton ID="LinkButton1" runat="server" 
+                                    CommandArgument='<%# Eval("EmpId") %>' CommandName="Delete" 
+                                    CssClass="btn btn-default btn-lg" ToolTip="Delete Employee"
+                                    OnClientClick="return confirm('Are you sure delete this employee ?')" >
+                                <span class="glyphicon glyphicon-remove"></span>
+                                </asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

@@ -84,7 +84,7 @@
         <asp:HiddenField ID="hfSearchKey" runat="server" Value="0" />
       <asp:SqlDataSource ID="SqlLocation" runat="server" 
             ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-            SelectCommand="SELECT LocationID, Name FROM Locations">
+            SelectCommand="SELECT LocationID, Name FROM Locations WHERE Deactived='N'">
         </asp:SqlDataSource>
         <div class="action">
     <asp:LinkButton ID="LinkButton2" runat="server"
@@ -101,15 +101,14 @@
     </div>
     <asp:SqlDataSource ID="SqlBus" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
-                    SelectCommand="SELECT [BusID], [Name] FROM [Bus] ORDER BY [Name]">
-                </asp:SqlDataSource>
+                    SelectCommand="SELECT [BusID], [Name] FROM [Bus] WHERE Deactived='N' ORDER BY [Name] ">                </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlRoute" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:OnlineBusTicketConnectionString %>" 
                     SelectCommand="SELECT Routes.RouteID, (Select Name FROM Locations WHERE Locations.LocationID=Routes.StartingPlace) AS StartingName, 
 			(Select Name FROM Locations WHERE Locations.LocationID=Routes.Destination) AS DestinationName,
 			 Routes.Distance, ((Select Name FROM Locations WHERE Locations.LocationID=Routes.StartingPlace) + ' - ' + (Select Name FROM Locations WHERE Locations.LocationID=Routes.Destination) ) as RouteName
 				FROM [OnlineBusTicket].[dbo].[Routes]
-			inner join Locations ON Routes.StartingPlace=Locations.LocationID">
+			inner join Locations ON Routes.StartingPlace=Locations.LocationID WHERE Routes.Deactived='N' ">
                 </asp:SqlDataSource>
     <asp:Panel ID="pInsert" runat="server" Visible="False"  >
         <div class="table" dir="ltr"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
@@ -225,7 +224,8 @@
                         <asp:LinkButton ID="LinkButton1" runat="server" 
                         CommandArgument='<%# Eval("RBID") %>' 
                         CommandName="Delete" ToolTip="Delete Route Bus"
-                        CssClass="btn btn-default btn-lg">
+                        CssClass="btn btn-default btn-lg"
+                        OnClientClick="return confirm('Deleting RouteBus will delete all Tickets have this RouteBus. Are you sure delete this RouteBus ?')" >
                         <span class="glyphicon glyphicon-remove"></span>
                         </asp:LinkButton>
                     </ItemTemplate>
