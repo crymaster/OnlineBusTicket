@@ -238,7 +238,7 @@
     
     <td style="text-align='center'">
         <asp:Button ID="btnEdit"  CssClass="btn btn-primary" Width="50px"  
-            runat="server" Text="Edit" onclick="btnEdit_Click" Visible="False" />
+            runat="server" Text="Edit" onclick="btnEdit_Click" />
     </td>
     <td></td>
     <td></td>
