@@ -32,6 +32,15 @@ public partial class manager_centralmanager : System.Web.UI.Page
         {
             centrals = new BLLCentrals();
         }
+        try
+        {
+            centrals.CentralID = int.Parse(txtCentralID.Text);
+        }
+        catch (Exception) 
+        {
+            centrals.CentralID =0;
+        }
+
         centrals.Cent_Name = txtCent_Name.Text;
         if (centrals.CheckDupName())
         {
@@ -49,7 +58,7 @@ public partial class manager_centralmanager : System.Web.UI.Page
         {
             return;
         }
-        if (txtCentralID.Enabled)
+        if (txtCentralID.Text.Trim()=="")
         {
             int i = centrals.Add();
             if (i != -1)
@@ -159,9 +168,9 @@ public partial class manager_centralmanager : System.Web.UI.Page
         {
             //Say something
         }
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
-       
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
+
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {

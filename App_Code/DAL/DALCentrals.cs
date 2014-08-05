@@ -14,13 +14,13 @@ using System.Xml.Linq;
 /// <summary>
 /// Summary description for DALCentrals
 /// </summary>
-public class DALCentrals:ConnectionString
+public class DALCentrals : ConnectionString
 {
     private SqlConnection con = null;
     public DALCentrals(string connectionString)
-	{
+    {
         con = new SqlConnection(connectionString);
-	}
+    }
 
     public int Add(BLLCentrals cent)
     {
@@ -62,8 +62,9 @@ public class DALCentrals:ConnectionString
             con.Close();
             return i;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            throw ex;
             return -1;
         }
     }
@@ -73,7 +74,7 @@ public class DALCentrals:ConnectionString
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "GetCentral";
         cmd.Parameters.Add("@CentralID", cent.CentralID);
-        if(cent.Cent_Name !=null)
+        if (cent.Cent_Name != null)
             cmd.Parameters.Add("@Cent_Name", cent.Cent_Name);
         else
             cmd.Parameters.Add("@Cent_Name", "");
@@ -134,16 +135,22 @@ public class DALCentrals:ConnectionString
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                con.Close();
                 if (total > 0)
                 {
                     return true;
                 }
                 return false;
             }
+            con.Close();
         }
         catch (Exception)
         {
             return false;
+        }
+        finally
+        {
+            con.Close();
         }
         return false;
     }

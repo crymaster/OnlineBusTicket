@@ -192,19 +192,19 @@ public class DALEmployee
         {
             SqlCommand cmd = null;
             string CommanText = "SELECT COUNT(*) as total FROM Employees WHERE ";
-            if (emp.EmpID == null || emp.EmpID=="" || emp.EmpID=="0")
-            {
+            //if (emp.EmpID == null || emp.EmpID=="" || emp.EmpID=="0")
+            //{
                 CommanText += "Email = @Email";
                 cmd = new SqlCommand(CommanText);
-                cmd.Parameters.Add("@Email", emp.Name);
-            }
-            else
-            {
-                CommanText += "Email = @Email AND EmpID != @EmpID";
-                cmd = new SqlCommand(CommanText);
                 cmd.Parameters.Add("@Email", emp.Email);
-                cmd.Parameters.Add("@EmpID", emp.EmpID);
-            }
+            //}
+            //else
+            //{
+            //    CommanText += "Email = @Email AND EmpID != @EmpID";
+            //    cmd = new SqlCommand(CommanText);
+            //    cmd.Parameters.Add("@Email", emp.Email);
+            //    cmd.Parameters.Add("@EmpID", emp.EmpID);
+            //}
             con.Open();
             cmd.Connection = con;
             SqlDataReader rdr = cmd.ExecuteReader();
@@ -212,6 +212,7 @@ public class DALEmployee
             while (rdr.Read())
             {
                 int total = rdr.GetInt32(0);
+                System.Console.Write(total);
                 con.Close();
                 if (total > 0)
                 {
@@ -219,6 +220,7 @@ public class DALEmployee
                 }
                 return false;
             }
+            con.Close();
         }
         catch (Exception)
         {

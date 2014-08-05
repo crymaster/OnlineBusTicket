@@ -41,6 +41,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         {
             ds = new DataSet();
         }
+        emp = new BLLEmployee();
         emp.EmpID = "";
         ds = emp.Search();
         if (ds.Tables[0].Rows.Count > 0)
@@ -61,7 +62,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
 
         emp.Name = txtName.Text;
         emp.Email = txtEmail.Text;
-        if (emp.CheckDupEmail())
+        if (txtEmpID.Text =="" && emp.CheckDupEmail())
         {
             BLLCommon.ShowError(Response, 20);
             return false;
@@ -81,7 +82,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            throw ex;
+            //throw ex;
             BLLCommon.ShowError(Response, 15);
             txtDOB.Focus();
             return false;
@@ -95,6 +96,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
     {
         lbMode.Text = "Add Employee";
         pInsert.Visible = true;
+        txtEmail.Enabled = true;
         txtEmpID.Text = "";
         txtEmpID.Visible = true;
         txtName.Text = "";
@@ -152,6 +154,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
                 BLLCommon.ShowResult(Response, "Update Employee", 2);
             }
         }
+        SearchEmp();
     }
    
     private void GridView_Select()
@@ -266,6 +269,7 @@ public partial class manager_employeemanager : System.Web.UI.Page
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         lbMode.Text = "Update Employee";
+        txtEmail.Enabled = false;
         //lblInformation.Text = "";
         ResetPasswordPanel.Visible = true;
         GridView_Select();

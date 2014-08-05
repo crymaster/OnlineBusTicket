@@ -60,6 +60,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         {
             rb = new BLLRouteBus();
         }
+        
         ds = new DataSet();
         ds = rb.Get();
 
@@ -109,11 +110,11 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
         rb.BusID = ddlBus.SelectedValue.ToString();
         rb.RouteID = ddlRoute.SelectedValue.ToString();
-        rb.DateStart = txtDateStart.Text;
         try
         {
             rb.Price = float.Parse(txtPrice.Text);
-            if (rb.Price < -0)
+            Response.Write(rb.Price);
+            if (rb.Price <= 0)
             {
                 BLLCommon.ShowError(Response, 26);
                 return false;
@@ -129,6 +130,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         try
         {
             DateTime dt = Convert.ToDateTime(txtDateStart.Text);
+            rb.DateStart = dt.ToString();
             //Response.Write(dt);
             //Response.Write(DateTime.Now);
             //Response.Write(DateTime.Compare(dt, DateTime.Now));
@@ -202,6 +204,8 @@ public partial class manager_routebusmanager : System.Web.UI.Page
                 BLLCommon.ShowResult(Response, "Update Route Bus", 2);
             }
         }
+        rb = new BLLRouteBus();
+        GetGridView();
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
@@ -231,6 +235,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         rb = new BLLRouteBus();
+        InitDataField();
         rb.RBID = Convert.ToInt32(GridView1.SelectedValue.ToString());
         ds = new DataSet();
         ds = rb.Get();

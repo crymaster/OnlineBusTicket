@@ -95,7 +95,8 @@
                     <td class="first">
                         <strong>Email</strong></td>
                     <td class="last">
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="search-input form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="search-input form-control" 
+                            Enabled="False"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                             ControlToValidate="txtEmail" ErrorMessage="*" ToolTip="Email is empty" 
                             ValidationGroup="Insert"></asp:RequiredFieldValidator>
@@ -184,7 +185,9 @@
       </div>
     <div class="table"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <asp:GridView ID="GridView1" runat="server" Width="100%" 
-            AutoGenerateColumns="False" CssClass="search-input " DataKeyNames="EmpId"  
+            AutoGenerateColumns="False" 
+            CssClass="search-input " 
+            DataKeyNames="EmpId"  
             CellPadding="4" ForeColor="#333333" 
             GridLines="None" AllowPaging="True" AllowSorting="True" 
             onpageindexchanging="GridView1_PageIndexChanging" 
@@ -210,7 +213,6 @@
                     SortExpression="Qualification" />
              <asp:TemplateField HeaderText="Edit">
                     <ItemTemplate>
-                       
                         <asp:LinkButton ID="Button1" runat="server" 
                         CommandArgument='<%# Eval("EmpId") %>' 
                         CommandName="Select" ToolTip="Edit Employee"
