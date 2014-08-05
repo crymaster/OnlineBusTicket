@@ -165,6 +165,13 @@
     color: #fff;
 }
 
+#list-bus-view .table
+{
+    float: left;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    width: 65%;
+}
 
 #list-customer-view
 {
@@ -250,5 +257,11 @@ input:not(.button), select
 .view-list .view-list-search-item input:hover
 {
     background: #1a9932;
+}
+
+.view-list .error span
+{
+    color: red;
+    font-size: 16px;
 }
 /*********************************End Bus tour**************************************/
