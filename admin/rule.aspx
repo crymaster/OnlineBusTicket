@@ -1,131 +1,249 @@
 ﻿<%@ Page Language="C#" MasterPageFile="MasterPage.master" AutoEventWireup="true" CodeFile="rule.aspx.cs" Inherits="rule" Title="Untitled Page" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:Panel ID="EditAgeFee" runat="server" Visible="False">
+    <asp:Panel ID="EditPanel" runat="server" Visible="False">
     <div>
-        Update Fee
+        <h2>Fee</h2>
     </div>
-    <table>
+    <table class="table">
     <tr>
     <td>
-    Type
+    Price
     </td>
     <td>
-        <asp:Label ID="lbAgeType" runat="server" Text=""></asp:Label>
+    <span>
+        <asp:TextBox ID="txtPrice" runat="server" Width="200px"  ></asp:TextBox>
+        VN&#272;/KM
+        </span>
+    </td>
+    <td>
+        
+        
     </td>
     </tr>
     <tr>
     <td>
-    Age
+        Kid 1
     </td>
     <td>
-        <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtPKid1" runat="server" Width="100px"  ></asp:TextBox>
+        %
+    </td>
+    <td>
+    Below
+        <asp:TextBox ID="txtDKid1" runat="server" Width="100px"  ></asp:TextBox>
+        ages
     </td>
     </tr>
     <tr>
     <td>
-    Fee
+        Kid 2
     </td>
     <td>
-        <asp:TextBox ID="txtFee" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtPKid2" runat="server" Width="100px"  ></asp:TextBox>
+        %
+    </td>
+    <td>
+         Below
+        <asp:TextBox ID="txtDKid2" runat="server" Width="100px"  ></asp:TextBox>
+        ages
     </td>
     </tr>
     <tr>
     <td>
-        <asp:Button ID="btnAgeSave" runat="server" Text="Save" 
-            onclick="btnAgeSave_Click" />
+    Elder
     </td>
     <td>
-        <asp:Button ID="btnCancelF" runat="server" Text="Cancel" 
-            onclick="btnCancelF_Click" />
+        <asp:TextBox ID="txtPElder" runat="server" Width="100px"  ></asp:TextBox>
+        %
     </td>
+    <td>
+        Above
+        <asp:TextBox ID="txtDElder" runat="server" Width="100px"  ></asp:TextBox>
+        ages
+    </td>
+    </tr>
+    <tr>
+    <td colspan="2">
+    <h2>Refuse</h2>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 1
+    </td>
+    <td>
+        <asp:TextBox ID="txtPCan1" runat="server" Width="100px"  ></asp:TextBox>
+        %
+    </td>
+    <td>
+    Before
+        <asp:TextBox ID="txtDCan1" runat="server" Width="100px"  ></asp:TextBox>
+        days
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 2
+    </td>
+    <td>
+        <asp:TextBox ID="txtPCan2" runat="server" Width="100px"  ></asp:TextBox>
+        %
+    </td>
+    <td>
+    Before
+        <asp:TextBox ID="txtDCan2" runat="server" Width="100px"  ></asp:TextBox>
+        days
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 3
+    </td>
+    <td>
+        <asp:TextBox ID="txtPCan3" runat="server" Width="100px"  ></asp:TextBox>
+        %
+    </td>
+    <td>
+    Before
+        <asp:TextBox ID="txtDCan3" runat="server" Width="100px"  ></asp:TextBox>
+        days
+    </td>
+    </tr>
+    <tr>
+    <td></td>
+    <td style="text-align='center'">
+        <asp:Button ID="btnSave"  CssClass="btn btn-primary"  runat="server" 
+            Text="Save" onclick="btnSave_Click" />
+    <asp:Button ID="btnClose"  CssClass="btn btn-info"  runat="server" Text="Close" 
+            onclick="btnClose_Click" />
+    </td>
+    <td></td>
     </tr>
     </table>
     </asp:Panel>
-     <asp:Panel ID="EditRefusePN" runat="server" Visible="False">
-    <div>
-    Update Refuse
-    </div>
-    <table>
-    <tr>
-    <td>
-    Day
-    </td>
-    <td>
-        <asp:TextBox ID="txtRefuseDay" runat="server"></asp:TextBox>
-    </td>
-    </tr>
-    <tr>
-    <td>
-    Refuse
-    </td>
-    <td>
-        <asp:TextBox ID="txtRefuse" runat="server"></asp:TextBox>
-    </td>
-    </tr>
-    <tr>
-    <td>
-        <asp:Button ID="btnUpdateRefuse" runat="server" Text="Save" 
-            onclick="btnUpdateRefuse_Click" />
-    </td>
-    <td>
-        <asp:Button ID="btnCancelR" runat="server" Text="Cancel" 
-            onclick="btnCancelR_Click" />
-    </td>
-    </tr>
-    </table>
-    </asp:Panel>
-     <asp:Panel ID="ViewPN" runat="server">
-    <div>
-    <div>
-    Fee
-    </div>
-        <asp:GridView ID="FeeGV" runat="server" AutoGenerateColumns="False" 
-        Width="100%"
-            DataKeyNames="Type" onselectedindexchanged="FeeGV_SelectedIndexChanged">
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#FF0066" ForeColor="White" />
-            <Columns>
-                <asp:BoundField DataField="Type" HeaderText="Type" ReadOnly="true" />
-                <asp:BoundField DataField="Age" HeaderText="Age" />
-                <asp:BoundField DataField="Fee" HeaderText="Fee" />
-                  <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ibtnEditBus" runat="server" 
-                            CommandArgument='<%# Eval("Type") %>' CommandName="Select" ToolTip="Edit Age Fee"
-                            ImageUrl="img/edit-icon.gif" Height="16px" />
-                       
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#999999" />
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-        </asp:GridView>
-    </div>
     
+    
+    
+     <asp:Panel ID="ViewPanel" runat="server" Visible="True">
     <div>
-    <div>Refuse</div>
-        <asp:GridView ID="RefuseGV" runat="server" AutoGenerateColumns="False" 
-            DataKeyNames="Day" 
-            onselectedindexchanged="RefuseGV_SelectedIndexChanged" Width="100%">
-            <Columns>
-                <asp:BoundField DataField="Day" HeaderText="Day" />
-                <asp:BoundField DataField="Refuse" HeaderText="Refuse" />
-                <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ibtnEditBus" runat="server" 
-                            CommandArgument='<%# Eval("Day") %>' CommandName="Select" Height="16px" 
-                            ImageUrl="img/edit-icon.gif" ToolTip="Edit Refuse" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
+        <h2>Fee</h2>
     </div>
-    </asp:Panel>
+    <table class="table">
+    <tr>
+    <td>
+    Price
+    </td>
+    <td>
+    <span>
+        <asp:Label ID="lbPrice" runat="server" Text="0"></asp:Label>
+        VN&#272;/KM
+        </span>
+    </td>
+    <td>
+        
+        
+    </td>
+    </tr>
+    <tr>
+    <td>
+        Kid 1
+    </td>
+    <td>
+        <asp:Label ID="lbPKid1" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+    Below
+        <asp:Label ID="lbDKid1" runat="server" Text="0"></asp:Label>
+        ages
+    </td>
+    </tr>
+    <tr>
+    <td>
+        Kid 2
+    </td>
+    <td>
+        <asp:Label ID="lbPKid2" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+         Below
+        <asp:Label ID="lbDKid2" runat="server" Text="0"></asp:Label>
+        ages
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Elder
+    </td>
+    <td>
+        <asp:Label ID="lbPElder" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+        Above
+        <asp:Label ID="lbDElder" runat="server" Text="0"></asp:Label>
+        ages
+    </td>
+    </tr>
+    <tr>
+    <td colspan="2">
+    <h2>Refuse</h2>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 1
+    </td>
+    <td>
+        <asp:Label ID="lbPCan1" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+    Before
+        <asp:Label ID="lbDCan1" runat="server" Text="0"></asp:Label>
+        days
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 2
+    </td>
+    <td>
+        <asp:Label ID="lbPCan2" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+    Before
+        <asp:Label ID="lbDCan2" runat="server" Text="0"></asp:Label>
+        days
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Cancel 3
+    </td>
+    <td>
+        <asp:Label ID="lbPCan3" runat="server" Text="0"></asp:Label>
+        %
+    </td>
+    <td>
+    Before
+        <asp:Label ID="lbDCan3" runat="server" Text="0"></asp:Label>
+        days
+    </td>
+    </tr>
+    <tr>
+    
+    <td style="text-align='center'">
+        <asp:Button ID="btnEdit"  CssClass="btn btn-primary" Width="50px"  
+            runat="server" Text="Edit" onclick="btnEdit_Click" Visible="False" />
+    </td>
+    <td></td>
+    <td></td>
+    </tr>
+    </table>
+    </asp:Panel> 
 </asp:Content>
 

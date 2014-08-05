@@ -148,7 +148,8 @@
             AllowSorting="True" AllowPaging="True" CellPadding="4" ForeColor="#333333" 
             GridLines="None" onpageindexchanging="GridView1_PageIndexChanging" 
             onrowcancelingedit="GridView1_RowCancelingEdit" 
-            onselectedindexchanged="GridView1_SelectedIndexChanged">
+            onselectedindexchanged="GridView1_SelectedIndexChanged"
+            EmptyDataText="No Bus found" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField HeaderText="Bus ID" DataField="BusID" SortExpression="BusID">

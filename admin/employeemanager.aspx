@@ -168,13 +168,11 @@
                     <td class="first">
                     </td>
                     <td class="last">
-                        <asp:Button ID="btnNewEmp" runat="server" CssClass="btn btn-primary" Font-Bold="True" 
-                            onclick="btnNewEmp_Click" Text="Save" ValidationGroup="Insert" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <%--<asp:Button ID="btnDeleteEmp" runat="server" CssClass="btn btn-warning" 
-                            Font-Bold="True" onclick="btnDeleteEmp_Click" Text="Delete" 
-                            Visible="False" />--%>
-                        &nbsp;&nbsp;
+                        <asp:Button ID="btnNewEmp" runat="server"
+                         CssClass="btn btn-primary" Font-Bold="True" 
+                            onclick="btnNewEmp_Click" Text="Save" 
+                             />
+  
                         <asp:Button ID="btnCloseNewEmp" runat="server" CssClass="btn btn-info" 
                             Font-Bold="True" Text="Close" onclick="btnCloseNewEmp_Click" />
                     </td>
@@ -193,7 +191,8 @@
             onsorting="GridView1_Sorting" 
             onselectedindexchanged="GridView1_SelectedIndexChanged" 
             OnRowDeleting="btnDeleteEmp_Click"
-            onrowediting="GridView1_RowEditing" >
+            onrowediting="GridView1_RowEditing"
+            EmptyDataText="No Employee found" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField HeaderText="EmpId" DataField="EmpId" SortExpression="EmpId" 

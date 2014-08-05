@@ -11,6 +11,7 @@ Name
             AutoGenerateColumns="False" CssClass="listing" DataKeyNames="CustomerID" 
              AllowPaging="True" CellPadding="4" ForeColor="#333333" 
             GridLines="None" onselectedindexchanged="GridView1_SelectedIndexChanged" 
+            EmptyDataText="No Customer found" 
           >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>

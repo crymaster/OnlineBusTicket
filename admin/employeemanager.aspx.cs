@@ -68,8 +68,8 @@ public partial class manager_employeemanager : System.Web.UI.Page
         }
         emp.Address = txtAddress.Text;
         emp.Phone = txtPhone.Text;
-        //try
-        //{
+        try
+        {
             DateTime dt = Convert.ToDateTime(txtDOB.Text);
             if (DateTime.Compare(dt, DateTime.Now) > 0)
             {
@@ -78,16 +78,15 @@ public partial class manager_employeemanager : System.Web.UI.Page
                 txtDOB.Focus();
                 return false;
             }
-        //}
-        //catch (Exception ex)
-        //{
-        //    throw ex;
-        //    BLLCommon.ShowError(Response, 15);
-        //    txtDOB.Focus();
-        //    return false;
-        //}
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+            BLLCommon.ShowError(Response, 15);
+            txtDOB.Focus();
+            return false;
+        }
         emp.DOB = txtDOB.Text;
-        BLLCommon.Message(Response, "DOB " + emp.DOB);
         
         emp.Qualification = txtQualification.Text;
         return true;

@@ -21,108 +21,82 @@ public partial class rule : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            //ChildFee =(NameValueCollection)ConfigurationManager.GetSection("ChildFee");
-            //ElderFee = (NameValueCollection)ConfigurationManager.GetSection("ElderFee");
-            //Refuse = (NameValueCollection)ConfigurationManager.GetSection("Refuse");
-
-
-            FeeGV.DataSource = GetFeeData();
-            FeeGV.DataBind();
-
-            RefuseGV.DataSource = GetRefuseData();
-            RefuseGV.DataBind();
+            InitData();
         }
     }
-    
-
-    protected void FeeGV_SelectedIndexChanged(object sender, EventArgs e)
+    private void InitData()
     {
-        //ViewPN.Visible = false;
-        EditAgeFee.Visible = true;
-        EditRefusePN.Visible = false;
-        String selectValue = FeeGV.SelectedValue.ToString();
+        lbPrice.Text = Resources.Resource.Price.ToString();
 
-        if (selectValue == "Child")
-        {
+        lbPKid1.Text = Resources.Resource.Kid1.ToString();
+        lbPKid2.Text = Resources.Resource.Kid2.ToString();
+        lbPElder.Text = Resources.Resource.Elder.ToString();
 
-            String age = ChildFee.Get("below");
-            String fee = ChildFee.Get("fee-percent");
-            txtAge.Text = age;
-            txtFee.Text = fee;
-            lbAgeType.Text = "Child";
-        }
-        if (selectValue == "Elder")
-        {
-            String age = ElderFee.Get("above");
-            String fee = ElderFee.Get("fee-percent");
-            txtAge.Text = age;
-            txtFee.Text = fee;
-            lbAgeType.Text = "Elder";
-        }
-    }
-    protected void RefuseGV_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        //ViewPN.Visible = false;
-        EditAgeFee.Visible = false;
-        EditRefusePN.Visible = true;
+        lbDKid1.Text = Resources.Resource.DayKid1.ToString();
+        lbDKid2.Text = Resources.Resource.DayKid2.ToString();
+        lbDElder.Text = Resources.Resource.DayElder.ToString();
 
-        String selectValue = RefuseGV.SelectedValue.ToString();
-        String refuseValue = Refuse.Get(selectValue);
-        txtRefuseDay.Text = selectValue;
-        txtRefuse.Text = refuseValue;
-    }
-    protected void btnAgeSave_Click(object sender, EventArgs e)
-    {
+        lbPCan1.Text = Resources.Resource.Cancel0.ToString();
+        lbPCan2.Text = Resources.Resource.Cancel1.ToString();
+        lbPCan3.Text = Resources.Resource.Cancel2.ToString();
+
+        lbDCan1.Text = Resources.Resource.DayCancel0.ToString();
+        lbDCan2.Text = Resources.Resource.DayCancel1.ToString();
+        lbDCan3.Text = Resources.Resource.DayCancel2.ToString();
 
     }
-    protected void btnUpdateRefuse_Click(object sender, EventArgs e)
-    {
-     
-    }
-    private void CancelClick()
-    {
-        ViewPN.Visible = true;
-        EditAgeFee.Visible = false;
-        EditRefusePN.Visible = false;
-    }
 
-    protected void btnCancelF_Click(object sender, EventArgs e)
+    protected void btnEdit_Click(object sender, EventArgs e)
     {
-        CancelClick();
+        ViewPanel.Visible = false;
+        LoadEditPanel();
+        EditPanel.Visible = true;
     }
-    protected void btnCancelR_Click(object sender, EventArgs e)
+    private void LoadEditPanel()
     {
-        CancelClick();
-    }
+        txtPrice.Text = Resources.Resource.Price.ToString();
 
-    private DataSet GetFeeData()
+        txtPKid1.Text = Resources.Resource.Kid1.ToString();
+        txtPKid2.Text = Resources.Resource.Kid2.ToString();
+        txtPElder.Text = Resources.Resource.Elder.ToString();
+
+        txtDKid1.Text = Resources.Resource.DayKid1.ToString();
+        txtDKid2.Text = Resources.Resource.DayKid2.ToString();
+        txtDElder.Text = Resources.Resource.DayElder.ToString();
+
+        txtPCan1.Text = Resources.Resource.Cancel0.ToString();
+        txtPCan2.Text = Resources.Resource.Cancel1.ToString();
+        txtPCan3.Text = Resources.Resource.Cancel2.ToString();
+
+        txtDCan1.Text = Resources.Resource.DayCancel0.ToString();
+        txtDCan2.Text = Resources.Resource.DayCancel1.ToString();
+        txtDCan3.Text = Resources.Resource.DayCancel2.ToString();
+    }
+   
+
+    protected void btnClose_Click(object sender, EventArgs e)
     {
-        DataSet ds = new DataSet();
-        DataTable FeeTable = new DataTable();
-        FeeTable.Columns.Add("Type");
-        FeeTable.Columns.Add("Age");
-        FeeTable.Columns.Add("Fee");
-
-
-
-        FeeTable.Rows.Add("Child", ChildFee.Get("below"), ChildFee.Get("fee-percent"));
-        FeeTable.Rows.Add("Elder", ElderFee.Get("above"), ElderFee.Get("fee-percent"));
-        ds.Tables.Add(FeeTable);
-        return ds;
+        ViewPanel.Visible = true;
+        EditPanel.Visible = false;
     }
-    private DataSet GetRefuseData()
+    protected void btnSave_Click(object sender, EventArgs e)
     {
-        DataSet ds = new DataSet();
-        DataTable RefuseTable = new DataTable();
-        RefuseTable.Columns.Add("Day");
-        RefuseTable.Columns.Add("Refuse");
+        txtPrice.Text = Resources.Resource.Price.ToString();
 
-        foreach (String key in Refuse.Keys)
-        {
-            RefuseTable.Rows.Add(key, Refuse.Get(key));
-        }
-        ds.Tables.Add(RefuseTable);
-        return ds;
+        txtPKid1.Text = Resources.Resource.Kid1.ToString();
+        txtPKid2.Text = Resources.Resource.Kid2.ToString();
+        txtPElder.Text = Resources.Resource.Elder.ToString();
+
+        txtDKid1.Text = Resources.Resource.DayKid1.ToString();
+        txtDKid2.Text = Resources.Resource.DayKid2.ToString();
+        txtDElder.Text = Resources.Resource.DayElder.ToString();
+
+        txtPCan1.Text = Resources.Resource.Cancel0.ToString();
+        txtPCan2.Text = Resources.Resource.Cancel1.ToString();
+        txtPCan3.Text = Resources.Resource.Cancel2.ToString();
+
+        txtDCan1.Text = Resources.Resource.DayCancel0.ToString();
+        txtDCan2.Text = Resources.Resource.DayCancel1.ToString();
+        txtDCan3.Text = Resources.Resource.DayCancel2.ToString();
     }
-    
 }

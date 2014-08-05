@@ -107,7 +107,8 @@
             GridLines="None" onselectedindexchanged="GridView1_SelectedIndexChanged" 
             AllowPaging="True" onpageindexchanging="GridView1_PageIndexChanging" 
             onrowdeleting="GridView1_RowDeleting" AllowSorting="True" 
-            onsorting="GridView1_Sorting">
+            onsorting="GridView1_Sorting"
+            EmptyDataText="No central found" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField HeaderText="Central ID" DataField="CentralID" 

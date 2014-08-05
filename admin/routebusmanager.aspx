@@ -190,7 +190,8 @@
             DataKeyNames="RBID" AutoGenerateColumns="False" 
             AllowPaging="True" 
             onrowdeleting="GridView1_RowDeleting" 
-            onselectedindexchanged="GridView1_SelectedIndexChanged" >
+            onselectedindexchanged="GridView1_SelectedIndexChanged" 
+            EmptyDataText="No Route Bus found" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField DataField="RBID" HeaderText="RBID" 

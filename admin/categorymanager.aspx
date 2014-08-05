@@ -92,7 +92,8 @@
             CellPadding="4" ForeColor="#333333" 
             GridLines="None" onrowdeleting="GridView1_RowDeleting" 
             onselectedindexchanged="GridView1_SelectedIndexChanged" AllowPaging="True" 
-            onpageindexchanging="GridView1_PageIndexChanging" PageSize="5" >
+            onpageindexchanging="GridView1_PageIndexChanging" PageSize="5" 
+            EmptyDataText="No Category found" >
             <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
             <Columns>
                 <asp:BoundField HeaderText="Category ID" DataField="Cat_ID" 

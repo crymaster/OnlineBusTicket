@@ -63,16 +63,16 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         ds = new DataSet();
         ds = rb.Get();
 
-        if (ds.Tables[0].Rows.Count > 0)
-        {
+        //if (ds.Tables[0].Rows.Count > 0)
+        //{
             GridView1.DataSource = ds;
             GridView1.DataBind();
-        }
-        else
-        {
-            //lblInformation.Visible = true;
-            //lblInformation.Text = "Search fail";
-        }
+        //}
+        //else
+        //{
+        //    //lblInformation.Visible = true;
+        //    //lblInformation.Text = "Search fail";
+        //}
     }
     protected void lbtnAddNew_Click(object sender, EventArgs e)
     {
@@ -132,7 +132,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             //Response.Write(dt);
             //Response.Write(DateTime.Now);
             //Response.Write(DateTime.Compare(dt, DateTime.Now));
-            if (DateTime.Compare(dt, DateTime.Now) < 0)
+            if (txtRBID.Text != "" && DateTime.Compare(dt, DateTime.Now) < 0)
             {
                 // Check datetime must be after today
                 BLLCommon.ShowError(Response, 6);
@@ -236,6 +236,23 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         ds = rb.Get();
         if (ds.Tables[0].Rows.Count > 0)
         {
+            try
+            {
+                DateTime dt = Convert.ToDateTime(ds.Tables[0].Rows[0]["DateStart"].ToString());
+                //Response.Write(dt);
+                //Response.Write(DateTime.Now);
+                //Response.Write(DateTime.Compare(dt, DateTime.Now));
+                if (DateTime.Compare(dt, DateTime.Now) < 0)
+                {
+                    // Check datetime must be after today
+                    BLLCommon.ShowError(Response, 27);
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
             pInsert.Visible = true;
             hf.Value = ds.Tables[0].Rows[0]["RBID"].ToString();
             txtRBID.Text = ds.Tables[0].Rows[0]["RBID"].ToString();
@@ -244,7 +261,6 @@ public partial class manager_routebusmanager : System.Web.UI.Page
             lbSeat.Text = ds.Tables[0].Rows[0]["AvailableSeat"].ToString();
             txtPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
             txtDateStart.Text = ds.Tables[0].Rows[0]["DateStart"].ToString();
-
         }
     }
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -333,6 +349,7 @@ public partial class manager_routebusmanager : System.Web.UI.Page
         }
 
         txtPrice.Text = CalPrice() + "";
+        txtDateStart.Enabled=true;
     }
 
     protected void btnCloseAddRouteBus_Click1(object sender, EventArgs e)

@@ -79,7 +79,8 @@
                     DataKeyNames="LocationID" ForeColor="#333333" GridLines="None" 
                     onpageindexchanging="GridView1_PageIndexChanging" 
                     onrowdeleting="GridView1_RowDeleting" 
-                    onselectedindexchanged="GridView1_SelectedIndexChanged" PageSize="5" 
+                    onselectedindexchanged="GridView1_SelectedIndexChanged" PageSize="5"
+                    EmptyDataText="No location found"  
                     Width="100%">
                     <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                     <Columns>

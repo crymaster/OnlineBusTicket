@@ -127,6 +127,10 @@ public class BLLCommon
         {
             Message(response, "Price must be greater than 0, please try again !");
         }
+        else if (error == 27)
+        {
+            Message(response, "Date Start is gone, cannot edit !");
+        }
         else
         {
             Message(response, "Having some errors ! Please try again !");

@@ -145,6 +145,7 @@ public partial class manager_categorymanager : System.Web.UI.Page
                 BLLCommon.ShowResult(Response, "Update Category", 2);
             }
         }
+        GetGridView();
     }
     protected void btnCloseAddBus_Click(object sender, EventArgs e)
     {
