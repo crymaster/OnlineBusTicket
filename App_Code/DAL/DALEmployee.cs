@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 public class DALEmployee
 {
@@ -180,7 +181,10 @@ public class DALEmployee
     }
     private String SHA1Password(String password)
     {
-        return password;
+        SHA1Managed sha1 = new SHA1Managed();
+        byte[] hash = sha1.ComputeHash(System.Text.Encoding.Default.GetBytes(password));
+        string str = BLLCommon.HexStringFromBytes(hash);
+        return str;
     }
     public bool CheckDupEmail(BLLEmployee emp)
     {

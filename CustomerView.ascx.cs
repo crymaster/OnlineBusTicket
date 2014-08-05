@@ -30,4 +30,13 @@ public partial class CustomerView : System.Web.UI.UserControl
     {
 
     }
+    protected void btnSearchCus_Click(object sender, EventArgs e)
+    {
+        cus_BLL.CustomerID = "";
+        cus_BLL.Name = txtName.Text;
+        cus_BLL.Email = txtEmail.Text;
+        ds=cus_BLL.Get();
+        CusGV.DataSource = ds;
+        CusGV.DataBind();
+    }
 }

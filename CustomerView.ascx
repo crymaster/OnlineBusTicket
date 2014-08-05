@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CustomerView.ascx.cs" Inherits="CustomerView" %>
 <div id="customer-search">
 Name 
-    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
     Email
-    <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-    <asp:Button ID="btnSearchCus" runat="server" Text="Button" />
+    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+    <asp:Button ID="btnSearchCus" runat="server" Text="Search" 
+        onclick="btnSearchCus_Click" />
 </div>
  <div class="table"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <asp:GridView ID="CusGV" runat="server" Width="100%" 

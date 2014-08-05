@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Text;
 
 /// <summary>
 /// Summary description for BLLCommon
@@ -154,5 +155,15 @@ public class BLLCommon
     public static void Message(HttpResponse response, String msg)
     {
         response.Write("<script>alert('" + msg + "')</script>");
+    }
+    public static string HexStringFromBytes(byte[] bytes)
+    {
+        var sb = new StringBuilder();
+        foreach (byte b in bytes)
+        {
+            var hex = b.ToString("x2");
+            sb.Append(hex);
+        }
+        return sb.ToString();
     }
 }

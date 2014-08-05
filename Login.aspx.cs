@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Security.Cryptography;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -23,7 +24,7 @@ public partial class Login : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         DataSet1TableAdapters.EmployeesTableAdapter adapt = new DataSet1TableAdapters.EmployeesTableAdapter();
-        DataTable dt = adapt.Authenticate(txtEmail.Text, txtPassword.Text);
+        DataTable dt = adapt.Authenticate(txtEmail.Text, SHA1Password(txtPassword.Text));
         if (dt.Rows.Count > 0)
         {
             Session["userEmail"] = txtEmail.Text;
@@ -47,5 +48,12 @@ public partial class Login : System.Web.UI.Page
         {
             txtError.Text = "Incorrect email or password";
         }
+    }
+    private String SHA1Password(String password)
+    {
+        SHA1Managed sha1 = new SHA1Managed();
+        byte[] hash = sha1.ComputeHash(System.Text.Encoding.Default.GetBytes(password));
+        string str = BLLCommon.HexStringFromBytes(hash);
+        return str;
     }
 }

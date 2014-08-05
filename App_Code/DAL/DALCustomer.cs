@@ -177,8 +177,21 @@ public class DALCustomer
     {
             SqlCommand cmd = new SqlCommand("GetCustomers", con);
             cmd.CommandType = CommandType.StoredProcedure;
+            if (cust.CustomerID == null)
+            {
+                cust.CustomerID = "";
+            }
             cmd.Parameters.AddWithValue("@CustomerID", cust.CustomerID);
+            if (cust.Name == null)
+            {
+                cust.Name = "";
+            }
             cmd.Parameters.AddWithValue("@Name", cust.Name);
+            if (cust.Email == null)
+            {
+                cust.Email = "";
+            }
+            cmd.Parameters.AddWithValue("@Email", cust.Email);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
 
             DataSet ds = new DataSet();
