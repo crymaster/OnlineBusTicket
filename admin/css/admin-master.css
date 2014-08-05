@@ -1,2 +1,26 @@
-﻿body {
+﻿body 
+{
+
+}
+.container-fluid
+{
+    padding: 0 !important;
+}
+#aspnetForm.form-control
+{
+    border: none !important;
+}
+
+#header .box
+{
+    float: right;
+}
+
+#footer
+{
+    clear: both;    
+   text-align: center;
+   background: #b1c9f6;
+   border-radius: 2px;
+   padding: 20px;
 }

@@ -61,6 +61,40 @@
     padding: 20px 40px;
     color: #fff;
     font-size: 15px;
+    display: inline-flex;
+}
+.user-name span
+{
+    float: left;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+.user-name a
+{
+    position: relative;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    text-indent: -999em;
+    border: 1px dashed #fff;
+}
+.user-name a:before
+{
+    position: absolute;
+    background: url(image_style/logout.png) no-repeat top center; 
+    background-size: 100% 100%;
+    content: "";
+    text-indent: 0;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+}
+.user-name a:hover
+{
+    -webkit-box-shadow: -1px -1px 8px 3px rgba(255, 255, 255, 0.75);
+    -moz-box-shadow:    -1px -1px 8px 3px rgba(255, 255, 255, 0.75);
+    box-shadow:         -1px -1px 8px 3px rgba(255, 255, 255, 0.75);
 }
 
 /*style menu*/
@@ -263,5 +297,22 @@ input:not(.button), select
 {
     color: red;
     font-size: 16px;
+}
+
+.view-list .table-list-view
+{
+    color: #fff;
+}
+.view-list .table-list-view table
+{
+    width: 100%;
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.view-list .table-list-view table th
+{
+    padding: 5px 4px;
+    text-align: center;
 }
 /*********************************End Bus tour**************************************/
