@@ -33,10 +33,10 @@
         <asp:Button ID="btnSearch" runat="server" 
             Text="Search" /> 
     </div>
-<div>
+<div class="error">
         <asp:Label ID="txtError" runat="server"></asp:Label>
     </div>
-    <div>
+    <div class="table-list-view">
         <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
             AllowSorting="True" AutoGenerateColumns="False" PageSize="20">
         </asp:GridView>

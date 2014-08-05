@@ -23,7 +23,7 @@ public partial class manager_MasterPage : System.Web.UI.MasterPage
             if (ID == -1)
             {
                 ClearSession();
-                Response.Redirect("login.aspx");
+               Response.Redirect("login.aspx");
             }
             try
             {
@@ -35,7 +35,7 @@ public partial class manager_MasterPage : System.Web.UI.MasterPage
             catch (Exception)
             {
                 ClearSession();
-                Response.Redirect("login.aspx");
+               Response.Redirect("login.aspx");
             }
         }
     }
